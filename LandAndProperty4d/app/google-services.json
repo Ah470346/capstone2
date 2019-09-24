@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "675830742260",
+    "firebase_url": "https://capstone-2-ba009.firebaseio.com",
+    "project_id": "capstone-2-ba009",
+    "storage_bucket": "capstone-2-ba009.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:675830742260:android:1891266b13236e49ac72a1",
+        "android_client_info": {
+          "package_name": "com.example.landandproperty4d"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "675830742260-kcsjcc0tanndh1gfr1f1frmkmumiakkj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.landandproperty4d",
+            "certificate_hash": "a104a76ca9898196597e7101d282f08d451aa8ff"
+          }
+        },
+        {
+          "client_id": "675830742260-hjn6vrke8n2bbfea2cb2arnc2r4kpm9h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3vUIdbgnXmP1BPBj1EU19JIkhB0UcWbM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "675830742260-hjn6vrke8n2bbfea2cb2arnc2r4kpm9h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

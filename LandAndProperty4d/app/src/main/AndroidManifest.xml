@@ -13,7 +13,8 @@
         android:theme="@style/AppTheme">
         <activity android:name=".screen.register.RegisterActivity"></activity>
         <activity android:name=".screen.home.HomeActivity" />
-        <activity android:name=".screen.login.MainActivity">
+        <activity android:name=".screen.login.MainActivity"
+            android:label="Đăng Nhập">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

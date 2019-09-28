@@ -6,24 +6,192 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".screen.register.RegisterActivity">
-
-    <EditText
-        android:id="@+id/userName"
+    
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Nhập tài khoản"/>
+        android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/pass"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="nhập mật khẩu"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <Button
-        android:id="@+id/dangky"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Đăng Kí"/>
+            <TextView
+                android:id="@+id/txtthongtin"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thông Tin Người Dùng:"
+                android:textSize="@dimen/textSize"
+                android:textColor="#0519f8"
+                />
+
+            <EditText
+                android:id="@+id/editTextName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Họ và Tên"
+                android:textSize="@dimen/textSize"
+                android:textColor="#000"
+                android:maxLines="1"
+                android:lines="1"
+                android:scrollHorizontally="true"
+                android:inputType="text"
+                android:layout_margin="10dp"
+                android:imeOptions="actionNext"/>
+
+            <EditText
+                android:id="@+id/editTextAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nơi Ở Hiện Tại"
+                android:textSize="@dimen/textSize"
+                android:textColor="#000"
+                android:maxLines="1"
+                android:lines="1"
+                android:scrollHorizontally="true"
+                android:inputType="text"
+                android:layout_margin="10dp"
+                android:imeOptions="actionNext"/>
+
+            <EditText
+                android:id="@+id/editTextHomeTown"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Quê Quán"
+                android:textSize="@dimen/textSize"
+                android:textColor="#000"
+                android:maxLines="1"
+                android:lines="1"
+                android:scrollHorizontally="true"
+                android:inputType="text"
+                android:layout_margin="10dp"
+                android:imeOptions="actionNext"/>
+
+            <EditText
+                android:id="@+id/editTextDateOfBirth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Chọn Ngày Sinh"
+                android:textSize="@dimen/textSize"
+                android:textColor="#000"
+                android:layout_margin="10dp"
+                 />
+
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Địa Điểm Quan Tâm:"/>
+
+            <Spinner
+                android:id="@+id/spinnerPlacesInterest"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </Spinner>
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="__________________________________________________"/>
+
+            <EditText
+                android:id="@+id/editTextEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Email"
+                android:textSize="@dimen/textSize"
+                android:textColor="#000"
+                android:maxLines="1"
+                android:lines="1"
+                android:scrollHorizontally="true"
+                android:inputType="text"
+                android:layout_margin="10dp"
+                android:imeOptions="actionNext"/>
+
+            <EditText
+                android:id="@+id/editTextPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Số Điện Thoại"
+                android:textSize="@dimen/textSize"
+                android:textColor="#000"
+                android:maxLines="1"
+                android:lines="1"
+                android:scrollHorizontally="true"
+                android:inputType="text"
+                android:layout_margin="10dp"
+                android:imeOptions="actionNext"/>
+
+            <TextView
+                android:id="@+id/txttaikhoan"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thông Tin Tài Khoản:"
+                android:textSize="@dimen/textSize"
+                android:textColor="#0519f8"/>
+
+            <EditText
+                android:id="@+id/editTextUserName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/textSize"
+                android:textColor="#000"
+                android:maxLines="1"
+                android:lines="1"
+                android:scrollHorizontally="true"
+                android:inputType="text"
+                android:layout_margin="10dp"
+                android:hint="Tên Đăng Nhập"
+                android:imeOptions="actionNext"/>
+
+            <EditText
+                android:id="@+id/editTextPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/textSize"
+                android:textColor="#000"
+                android:maxLines="1"
+                android:lines="1"
+                android:scrollHorizontally="true"
+                android:inputType="textPassword"
+                android:layout_margin="10dp"
+                android:hint="Mật khẩu"
+                android:imeOptions="actionNext"/>
+
+            <EditText
+                android:id="@+id/editTextConfirmPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Xác Nhận Mật Khẩu"
+                android:textSize="@dimen/textSize"
+                android:textColor="#000"
+                android:maxLines="1"
+                android:lines="1"
+                android:scrollHorizontally="true"
+                android:inputType="textPassword"
+                android:layout_margin="10dp"
+                android:imeOptions="actionDone"/>
+
+            <Button
+                android:id="@+id/dangky"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="Đăng Kí"
+                android:textColor="#fff"
+                android:layout_gravity="center"
+                android:background="#f84245"
+                android:layout_margin="10dp"/>
+        </LinearLayout>
+
+    </ScrollView>
+
 
 
 </LinearLayout>

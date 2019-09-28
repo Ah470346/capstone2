@@ -4,10 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screen.login.MainActivity">
+    tools:context=".screen.login.MainActivity"
+    android:background="@drawable/anhnen">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolBarLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#3438d7"
+        tools:ignore="MissingConstraints"
+        app:titleTextColor="#fff"></androidx.appcompat.widget.Toolbar>
 
     <ImageView
         android:id="@+id/imageViewLogo"
+        android:src="@drawable/icon_home"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginStart="8dp"
@@ -22,39 +33,66 @@
         android:id="@+id/editTextUserName"
         app:layout_constraintTop_toBottomOf="@id/imageViewLogo"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_margin="10dp"
+        android:layout_marginTop="65dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="nhap vao day di"/>
+        android:textColorHint="#fff"
+        android:hint="Tên Đăng Nhập"
+        android:textSize="@dimen/textSize"
+        android:textColor="#fff"
+        android:maxLines="1"
+        android:lines="1"
+        android:inputType="text"
+        android:scrollHorizontally="true"
+
+        />
 
     <EditText
         android:id="@+id/editTextPassword"
         app:layout_constraintTop_toBottomOf="@id/editTextUserName"
-        android:layout_margin="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="nhap vao mat khau"/>
+        android:hint="Mật Khẩu"
+        android:textColorHint="#fff"
+        android:textSize="@dimen/textSize"
+        android:textColor="#fff"
+        android:inputType="textPassword"
+        android:maxLines="1"
+        android:lines="1"
+        android:imeOptions="actionDone"
+        android:scrollHorizontally="true"/>
 
     <Button
     android:id="@+id/buttonLogin"
-    android:layout_marginTop="16dp"
-    android:layout_width="wrap_content"
+    android:layout_marginTop="20dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="8dp"
-    android:layout_marginEnd="8dp"
-    android:text="Dang nhap"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
+    android:background="#00a6ff"
+    android:textSize="@dimen/textSize"
+    android:text="Đăng Nhập"
+        android:textColor="#fff"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@id/editTextPassword" />
 
     <Button
         android:id="@+id/buttonRegister"
-        android:layout_marginTop="16dp"
-        android:layout_width="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="Dang Ky"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="#00a6ff"
+        android:textSize="@dimen/textSize"
+        android:text="Đăng Ký"
+        android:textColor="#fff"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/buttonLogin" />
@@ -65,7 +103,9 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
-        android:text="Ban quen mat khau? Click vào d"
+        android:textColor="#fff"
+        android:textSize="14sp"
+        android:text="Bạn quên mật khẩu? Click vào đây"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"

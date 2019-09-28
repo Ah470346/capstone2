@@ -3,10 +3,13 @@ package com.example.landandproperty4d.screen.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.landandproperty4d.R;
@@ -19,11 +22,13 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText editTextUserName , editTextPassword;
     private Button buttonLogin, buttonRegister ;
     private FirebaseAuth mAuth;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +57,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editTextPassword = findViewById(R.id.editTextPassword);
         editTextUserName = findViewById(R.id.editTextUserName);
         buttonLogin = findViewById(R.id.buttonLogin);
+        toolbar = findViewById(R.id.toolBarLogin);
+        setSupportActionBar(toolbar);
         buttonLogin.setOnClickListener(this);
         buttonRegister.setOnClickListener(this);
+
+
+
+
     }
 
     private void login (String userName, String password){

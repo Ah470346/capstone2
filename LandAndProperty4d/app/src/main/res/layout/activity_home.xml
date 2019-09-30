@@ -4,7 +4,169 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screen.home.HomeActivity"
-    android:background="@color/colorPrimary">
+    android:background="@drawable/anhnen"
+    tools:context=".screen.home.HomeActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolBarHomePage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#3438d7"
+        app:titleTextColor="#fff"
+        tools:ignore="MissingConstraints"></androidx.appcompat.widget.Toolbar>
+
+    <ImageButton
+        android:id="@+id/imageButtonNotification"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="55dp"
+        android:src="@drawable/icon_bell"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonLogout"
+        android:layout_width="wrap_content"
+        android:layout_height="22dp"
+        android:layout_marginTop="65dp"
+        android:background="#f95f62"
+        android:text="sing in"
+        android:textColor="#fff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iconHome"
+        android:layout_width="120dp"
+        android:layout_height="100dp"
+        android:layout_margin="10dp"
+        android:src="@drawable/icon_home"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageButtonNotification" />
+
+    <Button
+        android:id="@+id/buttonPostProperty"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="#726dd0"
+        android:text="Đăng Tin Bán Đất"
+        android:textColor="#fff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iconHome" />
+
+    <Button
+        android:id="@+id/buttonViewProperty"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#726dd0"
+        android:text="Xem Đất Bán"
+        android:textColor="#fff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttonPostProperty" />
+
+    <Button
+        android:id="@+id/buttonViewMap"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#726dd0"
+        android:text="Xem Bản Đồ"
+        android:textColor="#fff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttonViewProperty" />
+
+    <Button
+        android:id="@+id/buttonNews"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="#726dd0"
+        android:text="Tin Tức"
+        android:textColor="#fff"
+        app:layout_constraintEnd_toStartOf="@+id/buttonYourNews"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttonViewMap" />
+
+    <Button
+        android:id="@+id/buttonYourNews"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:background="#726dd0"
+        android:text="Tin Dành Cho Bạn"
+        android:textColor="#fff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/buttonNews"
+        app:layout_constraintTop_toBottomOf="@id/buttonViewMap" />
+
+    <Button
+        android:id="@+id/buttonManageAccount"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#726dd0"
+        android:text="Quản Lý Tài Khoản"
+        android:textColor="#fff"
+        app:layout_constraintEnd_toStartOf="@+id/buttonPostInformation"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttonNews" />
+
+    <Button
+        android:id="@+id/buttonPostInformation"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="#726dd0"
+        android:text="Đăng Tin Tức"
+        android:textColor="#fff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/buttonManageAccount"
+        app:layout_constraintTop_toBottomOf="@id/buttonYourNews" />
+
+
+    <Button
+        android:id="@+id/buttonManagePost"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#726dd0"
+        android:text="Quản Lý Tài Khoản"
+        android:textColor="#fff"
+        app:layout_constraintEnd_toStartOf="@+id/buttonCkeckPost"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttonManageAccount" />
+
+    <Button
+        android:id="@+id/buttonCkeckPost"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="#726dd0"
+        android:text="Đăng Tin Tức"
+        android:textColor="#fff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/buttonManagePost"
+        app:layout_constraintTop_toBottomOf="@id/buttonPostInformation" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

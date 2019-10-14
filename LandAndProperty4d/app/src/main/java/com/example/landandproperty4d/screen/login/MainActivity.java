@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             finish();
                         } else {
                             // If sign in fails, display a message to the user.
-                            Toast.makeText(MainActivity.this,"Đăng nhập thất bại",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this,"Tài Khoản hoặc mật khẩu không chính xác",Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

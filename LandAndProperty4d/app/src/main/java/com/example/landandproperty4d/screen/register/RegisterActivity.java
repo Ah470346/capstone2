@@ -41,7 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
     private Spinner spinnerPlacesInterest;
     private RegisterViewModel mViewModel;
     private String placesInterest;
-    Toolbar toolbar;
+    private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

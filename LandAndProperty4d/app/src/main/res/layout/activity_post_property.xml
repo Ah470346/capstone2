@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/constrainLayoutPostProperty"
+    tools:context=".screen.postproperty.PostPropertyActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolBarPostProperty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#3438d7"
+        tools:ignore="MissingConstraints"
+        android:theme="@style/toolbar"
+        app:titleTextColor="#fff"></androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="60dp"
+        app:layout_constraintTop_toTopOf="@id/toolBarPostProperty"
+        tools:layout_editor_absoluteX="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constrainLayoutListImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerViewPostProperty"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        tools:ignore="MissingConstraints"/>
+
+                    <TextView
+                        app:layout_constraintLeft_toRightOf="@id/recyclerViewPostProperty"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:id="@+id/textViewAddImage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="45dp"
+                        android:layout_marginRight="10dp"
+                        android:text="+ Thêm Hình Ảnh"
+                        android:textColor="#2196f3"
+                        android:textSize="15sp"
+                        tools:ignore="MissingConstraints"
+                        />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </HorizontalScrollView>
+
+            <TextView
+                android:id="@+id/txtDacDiem"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Đặc Điểm:"
+                android:textSize="20dp"
+                android:textColor="#ed1c24"
+                android:background="#e3ebef"
+                />
+
+            <EditText
+                android:id="@+id/editTextTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Tiêu Đề"
+                android:textSize="@dimen/textSize"
+                android:textColor="#000"
+                android:maxLines="1"
+                android:lines="1"
+                android:scrollHorizontally="true"
+                android:inputType="text"
+                android:layout_margin="10dp"
+                android:imeOptions="actionNext" />
+
+            <TextView
+                android:paddingLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#e3ebef"
+                android:text="Loại Bất Động Sản:"/>
+
+            <Spinner
+                android:id="@+id/spinnerTypeOfProperty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+                android:backgroundTint="#ff000000"
+                android:backgroundTintMode="src_in"/>
+
+            <EditText
+                android:id="@+id/editTextLandArea"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Diện Tích(m²)"
+                android:textSize="@dimen/textSize"
+                android:textColor="#000"
+                android:maxLines="1"
+                android:lines="1"
+                android:scrollHorizontally="true"
+                android:inputType="number"
+                android:layout_margin="10dp"
+                android:imeOptions="actionNext"/>
+
+            <TextView
+                android:id="@+id/txtLocation"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Vị Trí:"
+                android:textSize="20dp"
+                android:background="#e3ebef"
+                android:textColor="#ed1c24"
+                />
+
+            <EditText
+                android:id="@+id/editTextLandPlaces"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Địa Điểm/Dự Án  >>>"
+                android:textSize="@dimen/textSize"
+                android:textColor="#000"
+                android:maxLines="1"
+                android:lines="1"
+                android:scrollHorizontally="true"
+                android:inputType="none"
+                android:enabled="false"
+                android:focusable="false"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:imeOptions="actionNext"/>
+
+            <EditText
+                android:id="@+id/editTextLandAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Địa Chỉ   >>>"
+                android:textSize="@dimen/textSize"
+                android:textColor="#000"
+                android:maxLines="1"
+                android:lines="1"
+                android:scrollHorizontally="true"
+                android:inputType="none"
+                android:layout_margin="10dp"
+                android:imeOptions="actionNext"/>
+
+            <TextView
+                android:paddingLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#e3ebef"
+                android:text="Hướng Nhà:"/>
+
+            <Spinner
+                android:id="@+id/spinnerHouseDirection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+                android:backgroundTint="#ff000000"
+                android:backgroundTintMode="src_in"/>
+
+            <TextView
+                android:id="@+id/txtPrice"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Gía Và Liên Hệ:"
+                android:textSize="20dp"
+                android:background="#e3ebef"
+                android:textColor="#ed1c24"
+                />
+
+            <EditText
+                android:id="@+id/editPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Giá  >>>"
+                android:textSize="@dimen/textSize"
+                android:textColor="#000"
+                android:maxLines="1"
+                android:lines="1"
+                android:scrollHorizontally="true"
+                android:inputType="none"
+                android:enabled="false"
+                android:focusable="false"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:imeOptions="actionNext"/>
+
+            <EditText
+                android:id="@+id/editTextContact"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Liên Hệ  >>>"
+                android:textSize="@dimen/textSize"
+                android:textColor="#000"
+                android:maxLines="1"
+                android:lines="1"
+                android:scrollHorizontally="true"
+                android:inputType="none"
+                android:enabled="false"
+                android:focusable="false"
+                android:layout_margin="10dp"
+                android:imeOptions="actionNext"/>
+
+            <TextView
+                android:id="@+id/txtDetailInformation"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Thông Tin Chi Tiết:"
+                android:textSize="20dp"
+                android:background="#e3ebef"
+                android:textColor="#ed1c24"
+                />
+
+            <EditText
+                android:id="@+id/editTextDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Chi Tiết"
+                android:textSize="@dimen/textSize"
+                android:textColor="#000"
+                android:maxLines="1"
+                android:lines="1"
+                android:scrollHorizontally="true"
+                android:inputType="text"
+                android:layout_margin="10dp"
+                android:imeOptions="actionNext" />
+
+            <Button
+                android:id="@+id/buttonPost"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Đăng"
+                android:textColor="#fff"
+                android:layout_gravity="center"
+                android:background="#3821cd"
+                android:layout_margin="10dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

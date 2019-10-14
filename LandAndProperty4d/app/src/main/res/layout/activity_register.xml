@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:background="#3438d7"
         tools:ignore="MissingConstraints"
+        android:theme="@style/toolbar"
         app:titleTextColor="#fff"></androidx.appcompat.widget.Toolbar>
     
     <ScrollView
@@ -27,12 +28,13 @@
             <TextView
                 android:id="@+id/txtthongtin"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_width="wrap_content"
+                android:paddingLeft="10dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Thông Tin Người Dùng:"
                 android:textSize="@dimen/textSize"
                 android:textColor="#0519f8"
+                android:background="#e3ebef"
                 />
 
             <EditText
@@ -88,24 +90,22 @@
                  />
 
             <TextView
-                android:layout_marginLeft="10dp"
-                android:layout_width="wrap_content"
+                android:paddingLeft="10dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Địa Điểm Quan Tâm:"/>
+                android:text="Địa Điểm Quan Tâm:"
+                android:background="#e3ebef"/>
 
             <Spinner
                 android:id="@+id/spinnerPlacesInterest"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            </Spinner>
-            <TextView
-                android:layout_marginLeft="10dp"
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="__________________________________________________"/>
+                style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+                android:backgroundTint="#ff000000"
+                android:backgroundTintMode="src_in"/>
+
 
             <EditText
                 android:id="@+id/editTextEmail"
@@ -138,12 +138,13 @@
             <TextView
                 android:id="@+id/txttaikhoan"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_width="wrap_content"
+                android:paddingLeft="10dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Thông Tin Tài Khoản:"
                 android:textSize="@dimen/textSize"
-                android:textColor="#0519f8"/>
+                android:textColor="#0519f8"
+                android:background="#e3ebef"/>
 
             <EditText
                 android:id="@+id/editTextUserName"

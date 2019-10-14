@@ -23,7 +23,7 @@
         android:layout_marginTop="55dp"
         android:src="@drawable/icon_bell"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintHorizontal_bias="0 "
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,7 +33,7 @@
         android:layout_height="22dp"
         android:layout_marginTop="65dp"
         android:background="#f95f62"
-        android:text="sing in"
+        android:text="sing out"
         android:textColor="#fff"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.95"

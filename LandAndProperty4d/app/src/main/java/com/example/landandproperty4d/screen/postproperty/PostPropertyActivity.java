@@ -195,7 +195,6 @@ public class PostPropertyActivity extends AppCompatActivity {
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this,layoutManager.getOrientation());
         recyclerViewPostProperty.addItemDecoration(dividerItemDecoration);
         recyclerViewPostProperty.setLayoutManager(layoutManager);
-
         ImageAdapter imageAdapter = new ImageAdapter(listImage, getApplicationContext());
         recyclerViewPostProperty.setAdapter(imageAdapter);
     }

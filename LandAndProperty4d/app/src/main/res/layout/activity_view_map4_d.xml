@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".screen.viewmap4d.ViewMap4D">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolBarViewMap4D"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#3438d7"
+        tools:ignore="MissingConstraints"
+        android:theme="@style/toolbar"
+        app:title="Bản Đồ"
+        app:titleTextColor="#fff"></androidx.appcompat.widget.Toolbar>
+
+
+    <fragment
+        android:id="@+id/map3D"
+        class="vn.map4d.map4dsdk.maps.MFSupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/toolBarViewMap4D"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="55dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".screen.postproperty.LandPrice"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolBarLandPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#3438d7"
+        tools:ignore="MissingConstraints"
+        android:theme="@style/toolbar"
+        app:title="Giá Tiền"
+        app:titleTextColor="#fff"></androidx.appcompat.widget.Toolbar>
+
+    <TextView
+        android:id="@+id/txtGia"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Giá Hiển thị:"
+        android:textSize="20dp"
+        android:textColor="#ed1c24"
+        android:background="#e3ebef"
+        />
+
+    <EditText
+        android:id="@+id/editTextPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Giá Tiền"
+        android:textSize="@dimen/textSize"
+        android:textColor="#000"
+        android:maxLines="1"
+        android:lines="1"
+        android:scrollHorizontally="true"
+        android:inputType="number"
+        android:layout_margin="10dp"
+        android:imeOptions="actionNext" />
+
+    <TextView
+        android:id="@+id/txtDonVi"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Đơn Vị:"
+        android:textSize="20dp"
+        android:textColor="#ed1c24"
+        android:background="#e3ebef"
+        />
+
+    <Spinner
+        android:id="@+id/spinnerUnit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+        android:backgroundTint="#ff000000"
+        android:backgroundTintMode="src_in"/>
+
+
+    <Button
+        android:id="@+id/buttonDonePrice"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="Xong"
+        android:textColor="#fff"
+        android:layout_gravity="center"
+        android:background="#3821cd"
+        android:layout_margin="10dp"/>
+
+</LinearLayout>

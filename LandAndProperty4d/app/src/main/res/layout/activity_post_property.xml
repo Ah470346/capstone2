@@ -142,8 +142,7 @@
                 android:maxLines="1"
                 android:lines="1"
                 android:scrollHorizontally="true"
-                android:inputType="none"
-                android:enabled="false"
+                android:inputType="text"
                 android:focusable="false"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
@@ -160,7 +159,8 @@
                 android:maxLines="1"
                 android:lines="1"
                 android:scrollHorizontally="true"
-                android:inputType="none"
+                android:focusable="false"
+                android:inputType="text"
                 android:layout_margin="10dp"
                 android:imeOptions="actionNext"/>
 
@@ -203,8 +203,7 @@
                 android:maxLines="1"
                 android:lines="1"
                 android:scrollHorizontally="true"
-                android:inputType="none"
-                android:enabled="false"
+                android:inputType="text"
                 android:focusable="false"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
@@ -221,8 +220,7 @@
                 android:maxLines="1"
                 android:lines="1"
                 android:scrollHorizontally="true"
-                android:inputType="none"
-                android:enabled="false"
+                android:inputType="text"
                 android:focusable="false"
                 android:layout_margin="10dp"
                 android:imeOptions="actionNext"/>
@@ -261,7 +259,7 @@
                 android:textColor="#fff"
                 android:layout_gravity="center"
                 android:background="#3821cd"
-                android:layout_margin="10dp"/>
+                android:layout_margin="10dp" />
 
         </LinearLayout>
     </ScrollView>

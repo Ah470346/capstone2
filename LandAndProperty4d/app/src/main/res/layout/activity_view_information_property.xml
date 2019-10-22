@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".screen.viewinformationproperty.ViewInformationProperty">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolBarViewInformationProperty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#3438d7"
+        tools:ignore="MissingConstraints"
+        app:title="Xem Thông Tin Bất Động Sản"
+        android:theme="@style/toolbar"
+        app:titleTextColor="#fff"></androidx.appcompat.widget.Toolbar>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewInformationProperty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="55dp"></androidx.recyclerview.widget.RecyclerView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

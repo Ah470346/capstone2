@@ -7,7 +7,9 @@ import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.PersistableBundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.DragEvent;
 import android.view.MenuInflater;
@@ -21,6 +23,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.landandproperty4d.R;
 import com.example.landandproperty4d.screen.home.HomeActivity;
@@ -31,6 +34,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -49,7 +53,6 @@ public class PostPropertyActivity extends AppCompatActivity {
     private Toolbar toolbarPostProperty ;
     private EditText editTextTitle , editTextLandArea , editTextLadndPlaces , editTextLandAddress,
                      editTextPrice ,editTextContact , editTextDetail;
-    private FragmentManager fragmentManager ;
     private static final int REQUEST_IMAGE_CAPTURE =1;
     private static final int PICK_IMAGE =2;
     private View ActivityRootView ;
@@ -62,6 +65,10 @@ public class PostPropertyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_property);
         init();
+        if(savedInstanceState != null){
+            editTextTitle.setText(savedInstanceState.getString("title"));
+            editTextLandArea.setText(savedInstanceState.getString("area"));
+        }
 
         textViewAddImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,18 +87,54 @@ public class PostPropertyActivity extends AppCompatActivity {
         editTextLandAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentAddress fragmentAddress = new FragmentAddress();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.add(R.id.constrainLayoutPostProperty,fragmentAddress);
-                fragmentTransaction.commit();
-
+                Intent intent = new Intent(PostPropertyActivity.this,LandAddress.class);
+                startActivity(intent);
             }
         });
 
+        editTextLadndPlaces.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PostPropertyActivity.this,LandLocation.class);
+                startActivity(intent);
+            }
+        });
+
+        editTextPrice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PostPropertyActivity.this,LandPrice.class);
+                startActivity(intent);
+            }
+        });
+
+        editTextContact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PostPropertyActivity.this,LandContact.class);
+                startActivity(intent);
+            }
+        });
+        Intent intent = getIntent();
+
+        if( intent.getExtras()!=null) {
+            String city = intent.getStringExtra("City");
+            String distric = intent.getStringExtra("Distric");
+            String phuong = intent.getStringExtra("Phuong");
+            String street = intent.getStringExtra("Street");
+            String housenumber = intent.getStringExtra("HouseNumber");
+            editTextLandAddress.setText(city + ", " + distric + ", " + phuong + ", " + street + ", " + housenumber);
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("title",editTextTitle.getText().toString());
+        outState.putString("area",editTextLandArea.getText().toString());
     }
 
     private void init() {
-        fragmentManager = getSupportFragmentManager();
         spinnerTypeOfProperty = findViewById(R.id.spinnerTypeOfProperty);
         ArrayList<String> listTypeProperty = new ArrayList<>();
         listTypeProperty.add("Bất Kì");
@@ -267,4 +310,6 @@ public class PostPropertyActivity extends AppCompatActivity {
             startActivityForResult(takePictureIntent,REQUEST_TAKE_PHOTO);
         }
     }
+
+
 }

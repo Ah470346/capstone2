@@ -12,10 +12,11 @@ import android.widget.Button;
 import com.example.landandproperty4d.R;
 import com.example.landandproperty4d.screen.login.MainActivity;
 import com.example.landandproperty4d.screen.postproperty.PostPropertyActivity;
+import com.example.landandproperty4d.screen.viewinformationproperty.ViewInformationProperty;
 import com.example.landandproperty4d.screen.viewmap4d.ViewMap4D;
 
 public class HomeActivity extends AppCompatActivity {
-    Button buttoLogout ,buttonPostProperty,buttonViewMap;
+    Button buttoLogout ,buttonPostProperty,buttonViewMap,buttonViewProperty;
     Toolbar toolbarHomePage ;
 
     @Override
@@ -48,12 +49,21 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        buttonViewProperty.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, ViewInformationProperty.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     public void init(){
         buttonViewMap = findViewById(R.id.buttonViewMap);
         buttoLogout = findViewById(R.id.buttonLogout);
         buttonPostProperty = findViewById(R.id.buttonPostProperty);
+        buttonViewProperty = findViewById(R.id.buttonViewProperty);
         toolbarHomePage = findViewById(R.id.toolBarHomePage);
         setSupportActionBar(toolbarHomePage);
     }

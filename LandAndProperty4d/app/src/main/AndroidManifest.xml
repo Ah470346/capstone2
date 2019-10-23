@@ -32,15 +32,16 @@
         <activity
             android:name=".screen.home.HomeActivity"
             android:label="Trang Chủ"
-            tools:ignore="ExtraText"></activity>
-        <activity
-            android:name=".screen.login.MainActivity"
-            android:label="Đăng Nhập">
+            tools:ignore="ExtraText">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".screen.login.MainActivity"
+            android:label="Đăng Nhập">
         </activity>
         <activity
             android:name=".screen.postproperty.PostPropertyActivity"

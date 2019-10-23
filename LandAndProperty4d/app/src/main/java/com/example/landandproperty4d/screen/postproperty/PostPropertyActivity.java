@@ -125,6 +125,7 @@ public class PostPropertyActivity extends AppCompatActivity {
             String housenumber = intent.getStringExtra("HouseNumber");
             editTextLandAddress.setText(city + ", " + distric + ", " + phuong + ", " + street + ", " + housenumber);
         }
+
     }
 
     @Override

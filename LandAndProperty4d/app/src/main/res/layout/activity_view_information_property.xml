@@ -16,13 +16,28 @@
         android:theme="@style/toolbar"
         app:titleTextColor="#fff"></androidx.appcompat.widget.Toolbar>
 
+    <SearchView
+        android:id="@+id/searchViewPost"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/custome_searchview"
+        android:gravity="center"
+        android:queryHint="Nhập Địa Chỉ"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolBarViewInformationProperty"></SearchView>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewInformationProperty"
         android:orientation="vertical"
+        android:padding="15dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="55dp"></androidx.recyclerview.widget.RecyclerView>
+        app:layout_constraintTop_toBottomOf="@id/searchViewPost"
+        android:layout_marginTop="110dp"></androidx.recyclerview.widget.RecyclerView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

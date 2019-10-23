@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/constrainLayoutPostProperty"
+    android:background="#d7d7d7"
     tools:context=".screen.postproperty.PostPropertyActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -72,7 +73,6 @@
                 android:text="Đặc Điểm:"
                 android:textSize="20dp"
                 android:textColor="#ed1c24"
-                android:background="#e3ebef"
                 />
 
             <EditText
@@ -87,24 +87,45 @@
                 android:scrollHorizontally="true"
                 android:inputType="text"
                 android:layout_margin="10dp"
+                android:background="@drawable/edittext_custome"
                 android:imeOptions="actionNext" />
 
             <TextView
                 android:paddingLeft="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#e3ebef"
                 android:text="Loại Bất Động Sản:"/>
 
-            <Spinner
-                android:id="@+id/spinnerTypeOfProperty"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                style="@style/Base.Widget.AppCompat.Spinner.Underlined"
-                android:backgroundTint="#ff000000"
-                android:backgroundTintMode="src_in"/>
+                android:layout_marginRight="3dp"
+                android:layout_weight=".28"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/spinnerTypeOfProperty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:background="@drawable/sprinner_customer"
+                    style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+                    />
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:src="@drawable/dropdown" />
+
+            </RelativeLayout>
+
 
             <EditText
                 android:id="@+id/editTextLandArea"
@@ -118,6 +139,7 @@
                 android:scrollHorizontally="true"
                 android:inputType="number"
                 android:layout_margin="10dp"
+                android:background="@drawable/edittext_custome"
                 android:imeOptions="actionNext"/>
 
             <TextView
@@ -128,7 +150,6 @@
                 android:layout_height="wrap_content"
                 android:text="Vị Trí:"
                 android:textSize="20dp"
-                android:background="#e3ebef"
                 android:textColor="#ed1c24"
                 />
 
@@ -147,6 +168,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+                android:background="@drawable/edittext_custome"
                 android:imeOptions="actionNext"/>
 
             <EditText
@@ -162,24 +184,44 @@
                 android:focusable="false"
                 android:inputType="text"
                 android:layout_margin="10dp"
+                android:background="@drawable/edittext_custome"
                 android:imeOptions="actionNext"/>
 
             <TextView
                 android:paddingLeft="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#e3ebef"
                 android:text="Hướng Nhà:"/>
 
-            <Spinner
-                android:id="@+id/spinnerHouseDirection"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                style="@style/Base.Widget.AppCompat.Spinner.Underlined"
-                android:backgroundTint="#ff000000"
-                android:backgroundTintMode="src_in"/>
+                android:layout_marginRight="3dp"
+                android:layout_weight=".28"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/spinnerHouseDirection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:background="@drawable/sprinner_customer"
+                    style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+                    />
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:src="@drawable/dropdown" />
+
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/txtPrice"
@@ -189,7 +231,6 @@
                 android:layout_height="wrap_content"
                 android:text="Gía Và Liên Hệ:"
                 android:textSize="20dp"
-                android:background="#e3ebef"
                 android:textColor="#ed1c24"
                 />
 
@@ -208,6 +249,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+                android:background="@drawable/edittext_custome"
                 android:imeOptions="actionNext"/>
 
             <EditText
@@ -223,6 +265,7 @@
                 android:inputType="text"
                 android:focusable="false"
                 android:layout_margin="10dp"
+                android:background="@drawable/edittext_custome"
                 android:imeOptions="actionNext"/>
 
             <TextView
@@ -233,7 +276,6 @@
                 android:layout_height="wrap_content"
                 android:text="Thông Tin Chi Tiết:"
                 android:textSize="20dp"
-                android:background="#e3ebef"
                 android:textColor="#ed1c24"
                 />
 
@@ -249,6 +291,7 @@
                 android:scrollHorizontally="true"
                 android:inputType="text"
                 android:layout_margin="10dp"
+                android:background="@drawable/edittext_custome"
                 android:imeOptions="actionNext" />
 
             <Button

@@ -30,7 +30,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0-alpha02'
     implementation 'com.google.firebase:firebase-analytics:17.2.0'
     implementation 'com.google.firebase:firebase-auth:19.1.0'
-    implementation 'com.google.firebase:firebase-database:19.1.0'
+    implementation 'com.google.firebase:firebase-database:19.2.0'
     implementation 'com.google.firebase:firebase-core:17.2.0'
     implementation 'com.google.firebase:firebase-storage:19.1.0'
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
@@ -44,5 +44,6 @@ dependencies {
     annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
     //map4d
     implementation 'vn.map4d:map4dsdk:1.1.0'
+    implementation 'com.roger.catloadinglibrary:catloadinglibrary:1.0.4'
 }
 apply plugin: 'com.google.gms.google-services'

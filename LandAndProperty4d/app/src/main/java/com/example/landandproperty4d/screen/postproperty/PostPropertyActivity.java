@@ -1,71 +1,90 @@
 package com.example.landandproperty4d.screen.postproperty;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.PersistableBundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.ContextMenu;
-import android.view.DragEvent;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewTreeObserver;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.FileProvider;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.example.landandproperty4d.R;
+import com.example.landandproperty4d.data.source.MapReponsitory;
+import com.example.landandproperty4d.data.source.remote.MapRemoteDataSource;
 import com.example.landandproperty4d.screen.home.HomeActivity;
-
+import com.example.landandproperty4d.screen.register.RegisterViewModel;
+import com.example.landandproperty4d.utils.CommonUtils;
+import com.example.landandproperty4d.utils.MyViewModelFactory;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.google.firebase.storage.UploadTask.TaskSnapshot;
+import com.roger.catloadinglibrary.CatLoadingView;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.FileProvider;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+public class PostPropertyActivity extends AppCompatActivity implements OnClickListener {
 
-public class PostPropertyActivity extends AppCompatActivity {
+    static final int REQUEST_TAKE_PHOTO = 1;
+    String mCurrentPhotoPath;
     private RecyclerView recyclerViewPostProperty;
-    private TextView textViewAddImage , textViewDacDiem , textViewLocation , textViewPrice,textViewDetailInformation;
-    private Spinner spinnerTypeOfProperty , spinnerHouseDirection ;
-    private Toolbar toolbarPostProperty ;
-    private EditText editTextTitle , editTextLandArea , editTextLadndPlaces , editTextLandAddress,
-                     editTextPrice ,editTextContact , editTextDetail;
-    private static final int REQUEST_IMAGE_CAPTURE =1;
-    private static final int PICK_IMAGE =2;
-    private View ActivityRootView ;
+    private TextView textViewAddImage, textViewDacDiem, textViewLocation, textViewPrice, textViewDetailInformation;
+    private Spinner spinnerTypeOfProperty, spinnerHouseDirection;
+    private Toolbar toolbarPostProperty;
+    private EditText editTextTitle, editTextLandArea, editTextLadndPlaces, editTextLandAddress, editTextPrice, editTextContact, editTextDetail;
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
+    private static final int PICK_IMAGE = 2;
+    private View ActivityRootView;
     ArrayList<RecyclerViewData> listImage = new ArrayList();
 
-
+    private Button mButtonPost;
+    private String mTypeProperty;
+    private String mHomeDirection;
+    private FirebaseStorage storage;
+    private StorageReference storageRef;
+    private String imageUrl;
+    private int index = 0;
+    private CatLoadingView progressBarCat;
+    private PostPropetyViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_property);
         init();
-        if(savedInstanceState != null){
+        initData();
+        if (savedInstanceState != null) {
             editTextTitle.setText(savedInstanceState.getString("title"));
             editTextLandArea.setText(savedInstanceState.getString("area"));
         }
@@ -84,7 +103,7 @@ public class PostPropertyActivity extends AppCompatActivity {
             }
         });
 
-        editTextLandAddress.setOnClickListener(new View.OnClickListener() {
+        /*editTextLandAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PostPropertyActivity.this,LandAddress.class);
@@ -114,10 +133,10 @@ public class PostPropertyActivity extends AppCompatActivity {
                 Intent intent = new Intent(PostPropertyActivity.this,LandContact.class);
                 startActivity(intent);
             }
-        });
+        });*/
         Intent intent = getIntent();
 
-        if( intent.getExtras()!=null) {
+        if (intent.getExtras() != null) {
             String city = intent.getStringExtra("City");
             String distric = intent.getStringExtra("Distric");
             String phuong = intent.getStringExtra("Phuong");
@@ -125,17 +144,50 @@ public class PostPropertyActivity extends AppCompatActivity {
             String housenumber = intent.getStringExtra("HouseNumber");
             editTextLandAddress.setText(city + ", " + distric + ", " + phuong + ", " + street + ", " + housenumber);
         }
-
     }
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putString("title",editTextTitle.getText().toString());
-        outState.putString("area",editTextLandArea.getText().toString());
+        outState.putString("title", editTextTitle.getText().toString());
+        outState.putString("area", editTextLandArea.getText().toString());
+    }
+
+    @Override
+    public void onClick(final View v) {
+        if (v.getId() == R.id.buttonPost) {
+            progressBarCat.show(getSupportFragmentManager(), "");
+            spinnerTypeOfProperty.setOnItemSelectedListener(new OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(final AdapterView<?> parent, final View view, final int position,
+                        final long id) {
+                    mTypeProperty = (String) parent.getItemAtPosition(position);
+                }
+
+                @Override
+                public void onNothingSelected(final AdapterView<?> parent) {
+
+                }
+            });
+
+            spinnerHouseDirection.setOnItemSelectedListener(new OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(final AdapterView<?> parent, final View view, final int position,
+                        final long id) {
+                    mHomeDirection = (String) parent.getItemAtPosition(position);
+                }
+
+                @Override
+                public void onNothingSelected(final AdapterView<?> parent) {
+
+                }
+            });
+            uploadPhoto(listImage);
+        }
     }
 
     private void init() {
+        progressBarCat = new CatLoadingView();
         spinnerTypeOfProperty = findViewById(R.id.spinnerTypeOfProperty);
         ArrayList<String> listTypeProperty = new ArrayList<>();
         listTypeProperty.add("Bất Kì");
@@ -148,11 +200,12 @@ public class PostPropertyActivity extends AppCompatActivity {
         listTypeProperty.add("Bán Trang Trại, Khu Nghỉ Dưỡng");
         listTypeProperty.add("Bán Kho, Nhà Xưởng");
         listTypeProperty.add("Bán Loại Bất Động Sản Khác");
-        ArrayAdapter<String> adapterProperty = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,listTypeProperty);
+        ArrayAdapter<String> adapterProperty = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_dropdown_item, listTypeProperty);
         adapterProperty.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerTypeOfProperty.setAdapter(adapterProperty);
 
-        spinnerHouseDirection =findViewById(R.id.spinnerHouseDirection);
+        spinnerHouseDirection = findViewById(R.id.spinnerHouseDirection);
         ArrayList<String> listDirection = new ArrayList<>();
         listDirection.add("Bất kì");
         listDirection.add("Chưa Xác Định");
@@ -164,7 +217,8 @@ public class PostPropertyActivity extends AppCompatActivity {
         listDirection.add("Tây Bắc");
         listDirection.add("Đông Nam");
         listDirection.add("Tây Nam");
-        ArrayAdapter<String> adapterDirection = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,listDirection);
+        ArrayAdapter<String> adapterDirection = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_dropdown_item, listDirection);
         adapterDirection.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerHouseDirection.setAdapter(adapterDirection);
 
@@ -178,12 +232,14 @@ public class PostPropertyActivity extends AppCompatActivity {
         ActivityRootView = findViewById(R.id.constrainLayoutListImage);
         textViewDacDiem = findViewById(R.id.txtDacDiem);
         textViewLocation = findViewById(R.id.txtLocation);
+        mButtonPost = findViewById(R.id.buttonPost);
         textViewPrice = findViewById(R.id.txtPrice);
         textViewDetailInformation = findViewById(R.id.txtDetailInformation);
-        textViewPrice.setPaintFlags(textViewPrice.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
-        textViewDetailInformation.setPaintFlags(textViewDetailInformation.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
-        textViewLocation.setPaintFlags(textViewLocation.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
-        textViewDacDiem.setPaintFlags(textViewDacDiem.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
+        textViewPrice.setPaintFlags(textViewPrice.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        textViewDetailInformation
+                .setPaintFlags(textViewDetailInformation.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        textViewLocation.setPaintFlags(textViewLocation.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        textViewDacDiem.setPaintFlags(textViewDacDiem.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         toolbarPostProperty = findViewById(R.id.toolBarPostProperty);
         setSupportActionBar(toolbarPostProperty);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -193,48 +249,44 @@ public class PostPropertyActivity extends AppCompatActivity {
         recyclerViewPostProperty = findViewById(R.id.recyclerViewPostProperty);
         recyclerViewPostProperty.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this,layoutManager.getOrientation());
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, layoutManager.getOrientation());
         recyclerViewPostProperty.addItemDecoration(dividerItemDecoration);
         recyclerViewPostProperty.setLayoutManager(layoutManager);
         ImageAdapter imageAdapter = new ImageAdapter(listImage, getApplicationContext());
         recyclerViewPostProperty.setAdapter(imageAdapter);
+        mButtonPost.setOnClickListener(this);
+    }
+
+    private void initData(){
+        MapReponsitory mapReponsitory = MapReponsitory.getInstance(MapRemoteDataSource.getsInstance());
+        viewModel = ViewModelProviders.of(this,new MyViewModelFactory(mapReponsitory))
+                .get(PostPropetyViewModel.class);
     }
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.contextmenu_image,menu);
+        menuInflater.inflate(R.menu.contextmenu_image, menu);
     }
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.menuCameraImage:
                 dispatchTakePictureIntent();
-                ;break;
+                break;
             case R.id.menuLibraryImage:
                 TakePictureGalleryIntent();
-                ;break;
+                break;
         }
         return super.onContextItemSelected(item);
     }
-//    private void TakePictureCameraIntent() {
-//        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-//            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-//        }
-//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        if(requestCode ==REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK){
-//            Bundle extras = data.getExtras();
-//            Bitmap smallImage = (Bitmap) extras.get("data");
-//            listImage.add(new RecyclerViewData(smallImage));
         if (requestCode == PICK_IMAGE && resultCode == RESULT_OK) {
-
             try {
                 Uri imageUri = data.getData();
                 Bitmap photo = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
@@ -244,7 +296,7 @@ public class PostPropertyActivity extends AppCompatActivity {
             }
 
             return;
-        } else if(requestCode ==REQUEST_TAKE_PHOTO && resultCode == RESULT_OK){
+        } else if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
             File file = new File(mCurrentPhotoPath);
             Bitmap bitmap = null;
             try {
@@ -260,56 +312,91 @@ public class PostPropertyActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    private void TakePictureGalleryIntent (){
-//        Intent i = new Intent();
-//        i.setType("image/*");
-//        //i.setType("video/*");
-//        i.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-//        i.setAction(Intent.ACTION_GET_CONTENT);
-//        startActivityForResult(
-//                Intent.createChooser(i, "android.intent.action.SEND_MULTIPLE"), 1);
+    private void TakePictureGalleryIntent() {
         Intent getIntent = new Intent(Intent.ACTION_GET_CONTENT);
         getIntent.setType("image/*");
-        Intent pickIntent = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        Intent pickIntent = new Intent(Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         pickIntent.setType("image/*");
-        Intent chooserIntent = Intent.createChooser(getIntent,getString(R.string.supervisor_profile_choose_image_title));
+        Intent chooserIntent = Intent
+                .createChooser(getIntent, getString(R.string.supervisor_profile_choose_image_title));
         chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[]{pickIntent});
         startActivityForResult(chooserIntent, PICK_IMAGE);
     }
-    String mCurrentPhotoPath;
+
     //Biến này để sau này bạn có thể tiện sử dụng ảnh.
     private File createImageFile() throws IOException {
         // Tạo tên file dựa vào nhãn thời gian.
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
+        File image = File.createTempFile(imageFileName, ".jpg", getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         );
 
         // Lưu lại giá trị đường dẫn của ảnh vào biến mCurrentPhotoPath
         mCurrentPhotoPath = image.getAbsolutePath();
         return image;
     }
-    static final int REQUEST_TAKE_PHOTO = 1;
 
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getPackageManager())!= null);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            ;
+        }
         File photoFile = null;
         try {
             photoFile = createImageFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if(photoFile != null){
-            Uri photoUri = FileProvider.getUriForFile(this,"com.example.android.fileprovider",photoFile);
-            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,photoUri);
-            startActivityForResult(takePictureIntent,REQUEST_TAKE_PHOTO);
+        if (photoFile != null) {
+            Uri photoUri = FileProvider.getUriForFile(this, "com.example.android.fileprovider", photoFile);
+            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+            startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
         }
     }
 
+
+    private void uploadPhoto(final ArrayList<RecyclerViewData> listImage) {
+        storage = FirebaseStorage.getInstance();
+        storageRef = storage.getReference();
+        final String timeStamp = CommonUtils.getSimpleDateFormat();
+        final StorageReference mountainsRef = storageRef.child(CommonUtils.CHILD_STORAGE).child(timeStamp + CommonUtils.EXTENTION_PHOTO);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        listImage.get(index).getImage().compress(CompressFormat.JPEG, 40, byteArrayOutputStream);
+        byte[] data = byteArrayOutputStream.toByteArray();
+        UploadTask uploadTask = mountainsRef.putBytes(data);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull final Exception e) {
+                Toast.makeText(PostPropertyActivity.this, getResources().getString(R.string.message), Toast.LENGTH_LONG).show();
+            }
+        }).addOnSuccessListener(new OnSuccessListener<TaskSnapshot>() {
+            @Override
+            public void onSuccess(final TaskSnapshot taskSnapshot) {
+                storageRef.child(CommonUtils.CHILD_STORAGE).child(timeStamp + CommonUtils.EXTENTION_PHOTO)
+                        .getDownloadUrl().addOnSuccessListener(
+                        new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(final Uri uri) {
+                                imageUrl = imageUrl + "_" + uri;
+                                if (index < listImage.size() - 1) {
+                                    index++;
+                                    uploadPhoto(listImage);
+                                }else {
+                                    viewModel.saveDataPost(editTextLandAddress.getText().toString(), editTextLandArea.getText().toString(),
+                                            editTextContact.getText().toString(), editTextDetail.getText().toString(), "haha", imageUrl, editTextLadndPlaces.getText().toString(),
+                                            editTextPrice.getText().toString(), editTextTitle.getText().toString(), mTypeProperty);
+                                    progressBarCat.dismiss();
+                                }
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull final Exception e) {
+                        Toast.makeText(PostPropertyActivity.this, getResources().getString(R.string.message), Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        });
+    }
 
 }

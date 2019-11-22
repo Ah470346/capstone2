@@ -3,7 +3,7 @@ package com.example.landandproperty4d.data.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Buyer implements Parcelable {
+public class User implements Parcelable {
     private String userName;
     private String password;
     private String name;
@@ -13,11 +13,12 @@ public class Buyer implements Parcelable {
     private String email;
     private String phoneNumber;
     private String placesInterest;
+    private String Ruler;
 
-    public Buyer() {
+    public User() {
     }
 
-    public Buyer(String userName, String password, String name, String birthDay, String address, String homeTown, String email, String phoneNumber, String placesInterest) {
+    public User(String userName, String password, String name, String birthDay, String address, String homeTown, String email, String phoneNumber, String placesInterest, String ruler) {
         this.userName = userName;
         this.password = password;
         this.name = name;
@@ -27,9 +28,10 @@ public class Buyer implements Parcelable {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.placesInterest = placesInterest;
+        Ruler = ruler;
     }
 
-    protected Buyer(Parcel in) {
+    protected User(Parcel in) {
         userName = in.readString();
         password = in.readString();
         name = in.readString();
@@ -39,6 +41,7 @@ public class Buyer implements Parcelable {
         email = in.readString();
         phoneNumber = in.readString();
         placesInterest = in.readString();
+        Ruler = in.readString();
     }
 
     @Override
@@ -52,6 +55,7 @@ public class Buyer implements Parcelable {
         dest.writeString(email);
         dest.writeString(phoneNumber);
         dest.writeString(placesInterest);
+        dest.writeString(Ruler);
     }
 
     @Override
@@ -59,15 +63,15 @@ public class Buyer implements Parcelable {
         return 0;
     }
 
-    public static final Creator<Buyer> CREATOR = new Creator<Buyer>() {
+    public static final Creator<User> CREATOR = new Creator<User>() {
         @Override
-        public Buyer createFromParcel(Parcel in) {
-            return new Buyer(in);
+        public User createFromParcel(Parcel in) {
+            return new User(in);
         }
 
         @Override
-        public Buyer[] newArray(int size) {
-            return new Buyer[size];
+        public User[] newArray(int size) {
+            return new User[size];
         }
     };
 
@@ -141,5 +145,13 @@ public class Buyer implements Parcelable {
 
     public void setPlacesInterest(String placesInterest) {
         this.placesInterest = placesInterest;
+    }
+
+    public String getRuler() {
+        return Ruler;
+    }
+
+    public void setRuler(String ruler) {
+        Ruler = ruler;
     }
 }

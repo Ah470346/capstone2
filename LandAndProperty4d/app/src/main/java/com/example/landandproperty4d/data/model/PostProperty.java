@@ -1,7 +1,6 @@
 package com.example.landandproperty4d.data.model;
 
-
-public class PostProperty {
+public class PostProperty  {
     private String imagePost;
     private String title;
     private String typeLand;
@@ -13,11 +12,13 @@ public class PostProperty {
     private String contact;
     private String detail;
     private String postDay;
+    private String id;
 
-    public PostProperty(final String imagePost, final String title, final String typeLand, final String area,
-            final String location,
-            final String address, final String houseDirection, final String price, final String contact,
-            final String detail, final String postDay) {
+    public PostProperty() {
+    }
+
+    public PostProperty(String imagePost, String title, String typeLand, String area, String location, String address,
+                        String houseDirection, String price, String contact, String detail, String id, String postDay) {
         this.imagePost = imagePost;
         this.title = title;
         this.typeLand = typeLand;
@@ -28,17 +29,16 @@ public class PostProperty {
         this.price = price;
         this.contact = contact;
         this.detail = detail;
+        this.id = id;
         this.postDay = postDay;
-    }
 
-    public PostProperty() {
     }
 
     public String getImagePost() {
         return imagePost;
     }
 
-    public void setImagePost(final String imagePost) {
+    public void setImagePost(String imagePost) {
         this.imagePost = imagePost;
     }
 
@@ -46,7 +46,7 @@ public class PostProperty {
         return title;
     }
 
-    public void setTitle(final String title) {
+    public void setTitle(String title) {
         this.title = title;
     }
 
@@ -54,7 +54,7 @@ public class PostProperty {
         return typeLand;
     }
 
-    public void setTypeLand(final String typeLand) {
+    public void setTypeLand(String typeLand) {
         this.typeLand = typeLand;
     }
 
@@ -62,7 +62,7 @@ public class PostProperty {
         return area;
     }
 
-    public void setArea(final String area) {
+    public void setArea(String area) {
         this.area = area;
     }
 
@@ -70,7 +70,7 @@ public class PostProperty {
         return location;
     }
 
-    public void setLocation(final String location) {
+    public void setLocation(String location) {
         this.location = location;
     }
 
@@ -78,7 +78,7 @@ public class PostProperty {
         return address;
     }
 
-    public void setAddress(final String address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 
@@ -86,7 +86,7 @@ public class PostProperty {
         return houseDirection;
     }
 
-    public void setHouseDirection(final String houseDirection) {
+    public void setHouseDirection(String houseDirection) {
         this.houseDirection = houseDirection;
     }
 
@@ -94,7 +94,7 @@ public class PostProperty {
         return price;
     }
 
-    public void setPrice(final String price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
@@ -102,7 +102,7 @@ public class PostProperty {
         return contact;
     }
 
-    public void setContact(final String contact) {
+    public void setContact(String contact) {
         this.contact = contact;
     }
 
@@ -110,7 +110,7 @@ public class PostProperty {
         return detail;
     }
 
-    public void setDetail(final String detail) {
+    public void setDetail(String detail) {
         this.detail = detail;
     }
 
@@ -118,7 +118,16 @@ public class PostProperty {
         return postDay;
     }
 
-    public void setPostDay(final String postDay) {
+    public void setPostDay(String postDay) {
         this.postDay = postDay;
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 }
+

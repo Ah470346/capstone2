@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#d7d7d7"
     tools:context=".screen.register.RegisterActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -34,7 +35,6 @@
                 android:text="Thông Tin Người Dùng:"
                 android:textSize="@dimen/textSize"
                 android:textColor="#0519f8"
-                android:background="#e3ebef"
                 />
 
             <EditText
@@ -47,6 +47,7 @@
                 android:maxLines="1"
                 android:lines="1"
                 android:scrollHorizontally="true"
+                android:background="@drawable/edittext_custome"
                 android:inputType="text"
                 android:layout_margin="10dp"
                 android:imeOptions="actionNext"/>
@@ -56,6 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Nơi Ở Hiện Tại"
+                android:background="@drawable/edittext_custome"
                 android:textSize="@dimen/textSize"
                 android:textColor="#000"
                 android:maxLines="1"
@@ -69,6 +71,7 @@
                 android:id="@+id/editTextHomeTown"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/edittext_custome"
                 android:hint="Quê Quán"
                 android:textSize="@dimen/textSize"
                 android:textColor="#000"
@@ -83,6 +86,7 @@
                 android:id="@+id/editTextDateOfBirth"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/edittext_custome"
                 android:hint="Chọn Ngày Sinh"
                 android:textSize="@dimen/textSize"
                 android:focusable="false"
@@ -94,24 +98,44 @@
                 android:paddingLeft="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Địa Điểm Quan Tâm:"
-                android:background="#e3ebef"/>
+                android:text="Địa Điểm Quan Tâm:" />
 
-            <Spinner
-                android:id="@+id/spinnerPlacesInterest"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/Base.Widget.AppCompat.Spinner.Underlined"
-                android:backgroundTint="#ff000000"
-                android:backgroundTintMode="src_in"/>
+                android:layout_marginRight="3dp"
+                android:layout_weight=".28"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/spinnerPlacesInterest"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:background="@drawable/sprinner_customer"
+                    style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+                    />
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:src="@drawable/dropdown" />
+
+            </RelativeLayout>
 
 
             <EditText
                 android:id="@+id/editTextEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/edittext_custome"
                 android:hint="Email"
                 android:textSize="@dimen/textSize"
                 android:textColor="#000"
@@ -126,6 +150,7 @@
                 android:id="@+id/editTextPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/edittext_custome"
                 android:hint="Số Điện Thoại"
                 android:textSize="@dimen/textSize"
                 android:textColor="#000"
@@ -144,13 +169,13 @@
                 android:layout_height="wrap_content"
                 android:text="Thông Tin Tài Khoản:"
                 android:textSize="@dimen/textSize"
-                android:textColor="#0519f8"
-                android:background="#e3ebef"/>
+                android:textColor="#0519f8" />
 
             <EditText
                 android:id="@+id/editTextUserName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/edittext_custome"
                 android:textSize="@dimen/textSize"
                 android:textColor="#000"
                 android:maxLines="1"
@@ -165,6 +190,7 @@
                 android:id="@+id/editTextPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/edittext_custome"
                 android:textSize="@dimen/textSize"
                 android:textColor="#000"
                 android:maxLines="1"
@@ -179,6 +205,7 @@
                 android:id="@+id/editTextConfirmPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/edittext_custome"
                 android:hint="Xác Nhận Mật Khẩu"
                 android:textSize="@dimen/textSize"
                 android:textColor="#000"
@@ -188,6 +215,26 @@
                 android:inputType="textPassword"
                 android:layout_margin="10dp"
                 android:imeOptions="actionDone"/>
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp">
+
+                <RadioButton
+                    android:id="@+id/radioButtonSeller"
+                    android:checked="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Người bán đất"
+                    ></RadioButton>
+                <RadioButton
+                    android:id="@+id/radioButtonBuyer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Người Mua Đất">
+                </RadioButton>
+            </RadioGroup>
 
             <Button
                 android:id="@+id/dangky"

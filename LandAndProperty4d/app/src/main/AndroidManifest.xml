@@ -19,6 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".screen.postdetail.PostDetail"></activity>
         <activity android:name=".screen.viewinformationproperty.ViewInformationProperty"></activity>
         <activity android:name=".screen.viewmap4d.ViewMap4D" />
 
@@ -28,6 +29,7 @@
 
         <activity
             android:name=".screen.register.RegisterActivity"
+            android:windowSoftInputMode="stateHidden"
             android:label="Đăng Kí" />
         <activity
             android:name=".screen.home.HomeActivity"
@@ -45,13 +47,11 @@
             </intent-filter>
         </activity>
         <activity
+            android:windowSoftInputMode="stateHidden"
             android:name=".screen.postproperty.PostPropertyActivity"
             android:label="Đăng Tin Bán Đất"
             android:screenOrientation="portrait" />
-        <activity android:name=".screen.postproperty.LandContact" />
-        <activity android:name=".screen.postproperty.LandPrice" />
         <activity android:name=".screen.postproperty.LandLocation" />
-        <activity android:name=".screen.postproperty.LandAddress" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

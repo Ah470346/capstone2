@@ -181,6 +181,7 @@
                 android:lines="1"
                 android:scrollHorizontally="true"
                 android:inputType="text"
+                android:focusable="false"
                 android:layout_margin="10dp"
                 android:background="@drawable/edittext_custome"
                 android:imeOptions="actionNext"/>
@@ -243,6 +244,7 @@
                 android:lines="1"
                 android:scrollHorizontally="true"
                 android:inputType="text"
+                android:focusable="false"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
@@ -258,6 +260,7 @@
                 android:textColor="#000"
                 android:maxLines="1"
                 android:lines="1"
+                android:focusable="false"
                 android:scrollHorizontally="true"
                 android:inputType="text"
                 android:layout_margin="10dp"
@@ -288,7 +291,7 @@
                 android:inputType="text"
                 android:layout_margin="10dp"
                 android:background="@drawable/edittext_custome"
-                android:imeOptions="actionNext" />
+                android:imeOptions="actionDone" />
 
             <Button
                 android:id="@+id/buttonPost"

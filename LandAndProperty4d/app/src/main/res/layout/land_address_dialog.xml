@@ -1,37 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".screen.postproperty.LandAddress">
+    android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolBarLandAddress"
+    <RelativeLayout
+        android:id="@+id/relative"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#3438d7"
-        tools:ignore="MissingConstraints"
-        android:theme="@style/toolbar"
-        app:title="Địa Chỉ"
-        app:titleTextColor="#fff"></androidx.appcompat.widget.Toolbar>
+        android:layout_marginRight="3dp"
+        android:layout_weight=".28"
+        android:orientation="horizontal">
 
-    <EditText
-        android:id="@+id/editTextCity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginTop="8dp"
-        android:hint="Tỉnh/Thành Phố"
-        android:imeOptions="actionNext"
-        android:inputType="text"
-        android:lines="1"
-        android:maxLines="1"
-        android:scrollHorizontally="true"
-        android:textColor="#000"
-        android:textSize="@dimen/textSize"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolBarLandAddress" />
+        <Spinner
+            android:id="@+id/spinnerCity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:background="@drawable/sprinner_customer"
+            style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+            />
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:src="@drawable/dropdown" />
+
+    </RelativeLayout>
 
     <EditText
         android:id="@+id/editTextDistric"
@@ -45,10 +50,11 @@
         android:lines="1"
         android:maxLines="1"
         android:scrollHorizontally="true"
+        android:background="@drawable/edittext_custome"
         android:textColor="#000"
         android:textSize="@dimen/textSize"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextCity" />
+        app:layout_constraintTop_toBottomOf="@+id/relative" />
 
     <EditText
         android:id="@+id/editTextPhuong"
@@ -62,6 +68,7 @@
         android:lines="1"
         android:maxLines="1"
         android:scrollHorizontally="true"
+        android:background="@drawable/edittext_custome"
         android:textColor="#000"
         android:textSize="@dimen/textSize"
         app:layout_constraintStart_toStartOf="parent"
@@ -79,6 +86,7 @@
         android:lines="1"
         android:maxLines="1"
         android:scrollHorizontally="true"
+        android:background="@drawable/edittext_custome"
         android:textColor="#000"
         android:textSize="@dimen/textSize"
         app:layout_constraintStart_toStartOf="parent"
@@ -96,24 +104,9 @@
         android:lines="1"
         android:maxLines="1"
         android:scrollHorizontally="true"
+        android:background="@drawable/edittext_custome"
         android:textColor="#000"
         android:textSize="@dimen/textSize"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextStreet" />
-
-    <Button
-        android:id="@+id/buttonDoneAddress"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"
-        android:background="#3821cd"
-        android:text="Xong"
-        android:textColor="#fff"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextHouseNumber" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

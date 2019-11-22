@@ -32,16 +32,24 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.landandproperty4d.R;
+import com.example.landandproperty4d.data.local.SharedPreferences;
+import com.example.landandproperty4d.data.model.User;
 import com.example.landandproperty4d.data.source.MapReponsitory;
 import com.example.landandproperty4d.data.source.remote.MapRemoteDataSource;
 import com.example.landandproperty4d.screen.home.HomeActivity;
 import com.example.landandproperty4d.screen.register.RegisterViewModel;
+import com.example.landandproperty4d.screen.viewinformationproperty.ViewInformationProperty;
 import com.example.landandproperty4d.utils.CommonUtils;
 import com.example.landandproperty4d.utils.MyViewModelFactory;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -55,7 +63,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class PostPropertyActivity extends AppCompatActivity implements OnClickListener {
-
+    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     static final int REQUEST_TAKE_PHOTO = 1;
     String mCurrentPhotoPath;
     private RecyclerView recyclerViewPostProperty;
@@ -66,6 +75,7 @@ public class PostPropertyActivity extends AppCompatActivity implements OnClickLi
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int PICK_IMAGE = 2;
     private View ActivityRootView;
+    private String id = " ";
     ArrayList<RecyclerViewData> listImage = new ArrayList();
 
     private Button mButtonPost;
@@ -73,10 +83,12 @@ public class PostPropertyActivity extends AppCompatActivity implements OnClickLi
     private String mHomeDirection;
     private FirebaseStorage storage;
     private StorageReference storageRef;
-    private String imageUrl;
+    private String imageUrl = "+";
     private int index = 0;
     private CatLoadingView progressBarCat;
     private PostPropetyViewModel viewModel;
+    private ArrayAdapter<String> adapterDirection;
+    private ArrayAdapter<String> adapterProperty;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +96,9 @@ public class PostPropertyActivity extends AppCompatActivity implements OnClickLi
         setContentView(R.layout.activity_post_property);
         init();
         initData();
+        chooseDirection();
+        chooseType();
+        spinnerTypeOfProperty.setSelection(listImage.indexOf("Bán Nhà Riêng"));
         if (savedInstanceState != null) {
             editTextTitle.setText(savedInstanceState.getString("title"));
             editTextLandArea.setText(savedInstanceState.getString("area"));
@@ -99,51 +114,30 @@ public class PostPropertyActivity extends AppCompatActivity implements OnClickLi
         toolbarPostProperty.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                mDatabase.child("user").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        Intent intent = new Intent(PostPropertyActivity.this, HomeActivity.class);
+                        User user = dataSnapshot.getValue(User.class);
+                        intent.putExtra("ruler",user.getRuler());
+                        startActivity(intent);
+                        finish();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
             }
         });
-
-        /*editTextLandAddress.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(PostPropertyActivity.this,LandAddress.class);
-                startActivity(intent);
-            }
-        });
-
-        editTextLadndPlaces.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(PostPropertyActivity.this,LandLocation.class);
-                startActivity(intent);
-            }
-        });
-
-        editTextPrice.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(PostPropertyActivity.this,LandPrice.class);
-                startActivity(intent);
-            }
-        });
-
-        editTextContact.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(PostPropertyActivity.this,LandContact.class);
-                startActivity(intent);
-            }
-        });*/
-        Intent intent = getIntent();
-
-        if (intent.getExtras() != null) {
-            String city = intent.getStringExtra("City");
-            String distric = intent.getStringExtra("Distric");
-            String phuong = intent.getStringExtra("Phuong");
-            String street = intent.getStringExtra("Street");
-            String housenumber = intent.getStringExtra("HouseNumber");
-            editTextLandAddress.setText(city + ", " + distric + ", " + phuong + ", " + street + ", " + housenumber);
-        }
+//        editTextLadndPlaces.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(PostPropertyActivity.this,LandLocation.class);
+//                startActivity(intent);
+//            }
+//        });
     }
 
     @Override
@@ -155,34 +149,23 @@ public class PostPropertyActivity extends AppCompatActivity implements OnClickLi
 
     @Override
     public void onClick(final View v) {
-        if (v.getId() == R.id.buttonPost) {
-            progressBarCat.show(getSupportFragmentManager(), "");
-            spinnerTypeOfProperty.setOnItemSelectedListener(new OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(final AdapterView<?> parent, final View view, final int position,
-                        final long id) {
-                    mTypeProperty = (String) parent.getItemAtPosition(position);
-                }
-
-                @Override
-                public void onNothingSelected(final AdapterView<?> parent) {
-
-                }
-            });
-
-            spinnerHouseDirection.setOnItemSelectedListener(new OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(final AdapterView<?> parent, final View view, final int position,
-                        final long id) {
-                    mHomeDirection = (String) parent.getItemAtPosition(position);
-                }
-
-                @Override
-                public void onNothingSelected(final AdapterView<?> parent) {
-
-                }
-            });
-            uploadPhoto(listImage);
+        switch (v.getId()) {
+            case R.id.buttonPost :
+                progressBarCat.show(getSupportFragmentManager(), "");
+                uploadPhoto(listImage);
+                break;
+            case R.id.editTextLandAddress :
+                DialogAddress address = new DialogAddress();
+                address.show(getSupportFragmentManager(),"dialog address");
+                break;
+            case R.id.editPrice :
+                DialogPrice price = new DialogPrice();
+                price.show(getSupportFragmentManager(),"dialog price");
+                break;
+            case R.id.editTextContact :
+                DialogContact contact = new DialogContact();
+                contact.show(getSupportFragmentManager(),"dialog contact");
+                break;
         }
     }
 
@@ -200,7 +183,7 @@ public class PostPropertyActivity extends AppCompatActivity implements OnClickLi
         listTypeProperty.add("Bán Trang Trại, Khu Nghỉ Dưỡng");
         listTypeProperty.add("Bán Kho, Nhà Xưởng");
         listTypeProperty.add("Bán Loại Bất Động Sản Khác");
-        ArrayAdapter<String> adapterProperty = new ArrayAdapter<String>(this,
+        adapterProperty = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_dropdown_item, listTypeProperty);
         adapterProperty.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerTypeOfProperty.setAdapter(adapterProperty);
@@ -217,7 +200,7 @@ public class PostPropertyActivity extends AppCompatActivity implements OnClickLi
         listDirection.add("Tây Bắc");
         listDirection.add("Đông Nam");
         listDirection.add("Tây Nam");
-        ArrayAdapter<String> adapterDirection = new ArrayAdapter<String>(this,
+        adapterDirection = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_dropdown_item, listDirection);
         adapterDirection.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerHouseDirection.setAdapter(adapterDirection);
@@ -236,8 +219,7 @@ public class PostPropertyActivity extends AppCompatActivity implements OnClickLi
         textViewPrice = findViewById(R.id.txtPrice);
         textViewDetailInformation = findViewById(R.id.txtDetailInformation);
         textViewPrice.setPaintFlags(textViewPrice.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        textViewDetailInformation
-                .setPaintFlags(textViewDetailInformation.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        textViewDetailInformation.setPaintFlags(textViewDetailInformation.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         textViewLocation.setPaintFlags(textViewLocation.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         textViewDacDiem.setPaintFlags(textViewDacDiem.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         toolbarPostProperty = findViewById(R.id.toolBarPostProperty);
@@ -255,6 +237,9 @@ public class PostPropertyActivity extends AppCompatActivity implements OnClickLi
         ImageAdapter imageAdapter = new ImageAdapter(listImage, getApplicationContext());
         recyclerViewPostProperty.setAdapter(imageAdapter);
         mButtonPost.setOnClickListener(this);
+        editTextLandAddress.setOnClickListener(this);
+        editTextPrice.setOnClickListener(this);
+        editTextContact.setOnClickListener(this);
     }
 
     private void initData(){
@@ -378,14 +363,14 @@ public class PostPropertyActivity extends AppCompatActivity implements OnClickLi
                         new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(final Uri uri) {
-                                imageUrl = imageUrl + "_" + uri;
+                                imageUrl = imageUrl+ " " + uri;
                                 if (index < listImage.size() - 1) {
                                     index++;
                                     uploadPhoto(listImage);
                                 }else {
                                     viewModel.saveDataPost(editTextLandAddress.getText().toString(), editTextLandArea.getText().toString(),
-                                            editTextContact.getText().toString(), editTextDetail.getText().toString(), "haha", imageUrl, editTextLadndPlaces.getText().toString(),
-                                            editTextPrice.getText().toString(), editTextTitle.getText().toString(), mTypeProperty);
+                                            editTextContact.getText().toString(), editTextDetail.getText().toString(), mHomeDirection, imageUrl, editTextLadndPlaces.getText().toString(),
+                                            editTextPrice.getText().toString(), editTextTitle.getText().toString(), mTypeProperty,id);
                                     progressBarCat.dismiss();
                                 }
                             }
@@ -398,5 +383,32 @@ public class PostPropertyActivity extends AppCompatActivity implements OnClickLi
             }
         });
     }
+    private void chooseType (){
+        spinnerTypeOfProperty.setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(final AdapterView<?> parent, final View view, final int position,
+                                       final long id) {
+                mTypeProperty = (String) parent.getItemAtPosition(position);
+            }
 
+            @Override
+            public void onNothingSelected(final AdapterView<?> parent) {
+
+            }
+        });
+    }
+    private void chooseDirection(){
+        spinnerHouseDirection.setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(final AdapterView<?> parent, final View view, final int position,
+                                       final long id) {
+                mHomeDirection = (String) parent.getItemAtPosition(position);
+            }
+
+            @Override
+            public void onNothingSelected(final AdapterView<?> parent) {
+
+            }
+        });
+    }
 }

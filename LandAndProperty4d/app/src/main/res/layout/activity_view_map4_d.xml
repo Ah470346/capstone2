@@ -22,8 +22,63 @@
         class="vn.map4d.map4dsdk.maps.MFSupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintTop_toBottomOf="@id/toolBarViewMap4D"
+        android:layout_marginTop="55dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="55dp"/>
+        app:layout_constraintTop_toBottomOf="@id/toolBarViewMap4D" />
 
+    <SearchView
+        android:id="@+id/searchViewMap"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/custome_searchview"
+        android:gravity="center"
+        android:queryHint="Nhập Địa Chỉ"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolBarViewMap4D"></SearchView>
+    <TextView
+        android:id="@+id/lat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="36dp"
+        android:layout_marginTop="60dp"
+        android:background="#ffff00"
+        android:text="Lat: "
+        android:textColor="#575757"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@id/searchViewMap" />
+
+    <TextView
+        android:id="@+id/lng"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#ffff00"
+        android:text="Lng: "
+        android:textColor="#575757"
+        android:textSize="16sp"
+        android:layout_marginLeft="36dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lat"
+        tools:layout_editor_absoluteX="36dp"
+        tools:layout_editor_absoluteY="154dp" />
+
+    <Button
+        android:id="@+id/btnEnable3D"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="mode 2D"
+        android:textAllCaps="false"
+        android:textColor="#0055ff"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,9 @@
 package com.example.landandproperty4d.screen.login;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -13,12 +16,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.landandproperty4d.R;
+import com.example.landandproperty4d.data.model.User;
 import com.example.landandproperty4d.screen.home.HomeActivity;
 import com.example.landandproperty4d.screen.register.RegisterActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.roger.catloadinglibrary.CatLoadingView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +39,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText editTextUserName , editTextPassword;
     private Button buttonLogin, buttonRegister ;
     private FirebaseAuth mAuth;
+    private CatLoadingView progressBarCat;
+    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     Toolbar toolbar;
 
     @Override
@@ -38,11 +52,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    private boolean ktconnect (){
+        ConnectivityManager connectivityManager = (ConnectivityManager) MainActivity.this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if(networkInfo !=null && networkInfo.isConnected()){
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.buttonLogin:
-                login(editTextUserName.getText().toString(),editTextPassword.getText().toString());
+                if (ktconnect() == true) {
+                    progressBarCat.show(getSupportFragmentManager(), "");
+                    login(editTextUserName.getText().toString(), editTextPassword.getText().toString());
+                } else
+                    Toast.makeText(getApplicationContext(), "vui lòng kết nối mạng Internet", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.buttonRegister:
                 Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
@@ -52,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initView (){
+        progressBarCat = new CatLoadingView();
         mAuth = FirebaseAuth.getInstance();
         buttonRegister = findViewById(R.id.buttonRegister);
         editTextPassword = findViewById(R.id.editTextPassword);
@@ -76,10 +104,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-                            startActivity(intent);
-                            finish();
+                            mDatabase.child("user").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                                    User user = dataSnapshot.getValue(User.class);
+                                    intent.putExtra("ruler",user.getRuler());
+                                    startActivity(intent);
+                                    finish();
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
+                            progressBarCat.dismiss();
+
                         } else {
+                            progressBarCat.dismiss();
                             // If sign in fails, display a message to the user.
                             Toast.makeText(MainActivity.this,"Tài Khoản hoặc mật khẩu không chính xác",Toast.LENGTH_SHORT).show();
                         }

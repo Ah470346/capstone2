@@ -12,7 +12,7 @@ public class RegisterViewModel extends ViewModel {
     }
 
     public void writeBuyer(String userName, String password, String name, String birthDay,
-                           String address, String homeTown, String email, String phoneNumber, String placesInterest){
-        mapReponsitory.saveRegister(userName,password,name,birthDay,address,homeTown,email,phoneNumber,placesInterest);
+                           String address, String homeTown, String email, String phoneNumber, String placesInterest,String ruler){
+        mapReponsitory.saveRegister(userName,password,name,birthDay,address,homeTown,email,phoneNumber,placesInterest,ruler);
     }
 }

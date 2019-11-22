@@ -6,8 +6,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,6 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
     private RegisterViewModel mViewModel;
     private String placesInterest;
     private Toolbar toolbar;
+    private RadioButton radioButtonSeller , radioButtonBuyer ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,8 +59,9 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 //                Toast.makeText(RegisterActivity.this,"" +editTextName.getText().toString(),Toast.LENGTH_LONG).show();
-                if(editTextName.getText().toString().equals("")) {
-                    Toast.makeText(RegisterActivity.this, "Bạn Chưa Nhập Họ Và Tên", Toast.LENGTH_LONG).show();
+                if(ktconnect()==false){Toast.makeText(getApplicationContext(), "vui lòng kết nối mạng Internet", Toast.LENGTH_SHORT).show();}
+                 else  if(editTextName.getText().toString().equals("")) {
+                    Toast.makeText(RegisterActivity.this,"Bạn Chưa Nhập Họ Tên",Toast.LENGTH_LONG).show();
                 }else if(editTextAddress.getText().toString().equals("")){
                     Toast.makeText(RegisterActivity.this,"Bạn Chưa Nhập Địa Chỉ",Toast.LENGTH_LONG).show();
                 }else if(editTextHomeTown.getText().toString().equals("")){
@@ -67,7 +73,7 @@ public class RegisterActivity extends AppCompatActivity {
                 }else if(editTextPhone.getText().toString().equals("")){
                     Toast.makeText(RegisterActivity.this,"Bạn Chưa Nhập Số Điện Thoại",Toast.LENGTH_LONG).show();
                 }else if(user.getText().toString().equals("")){
-                    Toast.makeText(RegisterActivity.this,"Bạn Chưa Nhập Tên Tài Khoản",Toast.LENGTH_LONG).show();
+                    Toast.makeText(RegisterActivity.this,"Bạn Chưa Email Đăng Nhập",Toast.LENGTH_LONG).show();
                 }else if(pass.getText().toString().equals("")){
                     Toast.makeText(RegisterActivity.this,"Bạn Chưa Nhập Mật Khẩu",Toast.LENGTH_LONG).show();
                 }else if(editTextConfirmPassword.getText().toString().equals("")){
@@ -87,6 +93,14 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
+    private boolean ktconnect (){
+        ConnectivityManager connectivityManager = (ConnectivityManager) RegisterActivity.this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if(networkInfo !=null && networkInfo.isConnected()){
+            return true;
+        }
+        return false;
+    }
     private void initView(){
         ArrayList<String> listPlacces = new ArrayList<String>();
         listPlacces.add("Đà Nẵng");
@@ -104,6 +118,8 @@ public class RegisterActivity extends AppCompatActivity {
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPhone = findViewById(R.id.editTextPhone);
         editTextConfirmPassword = findViewById(R.id.editTextConfirmPassword);
+        radioButtonBuyer = findViewById(R.id.radioButtonBuyer);
+        radioButtonSeller = findViewById(R.id.radioButtonSeller);
         toolbar = findViewById(R.id.toolBarRegister);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -154,7 +170,7 @@ public class RegisterActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Toast.makeText(RegisterActivity.this,"Tạo Thành Công",Toast.LENGTH_SHORT).show();
-                            mViewModel.writeBuyer(userName,password,name,birthDay,address,homeTown,email,phoneNumber,placesInterest);
+                            mViewModel.writeBuyer(userName,password,name,birthDay,address,homeTown,email,phoneNumber,placesInterest,setCheckUser());
                         } else {
                             // If sign in fails, display a message to the user.
                             Toast.makeText(RegisterActivity.this,"Tài Khoản Đã Tồn Tại",Toast.LENGTH_SHORT).show();
@@ -186,6 +202,12 @@ public class RegisterActivity extends AppCompatActivity {
         },1996,Currentmonth,Currentday);
         datePickerDialog.show();
     }
-
+    public  String setCheckUser(){
+        if(radioButtonSeller.isChecked()) {
+            return "1";
+        } else if(radioButtonBuyer.isChecked()){
+            return "2";
+        } else return "0";
+    }
 }
 

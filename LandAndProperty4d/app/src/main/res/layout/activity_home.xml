@@ -113,24 +113,25 @@
         app:layout_constraintStart_toEndOf="@+id/buttonNews"
         app:layout_constraintTop_toBottomOf="@id/buttonViewMap" />
 
+
     <Button
         android:id="@+id/buttonManageAccount"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:background="#9400d4"
         android:text="Quản Lý Tài Khoản"
         android:textColor="#fff"
-        app:layout_constraintEnd_toStartOf="@+id/buttonPostInformation"
+        app:layout_constraintEnd_toStartOf="@+id/buttonManagePost"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/buttonNews" />
 
     <Button
-        android:id="@+id/buttonPostInformation"
+        android:id="@+id/buttonManagePost"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="10dp"
         android:background="#9400d4"
         android:text="Quản Lý Bài Đăng"
@@ -140,33 +141,32 @@
         app:layout_constraintStart_toEndOf="@+id/buttonManageAccount"
         app:layout_constraintTop_toBottomOf="@id/buttonYourNews" />
 
-
     <Button
-        android:id="@+id/buttonManagePost"
+        android:id="@+id/buttonCkeckPost"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:background="#9400d4"
         android:text="Kiểm Duyệt"
         android:textColor="#fff"
-        app:layout_constraintEnd_toStartOf="@+id/buttonCkeckPost"
+        app:layout_constraintEnd_toStartOf="@+id/buttonPostInformation"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/buttonManageAccount" />
 
     <Button
-        android:id="@+id/buttonCkeckPost"
+        android:id="@+id/buttonPostInformation"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="10dp"
         android:background="#9400d4"
         android:text="Đăng Tin Tức"
         android:textColor="#fff"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/buttonManagePost"
-        app:layout_constraintTop_toBottomOf="@id/buttonPostInformation" />
+        app:layout_constraintStart_toEndOf="@+id/buttonCkeckPost"
+        app:layout_constraintTop_toBottomOf="@id/buttonManagePost" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

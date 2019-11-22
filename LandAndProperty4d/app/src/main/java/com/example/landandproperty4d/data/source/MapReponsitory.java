@@ -19,12 +19,12 @@ public class MapReponsitory {
     }
 
     public void saveRegister(String userName, String password, String name, String birthDay,
-                            String address, String homeTown, String email, String phoneNumber, String placesInterest){
-        mMapRemoteDataSource.saveRegiter(userName,password,name,birthDay,address,homeTown,email,phoneNumber,placesInterest);
+                            String address, String homeTown, String email, String phoneNumber, String placesInterest,String ruler){
+        mMapRemoteDataSource.saveRegiter(userName,password,name,birthDay,address,homeTown,email,phoneNumber,placesInterest,ruler);
     }
 
     public void saveDataPost(String address, String area, String contact, String detail, String homeDirection,String image, String postPlace,
-            String price, String title, String typeProperty){
-        mMapRemoteDataSource.saveDataPost(address, area, contact, detail, homeDirection, image, postPlace, price, title, typeProperty);
+            String price, String title, String typeProperty,String id){
+        mMapRemoteDataSource.saveDataPost(address, area, contact, detail, homeDirection, image, postPlace, price, title, typeProperty,id);
     }
 }

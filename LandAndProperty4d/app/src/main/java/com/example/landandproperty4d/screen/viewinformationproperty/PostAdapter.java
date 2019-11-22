@@ -1,6 +1,8 @@
 package com.example.landandproperty4d.screen.viewinformationproperty;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +10,8 @@ import android.widget.TextView;
 
 import com.example.landandproperty4d.R;
 import com.example.landandproperty4d.data.model.Post;
+import com.example.landandproperty4d.data.model.PostProperty;
+import com.example.landandproperty4d.screen.postdetail.PostDetail;
 
 import java.util.ArrayList;
 
@@ -15,10 +19,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHoler>{
-    ArrayList<Post> listpost;
+    ArrayList<PostProperty> listpost;
+    private String key;
+    private int p;
     Context context;
 
-    public PostAdapter(ArrayList<Post> listpost, Context context) {
+    public PostAdapter(ArrayList<PostProperty> listpost, Context context) {
         this.listpost = listpost;
         this.context = context;
     }
@@ -37,8 +43,18 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHoler>{
         holder.textViewPrice.setText(listpost.get(position).getPrice());
         holder.textViewTypeLand.setText(listpost.get(position).getTypeLand());
         holder.textViewPostDay.setText(listpost.get(position).getPostDay());
-    }
 
+    }
+    public void clear() {
+        int size = listpost.size();
+        if (size > 0) {
+            for (int i = 0; i < size; i++) {
+                listpost.remove(0);
+            }
+
+            notifyItemRangeRemoved(0, size);
+        }
+    }
     @Override
     public int getItemCount() {
         return listpost.size();
@@ -53,6 +69,17 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHoler>{
             textViewPrice = itemView.findViewById(R.id.textViewPrice);
             textViewTypeLand = itemView.findViewById(R.id.textViewTypeOfLand);
             textViewPostDay = itemView.findViewById(R.id.textViewPostDay);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, PostDetail.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("key",listpost.get(getAdapterPosition()).getId());
+                    context.startActivity(intent);
+                    Log.d("key",""+listpost.get(getAdapterPosition()).getId());
+                    clear();
+                }
+            });
         }
     }
 }

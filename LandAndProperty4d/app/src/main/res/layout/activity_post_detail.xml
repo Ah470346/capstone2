@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".screen.postdetail.PostDetail">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolBarPostDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#3438d7"
+        android:theme="@style/toolbar"
+        app:title="Chi Tiết Đất b"
+        app:titleTextColor="#fff"
+        tools:ignore="MissingConstraints"></androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="409dp"
+        android:layout_height="match_parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolBarPostDetail">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="55dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@id/scrollView">
+
+            <TextView
+                android:id="@+id/textViewTitleDetail"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="Đất Cầu Rồng View Đẹp"
+                android:textColor="#fe0000"
+                android:textSize="26sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="@id/layout"
+                app:layout_constraintWidth_percent="0.5" />
+
+            <TextView
+                android:id="@+id/diachi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:text="Địa Chỉ: "
+                android:textColor="#0000ff"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewTitleDetail" />
+
+            <TextView
+                android:id="@+id/textViewAddressDetail"
+                android:layout_width="338dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:text="30 Bạch Đằng, Hải Châu , Đà nẵng"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toRightOf="@id/diachi"
+                app:layout_constraintTop_toBottomOf="@id/textViewTitleDetail" />
+
+            <TextView
+                android:id="@+id/gia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:text="Giá: "
+                android:textColor="#0000ff"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewAddressDetail" />
+
+            <TextView
+                android:id="@+id/textViewPriceDetail"
+                android:layout_width="367dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:text="500.000.000đ/m²"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toRightOf="@id/gia"
+                app:layout_constraintTop_toBottomOf="@id/textViewAddressDetail" />
+
+
+            <TextView
+                android:id="@+id/loaidat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:text="Loại Đất: "
+                android:textColor="#0000ff"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewPriceDetail" />
+
+            <TextView
+                android:id="@+id/textViewTypeOfLandDetail"
+                android:layout_width="332dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:text="Đất Trống"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toRightOf="@id/loaidat"
+                app:layout_constraintTop_toBottomOf="@id/textViewPriceDetail" />
+
+            <TextView
+                android:id="@+id/dientich"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:text="Diện Tích: "
+                android:textColor="#0000ff"
+                android:textSize="18sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewTypeOfLandDetail" />
+
+            <TextView
+                android:id="@+id/textViewAreaDetail"
+                android:layout_width="316dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:text="3000m²"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toRightOf="@id/dientich"
+                app:layout_constraintTop_toBottomOf="@id/textViewTypeOfLandDetail" />
+
+            <TextView
+                android:id="@+id/diadiem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:text="Địa Điểm/Dự Án: "
+                android:textColor="#0000ff"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewAreaDetail" />
+
+            <TextView
+                android:id="@+id/textViewLocationDetail"
+                android:layout_width="276dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:text="Tòa Nhà Big C"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toRightOf="@id/diadiem"
+                app:layout_constraintTop_toBottomOf="@id/textViewAreaDetail" />
+
+            <TextView
+                android:id="@+id/huongnha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:text="Hướng Nhà: "
+                android:textColor="#0000ff"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewLocationDetail" />
+
+            <TextView
+                android:id="@+id/textViewDirectionDetail"
+                android:layout_width="309dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:text="Đông Bắc"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toRightOf="@id/huongnha"
+                app:layout_constraintTop_toBottomOf="@id/textViewLocationDetail" />
+
+            <TextView
+                android:id="@+id/lienhe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:text="Thông Tin Liên Hệ: "
+                android:textColor="#0000ff"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewDirectionDetail" />
+
+            <TextView
+                android:id="@+id/textViewContactDetail"
+                android:layout_width="261dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:text="SĐT: 0374275453 - Email: truongdtct1230@gmail.com"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toRightOf="@id/lienhe"
+                app:layout_constraintTop_toBottomOf="@id/textViewDirectionDetail" />
+
+            <TextView
+                android:id="@+id/chitiet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:text="Chi Tiết: "
+                android:textColor="#0000ff"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewContactDetail" />
+
+            <TextView
+                android:id="@+id/textViewDetailOfDetail"
+                android:layout_width="336dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:text="Đất thổ cư cần bán gấp"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toRightOf="@id/chitiet"
+                app:layout_constraintTop_toBottomOf="@id/textViewContactDetail" />
+
+            <TextView
+                android:id="@+id/ngaydang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:text="Ngày Đăng: "
+                android:textSize="16sp"
+                android:textStyle="italic"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewDetailOfDetail" />
+
+            <TextView
+                android:id="@+id/textViewPostDayDetail"
+                android:layout_width="316dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:text="21/10/2019"
+                android:textSize="16sp"
+                android:textStyle="italic"
+                app:layout_constraintLeft_toRightOf="@id/ngaydang"
+                app:layout_constraintTop_toBottomOf="@id/textViewDetailOfDetail" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewDetail"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewPostDayDetail"></androidx.recyclerview.widget.RecyclerView>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recyclerViewDetail">
+
+                <Button
+                    android:id="@+id/buttonViewWithMap"
+                    android:layout_width="164dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="10dp"
+                    android:layout_marginStart="56dp"
+                    android:layout_marginTop="8dp"
+                    android:background="#3821cd"
+                    android:text="Xem Vị Trí Đất"
+                    android:textColor="#fff" />
+
+                <Button
+                    android:id="@+id/buttonDeal"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:layout_marginStart="96dp"
+                    android:layout_marginTop="32dp"
+                    android:background="#3821cd"
+                    android:text="Liên Hệ"
+                    android:textColor="#fff" />
+            </LinearLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

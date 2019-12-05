@@ -7,19 +7,12 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.SearchView;
 
 import com.example.landandproperty4d.R;
-import com.example.landandproperty4d.data.model.Post;
 import com.example.landandproperty4d.data.model.PostProperty;
-import com.example.landandproperty4d.data.model.User;
-import com.example.landandproperty4d.screen.home.HomeActivity;
-import com.example.landandproperty4d.screen.login.MainActivity;
-import com.example.landandproperty4d.screen.postdetail.PostDetail;
-import com.example.landandproperty4d.screen.postproperty.PostPropertyActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -35,9 +28,10 @@ public class ViewInformationProperty extends AppCompatActivity {
     DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private Toolbar toolbarViewInformationProperty ;
+    private SearchView searchViewPost;
     private RecyclerView recyclerViewViewInformationproperty ;
     public static ArrayList<PostProperty> listpost = new ArrayList<>();
-    PostAdapter postAdapter;
+    private PostAdapter postAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,52 +42,26 @@ public class ViewInformationProperty extends AppCompatActivity {
         toolbarViewInformationProperty.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mDatabase.child("user").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        Intent intent = new Intent(ViewInformationProperty.this, HomeActivity.class);
-                        User user = dataSnapshot.getValue(User.class);
-                        intent.putExtra("ruler",user.getRuler());
-                        startActivity(intent);
-                        finish();
-                        postAdapter.clear();
-                    }
+                finish();
+            }
+        });
+        searchViewPost.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                postAdapter.getFilter().filter(query);
+                return true;
+            }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                postAdapter.getFilter().filter(newText);
+                return true;
             }
         });
     }
 
     private void init(){
-
-//        PostProperty a = new PostProperty();
-//        a.setTitle("Đất Hot Cầu Rồng ");
-//        a.setAddress("Thanh Khê, Đà Nẵng");
-//        a.setPrice("100.000.000/m");
-//        a.setPostDay("21/10/2019");
-//
-//        PostProperty b = new PostProperty();
-//        b.setTitle("Đất Ngoại Ô Hòa Khánh Nam");
-//        b.setAddress("Hòa Khánh Nam,Liên Chiểu, Đà Nẵng");
-//        b.setPrice("50.000.000/m");
-//        b.setPostDay("22/10/2019");
-//
-//        PostProperty c = new PostProperty();
-//        c.setTitle("Đất Đất Nguyễn Văn Linh");
-//        c.setAddress("15 Nguyễn Văn Linh,Hải Châu, Đà Nẵng");
-//        c.setPrice("1.000.000.000/m");
-//        c.setPostDay("22/10/2019");
-//
-//        listpost.add(a);
-//        listpost.add(b);
-//        listpost.add(c);
-
-//        Log.d("aaa",a.getAddress());
-
+        searchViewPost = findViewById(R.id.searchViewPost);
         toolbarViewInformationProperty = findViewById(R.id.toolBarViewInformationProperty);
         setSupportActionBar(toolbarViewInformationProperty);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

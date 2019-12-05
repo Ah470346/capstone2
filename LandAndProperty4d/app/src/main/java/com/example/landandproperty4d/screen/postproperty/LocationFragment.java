@@ -1,16 +1,17 @@
 package com.example.landandproperty4d.screen.postproperty;
 
-import android.content.Intent;
+
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.example.landandproperty4d.R;
-import com.example.landandproperty4d.data.model.PostProperty;
 import com.example.landandproperty4d.screen.viewmap4d.DownloadDataJSON;
 import com.example.landandproperty4d.screen.viewmap4d.ParserJSON;
 
@@ -18,42 +19,47 @@ import java.text.Normalizer;
 import java.util.concurrent.ExecutionException;
 import java.util.regex.Pattern;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import vn.map4d.map4dsdk.annotations.MFMarker;
 import vn.map4d.map4dsdk.annotations.MFMarkerOptions;
 import vn.map4d.map4dsdk.camera.MFCameraUpdateFactory;
 import vn.map4d.map4dsdk.maps.LatLng;
-import vn.map4d.map4dsdk.maps.MFSupportMapFragment;
+import vn.map4d.map4dsdk.maps.MFMapView;
 import vn.map4d.map4dsdk.maps.Map4D;
 import vn.map4d.map4dsdk.maps.OnMapReadyCallback;
 
-public class LandLocation extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener {
-    private MFSupportMapFragment fragment ;
-    private Map4D map4D ;
-    private SearchView searchViewLandLocation ;
-    private Boolean clear = true;
-    private MFMarker marker ;
-    private Button buttonLandLocationDone;
-    private String duongdan="https://api.map4d.vn/v2/api/place/text-search?key=8a6fe395ee75d80245e77d565c6a19f2&text=";
 
+public class LocationFragment extends Fragment implements View.OnClickListener, OnMapReadyCallback{
+        private Map4D map4D ;
+        private SearchView searchViewLocation ;
+        private Boolean clear = true;
+        private MFMapView map3DLocation ;
+        private MFMarker marker;
+        private Button buttonLocationDone;
+        private EditText editTextLocation;
+        private double a,b;
+        private String duongdan="https://api.map4d.vn/v2/api/place/text-search?key=8a6fe395ee75d80245e77d565c6a19f2&text=";
+
+    @Nullable
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.land_location);
-        fragment = (MFSupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.map3DLandLocation);
-        fragment.getMapAsync(this);
-        buttonLandLocationDone = findViewById(R.id.buttonDoneLandLocation);
-        searchViewLandLocation = findViewById(R.id.searchLandLocation);
-        buttonLandLocationDone.setOnClickListener(this);
-        searchViewLandLocation.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.custome_fragment_location,container,false);
+        map3DLocation = view.findViewById(R.id.map3DLocation);
+        map3DLocation.getMapAsync(this);
+        buttonLocationDone = view.findViewById(R.id.buttonDoneLocation);
+        searchViewLocation = view.findViewById(R.id.searchLocation);
+        editTextLocation = getActivity().findViewById(R.id.editTextLandPlaces);
+        buttonLocationDone.setOnClickListener(this);
+        searchViewLocation.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 if(clear == false){
                     marker.remove();
                     clear = true;
                 }
-                String duongdanmoi = duongdan + removeAccent(searchViewLandLocation.getQuery().toString());
+                String duongdanmoi = duongdan + removeAccent(searchViewLocation.getQuery().toString());
                 String duongdancuoi = duongdanmoi.replace(" ","%20");
                 DownloadDataJSON dataJSON = new DownloadDataJSON();
                 dataJSON.execute(duongdancuoi);
@@ -68,13 +74,13 @@ public class LandLocation extends AppCompatActivity implements OnMapReadyCallbac
                         map4D.animateCamera(MFCameraUpdateFactory.newLatLngZoom(point, 14));
                         clear = false;
                     } else {
-                        Toast.makeText(LandLocation.this,"Không tìm thấy địa chỉ này",Toast.LENGTH_LONG).show();}
+                        Toast.makeText(getContext(),"Không tìm thấy địa chỉ này",Toast.LENGTH_LONG).show();}
                 } catch (ExecutionException e) {
                     e.printStackTrace();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                searchViewLandLocation.clearFocus();
+                searchViewLocation.clearFocus();
                 return true;
             }
 
@@ -84,12 +90,26 @@ public class LandLocation extends AppCompatActivity implements OnMapReadyCallbac
                 return false;
             }
         });
+        return view;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.buttonDoneLocation :
+                if(clear == false){
+                    editTextLocation.setText(a + "," + b);
+                } else { Toast.makeText(getContext(),"Bạn chưa chọn địa điểm",Toast.LENGTH_LONG).show();}
+                getActivity().getSupportFragmentManager().popBackStack();
+                break;
+        }
     }
 
     @Override
     public void onMapReady(final Map4D map4D) {
+        this.map4D = map4D;
         map4D.setMinZoomPreference(5.f);
-        map4D.enable3DMode(true);
+        map4D.enable3DMode(false);
         map4D.setOnMapClickListener(new Map4D.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
@@ -97,28 +117,14 @@ public class LandLocation extends AppCompatActivity implements OnMapReadyCallbac
                     marker.remove();
                     clear=true;
                 }
-                double a = Math.ceil(latLng.getLatitude()*1000000)/1000000;
-                double b = Math.ceil(latLng.getLongitude()*1000000)/1000000;
                 LatLng point = new LatLng(latLng.getLatitude(), latLng.getLongitude());
-                marker =map4D.addMarker(new MFMarkerOptions().position(new LatLng(a,b))) ;
+                marker = map4D.addMarker(new MFMarkerOptions().position(new LatLng(latLng.getLatitude(),latLng.getLongitude()))) ;
+                a = latLng.getLatitude();
+                b = latLng.getLongitude();
                 clear = false;
-                Log.d("hh",""+a+" "+b);
+                Log.d("hh",""+latLng.getLatitude() +" "+latLng.getLongitude());
             }
         });
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.buttonDoneLandLocation :
-                if(clear == false){
-//                    Intent intent = new Intent(LandLocation.this, PostPropertyActivity.class);
-//                    intent.putExtra("market",""+marker.getPosition());
-                    finish();
-                } else { Toast.makeText(LandLocation.this,"Bạn chưa chọn địa điểm",Toast.LENGTH_LONG).show();}
-                break;
-        }
-
     }
     public static String removeAccent(String s) {
 
@@ -126,5 +132,9 @@ public class LandLocation extends AppCompatActivity implements OnMapReadyCallbac
         Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
         return pattern.matcher(temp).replaceAll("").replace('đ','d').replace('Đ','D');
     }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        map3DLocation.onDestroy();
+    }
 }
-

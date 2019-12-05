@@ -1,5 +1,6 @@
 package com.example.landandproperty4d.screen.postproperty;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
@@ -27,6 +28,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.FileProvider;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -75,7 +79,7 @@ public class PostPropertyActivity extends AppCompatActivity implements OnClickLi
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int PICK_IMAGE = 2;
     private View ActivityRootView;
-    private String id = " ";
+    private String id = "",lng = "" , lat = "";
     ArrayList<RecyclerViewData> listImage = new ArrayList();
 
     private Button mButtonPost;
@@ -85,6 +89,7 @@ public class PostPropertyActivity extends AppCompatActivity implements OnClickLi
     private StorageReference storageRef;
     private String imageUrl = "+";
     private int index = 0;
+    private String polygonid = "";
     private CatLoadingView progressBarCat;
     private PostPropetyViewModel viewModel;
     private ArrayAdapter<String> adapterDirection;
@@ -99,10 +104,6 @@ public class PostPropertyActivity extends AppCompatActivity implements OnClickLi
         chooseDirection();
         chooseType();
         spinnerTypeOfProperty.setSelection(listImage.indexOf("Bán Nhà Riêng"));
-        if (savedInstanceState != null) {
-            editTextTitle.setText(savedInstanceState.getString("title"));
-            editTextLandArea.setText(savedInstanceState.getString("area"));
-        }
 
         textViewAddImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,37 +115,10 @@ public class PostPropertyActivity extends AppCompatActivity implements OnClickLi
         toolbarPostProperty.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mDatabase.child("user").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        Intent intent = new Intent(PostPropertyActivity.this, HomeActivity.class);
-                        User user = dataSnapshot.getValue(User.class);
-                        intent.putExtra("ruler",user.getRuler());
-                        startActivity(intent);
-                        finish();
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
+                finish();
             }
         });
-//        editTextLadndPlaces.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(PostPropertyActivity.this,LandLocation.class);
-//                startActivity(intent);
-//            }
-//        });
-    }
 
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putString("title", editTextTitle.getText().toString());
-        outState.putString("area", editTextLandArea.getText().toString());
     }
 
     @Override
@@ -166,6 +140,15 @@ public class PostPropertyActivity extends AppCompatActivity implements OnClickLi
                 DialogContact contact = new DialogContact();
                 contact.show(getSupportFragmentManager(),"dialog contact");
                 break;
+            case R.id.editTextLandPlaces :
+//                Intent intent = new Intent(PostPropertyActivity.this,LandLocation.class);
+////                startActivity(intent);
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                LocationFragment fragment = new LocationFragment();
+                transaction.addToBackStack("hhh");
+                transaction.replace(R.id.constrainLayoutPostProperty,fragment);
+                transaction.commit();
+
         }
     }
 
@@ -240,6 +223,7 @@ public class PostPropertyActivity extends AppCompatActivity implements OnClickLi
         editTextLandAddress.setOnClickListener(this);
         editTextPrice.setOnClickListener(this);
         editTextContact.setOnClickListener(this);
+        editTextLadndPlaces.setOnClickListener(this);
     }
 
     private void initData(){
@@ -325,7 +309,7 @@ public class PostPropertyActivity extends AppCompatActivity implements OnClickLi
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            ;
+
         }
         File photoFile = null;
         try {
@@ -370,7 +354,7 @@ public class PostPropertyActivity extends AppCompatActivity implements OnClickLi
                                 }else {
                                     viewModel.saveDataPost(editTextLandAddress.getText().toString(), editTextLandArea.getText().toString(),
                                             editTextContact.getText().toString(), editTextDetail.getText().toString(), mHomeDirection, imageUrl, editTextLadndPlaces.getText().toString(),
-                                            editTextPrice.getText().toString(), editTextTitle.getText().toString(), mTypeProperty,id);
+                                            editTextPrice.getText().toString(), editTextTitle.getText().toString(), mTypeProperty,id,lng,lat,polygonid);
                                     progressBarCat.dismiss();
                                 }
                             }
@@ -411,4 +395,19 @@ public class PostPropertyActivity extends AppCompatActivity implements OnClickLi
             }
         });
     }
+//    private void setupViewFragment(Class fragmentData) {
+//        Class fragmentClass;
+//        fragmentClass = fragmentData;
+//        Fragment fragment = null;
+//        try {
+//            fragment = (Fragment) fragmentClass.newInstance();
+//        } catch (IllegalAccessException e) {
+//            e.printStackTrace();
+//        } catch (InstantiationException e) {
+//            e.printStackTrace();
+//        }
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        fragmentManager.popBackStack(null,FragmentManager.POP_BACK_STACK_INCLUSIVE);
+//        fragmentManager.beginTransaction().replace(R.id.constrainLayoutPostProperty, fragment, "new").commit();
+//    }
 }

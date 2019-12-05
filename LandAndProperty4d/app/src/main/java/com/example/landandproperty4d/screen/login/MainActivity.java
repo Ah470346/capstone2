@@ -19,6 +19,7 @@ import com.example.landandproperty4d.R;
 import com.example.landandproperty4d.data.model.User;
 import com.example.landandproperty4d.screen.home.HomeActivity;
 import com.example.landandproperty4d.screen.register.RegisterActivity;
+import com.example.landandproperty4d.utils.CommonUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -109,6 +110,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                     Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                                     User user = dataSnapshot.getValue(User.class);
+                                    CommonUtils.rule = user.getRuler();
                                     intent.putExtra("ruler",user.getRuler());
                                     startActivity(intent);
                                     finish();

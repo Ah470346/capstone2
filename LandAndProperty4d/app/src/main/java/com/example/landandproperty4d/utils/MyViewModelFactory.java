@@ -1,6 +1,8 @@
 package com.example.landandproperty4d.utils;
 
 import com.example.landandproperty4d.data.source.MapReponsitory;
+import com.example.landandproperty4d.screen.postnews.NewModelView;
+import com.example.landandproperty4d.screen.postnews.PostNewActivity;
 import com.example.landandproperty4d.screen.postproperty.PostPropetyViewModel;
 import com.example.landandproperty4d.screen.register.RegisterViewModel;
 
@@ -21,7 +23,11 @@ public class MyViewModelFactory extends ViewModelProvider.NewInstanceFactory {
         }
         if (modelClass == PostPropetyViewModel.class){
             return (T) new PostPropetyViewModel(mapReponsitory);
-        } else{
+        }
+        if ( modelClass == NewModelView.class){
+            return (T) new NewModelView(mapReponsitory);
+        }
+        else{
             return super.create(modelClass);
         }
     }

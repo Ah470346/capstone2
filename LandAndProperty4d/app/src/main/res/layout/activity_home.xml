@@ -149,13 +149,13 @@
         android:background="#9400d4"
         android:text="Kiểm Duyệt"
         android:textColor="#fff"
-        app:layout_constraintEnd_toStartOf="@+id/buttonPostInformation"
+        app:layout_constraintEnd_toStartOf="@+id/buttonPostNew"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/buttonManageAccount" />
 
     <Button
-        android:id="@+id/buttonPostInformation"
+        android:id="@+id/buttonPostNew"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"

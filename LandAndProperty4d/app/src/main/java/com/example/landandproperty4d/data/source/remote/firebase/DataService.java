@@ -1,5 +1,6 @@
 package com.example.landandproperty4d.data.source.remote.firebase;
 
+import com.example.landandproperty4d.data.model.New;
 import com.example.landandproperty4d.data.model.User;
 import com.example.landandproperty4d.data.model.PostProperty;
 import com.example.landandproperty4d.utils.CommonUtils;
@@ -24,9 +25,14 @@ public class DataService {
         mDatabase.child("user").child(user.getUid()).setValue(buyer);
     }
 
-    public void saveDataPost(String address, String area, String contact, String detail, String homeDirection, String image, String postPlace, String price, String title, String typeProperty,String id) {
-        PostProperty postProperty = new PostProperty(image, title, typeProperty, area, postPlace, address, homeDirection, price, contact, detail, id , CommonUtils.getSimpleDateFormatPost());
+    public void saveDataPost(String address, String area, String contact, String detail, String homeDirection, String image, String postPlace, String price, String title, String typeProperty,String id,String lng,String lat,String polygonid) {
+        PostProperty postProperty = new PostProperty(image, title, typeProperty, area, postPlace, address, homeDirection, price, contact, detail, id ,lng,lat,polygonid, CommonUtils.getSimpleDateFormatPost());
         mDatabase.child("post").child(user.getUid()).push().setValue(postProperty);
+    }
+
+    public void saveDataNew (String title , String content , String image ,String id,String postNewDay){
+        New news = new New(title,content,image,id,postNewDay) ;
+        mDatabase.child("news").child(user.getUid()).push().setValue(news);
     }
 //    public User getInformationUser(){
 //        mDatabase.child("user").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {

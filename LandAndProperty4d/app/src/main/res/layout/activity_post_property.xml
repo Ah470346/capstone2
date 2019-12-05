@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/constrainLayoutPostProperty"
-    android:background="#d7d7d7"
     tools:context=".screen.postproperty.PostPropertyActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -72,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:text="Đặc Điểm:"
                 android:textSize="20dp"
-                android:textColor="#ed1c24"
+                android:textColor="#ff00ff"
                 />
 
             <EditText
@@ -150,20 +149,21 @@
                 android:layout_height="wrap_content"
                 android:text="Vị Trí:"
                 android:textSize="20dp"
-                android:textColor="#ed1c24"
+                android:textColor="#ff00ff"
                 />
 
             <EditText
                 android:id="@+id/editTextLandPlaces"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Địa Điểm/Dự Án  >>>"
+                android:hint="Địa Điểm  >>>"
                 android:textSize="@dimen/textSize"
                 android:textColor="#000"
                 android:maxLines="1"
                 android:lines="1"
                 android:scrollHorizontally="true"
                 android:inputType="text"
+                android:focusable="false"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
@@ -228,9 +228,9 @@
                 android:paddingLeft="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Gía Và Liên Hệ:"
+                android:text="Giá Và Liên Hệ:"
                 android:textSize="20dp"
-                android:textColor="#ed1c24"
+                android:textColor="#ff00ff"
                 />
 
             <EditText
@@ -275,7 +275,7 @@
                 android:layout_height="wrap_content"
                 android:text="Thông Tin Chi Tiết:"
                 android:textSize="20dp"
-                android:textColor="#ed1c24"
+                android:textColor="#ff00ff"
                 />
 
             <EditText

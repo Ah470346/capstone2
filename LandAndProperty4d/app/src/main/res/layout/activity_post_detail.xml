@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="#d7d7d7"
     android:layout_height="match_parent"
     tools:context=".screen.postdetail.PostDetail">
 
@@ -20,6 +21,7 @@
         android:id="@+id/scrollView"
         android:layout_width="409dp"
         android:layout_height="match_parent"
+        android:layout_marginTop="55dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolBarPostDetail">
 
@@ -27,7 +29,6 @@
             android:id="@+id/layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="55dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="@id/scrollView">
 
@@ -139,29 +140,6 @@
                 app:layout_constraintTop_toBottomOf="@id/textViewTypeOfLandDetail" />
 
             <TextView
-                android:id="@+id/diadiem"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:text="Địa Điểm/Dự Án: "
-                android:textColor="#0000ff"
-                android:textSize="16sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textViewAreaDetail" />
-
-            <TextView
-                android:id="@+id/textViewLocationDetail"
-                android:layout_width="276dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:text="Tòa Nhà Big C"
-                android:textSize="16sp"
-                app:layout_constraintLeft_toRightOf="@id/diadiem"
-                app:layout_constraintTop_toBottomOf="@id/textViewAreaDetail" />
-
-            <TextView
                 android:id="@+id/huongnha"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -171,7 +149,7 @@
                 android:textColor="#0000ff"
                 android:textSize="16sp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textViewLocationDetail" />
+                app:layout_constraintTop_toBottomOf="@id/textViewAreaDetail" />
 
             <TextView
                 android:id="@+id/textViewDirectionDetail"
@@ -182,7 +160,7 @@
                 android:text="Đông Bắc"
                 android:textSize="16sp"
                 app:layout_constraintLeft_toRightOf="@id/huongnha"
-                app:layout_constraintTop_toBottomOf="@id/textViewLocationDetail" />
+                app:layout_constraintTop_toBottomOf="@id/textViewAreaDetail" />
 
             <TextView
                 android:id="@+id/lienhe"
@@ -255,18 +233,23 @@
                 app:layout_constraintTop_toBottomOf="@id/textViewDetailOfDetail" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:background="#ffff"
+                android:layout_marginRight="30dp"
                 android:id="@+id/recyclerViewDetail"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.385"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textViewPostDayDetail"></androidx.recyclerview.widget.RecyclerView>
 
             <LinearLayout
+                android:id="@+id/buttonLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:layout_marginRight="30dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/recyclerViewDetail">

@@ -3,30 +3,28 @@ package com.example.landandproperty4d.screen.viewmap4d;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import vn.map4d.map4dsdk.annotations.MFBitmapDescriptorFactory;
 import vn.map4d.map4dsdk.annotations.MFMarker;
 import vn.map4d.map4dsdk.annotations.MFMarkerOptions;
 import vn.map4d.map4dsdk.annotations.MFPolygon;
 import vn.map4d.map4dsdk.annotations.MFPolygonOptions;
-import vn.map4d.map4dsdk.camera.MFCameraUpdate;
 import vn.map4d.map4dsdk.camera.MFCameraUpdateFactory;
 import vn.map4d.map4dsdk.maps.LatLng;
-import vn.map4d.map4dsdk.maps.MFSupportMapFragment;
+import vn.map4d.map4dsdk.maps.MFMapView;
 import vn.map4d.map4dsdk.maps.Map4D;
 import vn.map4d.map4dsdk.maps.OnMapReadyCallback;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SearchView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.landandproperty4d.R;
+import com.example.landandproperty4d.data.model.PostProperty;
 import com.example.landandproperty4d.data.model.User;
 import com.example.landandproperty4d.screen.home.HomeActivity;
-import com.example.landandproperty4d.screen.login.MainActivity;
 import com.example.landandproperty4d.screen.postdetail.PostDetail;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -39,9 +37,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.regex.Pattern;
+
 
 public class ViewMap4D extends AppCompatActivity implements OnMapReadyCallback , View.OnClickListener {
     DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -49,27 +47,24 @@ public class ViewMap4D extends AppCompatActivity implements OnMapReadyCallback ,
     Toolbar toolbarViewMap4D;
     private SearchView searchViewMap;
     private Button mode3d;
-    private MFSupportMapFragment fragmentMap4d;
+    private MFMapView map3D ;
     private Map4D map4D;
     private boolean mode3D = true;
     private boolean polygonAdded = true;
-    private final List<LatLng> pointsList = new ArrayList<>();
-    private final List<LatLng> pointsList1 = new ArrayList<>();
-    private final List<LatLng> pointsList2 = new ArrayList<>();
-    private final List<LatLng> pointsList3 = new ArrayList<>();
     private final List<LatLng> holePath = new ArrayList<>();
-    private MFPolygon polygon;
-    private MFPolygon polygon1;
-    private MFPolygon polygon2;
-    private MFPolygon polygon3;
     private MFMarker marker;
     boolean clear = true;
+    MFPolygon mfPolygon;
     private String duongdan="https://api.map4d.vn/v2/api/place/text-search?key=8a6fe395ee75d80245e77d565c6a19f2&text=";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_map4_d);
+        toolbarViewMap4D = findViewById(R.id.toolBarViewMap4D);
+        setSupportActionBar(toolbarViewMap4D);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         init();
 
         toolbarViewMap4D.setNavigationOnClickListener(new View.OnClickListener() {
@@ -82,7 +77,6 @@ public class ViewMap4D extends AppCompatActivity implements OnMapReadyCallback ,
                         User user = dataSnapshot.getValue(User.class);
                         intent.putExtra("ruler",user.getRuler());
                         startActivity(intent);
-                        finish();
                     }
 
                     @Override
@@ -122,7 +116,6 @@ public class ViewMap4D extends AppCompatActivity implements OnMapReadyCallback ,
                 return true;
         }
 
-
             @Override
             public boolean onQueryTextChange(String newText) {
                 return true;
@@ -138,68 +131,40 @@ public class ViewMap4D extends AppCompatActivity implements OnMapReadyCallback ,
         setSupportActionBar(toolbarViewMap4D);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        fragmentMap4d = (MFSupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map3D);
-        fragmentMap4d.getMapAsync(ViewMap4D.this);
-
-
+        map3D = findViewById(R.id.map3D);
+        map3D.getMapAsync(this);
     }
 
-
-    private void creatPointsList() {
-        pointsList.add(new LatLng(16.061187,108.223963));
-        pointsList.add(new LatLng(16.061633,108.223292));
-        pointsList.add(new LatLng(16.063773,108.223496));
-        pointsList.add(new LatLng(16.063732,108.224084));
-        pointsList.add(new LatLng(16.061646,108.224043));
-        pointsList.add(new LatLng(16.061187,108.223963));
-
-        pointsList1.add(new LatLng(16.067405,108.221000));
-        pointsList1.add(new LatLng(16.067354,108.222539));
-        pointsList1.add(new LatLng(16.066249,108.222483));
-        pointsList1.add(new LatLng(16.066369,108.220892));
-        pointsList1.add(new LatLng(16.067405,108.221000));
-
-        pointsList2.add(new LatLng(16.072102,108.224942));
-        pointsList2.add(new LatLng(16.072015,108.224286));
-        pointsList2.add(new LatLng(16.072024,108.224268));
-        pointsList2.add(new LatLng(16.072003,108.224076));
-        pointsList2.add(new LatLng(16.072003,108.224076));
-        pointsList2.add(new LatLng(16.073188,108.223869));
-        pointsList2.add(new LatLng(16.073219,108.223815));
-        pointsList2.add(new LatLng(16.075479,108.223584));
-        pointsList2.add(new LatLng(16.075626,108.224245));
-        pointsList2.add(new LatLng(16.072102,108.224942));
-
-        pointsList3.add(new LatLng(16.072575,108.220220));
-        pointsList3.add(new LatLng(16.072359,108.218451));
-        pointsList3.add(new LatLng(16.071189,108.218664));
-        pointsList3.add(new LatLng(16.071401,108.220378));
-        pointsList3.add(new LatLng(16.072575,108.220220));
+    private void addMakertoMap(){
 
     }
-
     private void addPolygontoMap() {
-        creatPointsList();
-        polygon = map4D.addPolygon(new MFPolygonOptions()
-                .add(pointsList.toArray(new LatLng[pointsList.size()]))
-                .fillColor("#ff0000")
-                .alpha(0.5f));
+        mDatabase.child("post").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> nodeChild = dataSnapshot.getChildren();
+                for (DataSnapshot postSnapshot: nodeChild) {
+                    for (DataSnapshot snapshot: postSnapshot.getChildren()) {
+                        final PostProperty post = snapshot.getValue(PostProperty.class);
+                        post.setId(snapshot.getKey());
+                        marker = map4D.addMarker(new MFMarkerOptions()
+                                .position(LoadMaker(post.getLocation()))
+                                .icon(MFBitmapDescriptorFactory.fromResource(R.drawable.icon_marker_64))
+                                .title(post.getTitle())
+                                .snippet(post.getPrice()));
+                        mfPolygon = map4D.addPolygon(new MFPolygonOptions()
+                                .add(LoadPoint(post.getLat(),post.getLng()).toArray(new LatLng[LoadPoint(post.getLat(),post.getLng()).size()]))
+                                .fillColor("#ff0000")
+                                .alpha(0.5f));
+                        snapshot.getRef().child("polygonid").setValue(""+mfPolygon.getId());
+                    }
+                }
+            }
 
-        polygon1 = map4D.addPolygon(new MFPolygonOptions()
-                .add(pointsList1.toArray(new LatLng[pointsList1.size()]))
-                .fillColor("#ff0000")
-                .alpha(0.5f));
-
-        polygon2 = map4D.addPolygon(new MFPolygonOptions()
-                .add(pointsList2.toArray(new LatLng[pointsList2.size()]))
-                .fillColor("#ff0000")
-                .alpha(0.5f));
-
-        polygon3 = map4D.addPolygon(new MFPolygonOptions()
-                .add(pointsList3.toArray(new LatLng[pointsList3.size()]))
-                .fillColor("#ff0000")
-                .alpha(0.5f));
-
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
     }
 
     @Override
@@ -208,14 +173,7 @@ public class ViewMap4D extends AppCompatActivity implements OnMapReadyCallback ,
         map4D.setMinZoomPreference(5.f);
         map4D.enable3DMode(true);
         addPolygontoMap();
-        ;
-        map4D.setOnMapClickListener(new Map4D.OnMapClickListener() {
-            @Override
-            public void onMapClick(LatLng latLng) {
-                ((TextView) findViewById(R.id.lat)).setText("Lat:    " + latLng.getLatitude());
-                ((TextView) findViewById(R.id.lng)).setText("Lng:   " + latLng.getLongitude());
-            }
-        });
+        LinkProperty();
 
         map4D.setOnMapModeChange(new Map4D.OnMapModeChangeListener() {
             @Override
@@ -232,9 +190,28 @@ public class ViewMap4D extends AppCompatActivity implements OnMapReadyCallback ,
         });
         map4D.setOnPolygonClickListener(new Map4D.OnPolygonClickListener() {
             @Override
-            public void onPolygonClick(MFPolygon polygon) {
-                Intent intent = new Intent(ViewMap4D.this, PostDetail.class);
-                startActivity(intent);
+            public void onPolygonClick(final MFPolygon polygon) {
+                mDatabase.child("post").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        Iterable<DataSnapshot> nodeChild = dataSnapshot.getChildren();
+                        for (DataSnapshot postSnapshot: nodeChild) {
+                            for (DataSnapshot snapshot: postSnapshot.getChildren()) {
+                                PostProperty post = snapshot.getValue(PostProperty.class);
+                                post.setId(snapshot.getKey());
+                                long a = Long.parseLong(post.getPolygonid());
+                                if(polygon.getId() == a) {
+                                    final Intent intent = new Intent(ViewMap4D.this, PostDetail.class);
+                                    intent.putExtra("key", snapshot.getKey());
+                                    startActivity(intent);
+                                }
+                            }
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                    }
+                });
             }
         });
     }
@@ -251,9 +228,52 @@ public class ViewMap4D extends AppCompatActivity implements OnMapReadyCallback ,
         }
     }
     public static String removeAccent(String s) {
-
         String temp = Normalizer.normalize(s, Normalizer.Form.NFD);
         Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
         return pattern.matcher(temp).replaceAll("").replace('đ','d').replace('Đ','D');
     }
+
+    private List<LatLng> LoadPoint (String lat , String lng){
+        List<LatLng> pointsListL = new ArrayList<>();
+        String[] arrlat = lat.split(" ");
+        String[] arrlng = lng.split(" ");
+        for(int i = 0 ; i<arrlat.length;i++){
+            pointsListL.add(new LatLng(Double.parseDouble(arrlat[i]),Double.parseDouble(arrlng[i])));
+        }
+        return pointsListL;
+    }
+    private LatLng LoadMaker (String m){
+        LatLng maker ;
+        String[] array = m.split(",");
+        maker = new LatLng(Double.parseDouble(array[0]),Double.parseDouble(array[1]));
+        return maker;
+    }
+    private void LinkProperty (){
+        mDatabase.child("post").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> nodeChild = dataSnapshot.getChildren();
+                for (DataSnapshot postSnapshot: nodeChild) {
+                    for (DataSnapshot snapshot: postSnapshot.getChildren()) {
+                        PostProperty post = snapshot.getValue(PostProperty.class);
+                        post.setId(snapshot.getKey());
+                        Intent intent = getIntent();
+                        if(post.getPolygonid().equals(intent.getStringExtra("maker")) && intent.getExtras() !=null) {
+                            map4D.animateCamera(MFCameraUpdateFactory.newLatLngZoom(LoadMaker(post.getLocation()), 18));
+                        }
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        map3D.onDestroy();
+    }
 }
+

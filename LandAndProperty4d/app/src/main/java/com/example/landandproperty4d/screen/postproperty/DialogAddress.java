@@ -55,7 +55,7 @@ public class DialogAddress extends AppCompatDialogFragment {
                         if (housenumber.equals("") || distric.equals("") || phuong.equals("") || street.equals("")){
                             Toast.makeText(getActivity(), "Bạn Phải Nhập Đầy Đủ Địa Chỉ", Toast.LENGTH_LONG).show();
                         }else {
-                            editextLandAddress.setText( city +", "+distric +", "+phuong+", "+street+", " +housenumber);
+                            editextLandAddress.setText( housenumber +", "+street +", "+distric+", "+phuong+", " +city);
                         }
                     }
                 });

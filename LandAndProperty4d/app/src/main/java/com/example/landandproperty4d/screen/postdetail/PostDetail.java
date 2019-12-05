@@ -7,24 +7,23 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.DrawableTypeRequest;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.example.landandproperty4d.R;
-import com.example.landandproperty4d.data.model.Post;
 import com.example.landandproperty4d.data.model.PostProperty;
-import com.example.landandproperty4d.screen.home.HomeActivity;
 import com.example.landandproperty4d.screen.viewinformationproperty.ViewInformationProperty;
+import com.example.landandproperty4d.screen.viewmap4d.ViewMap4D;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -36,16 +35,21 @@ import com.roger.catloadinglibrary.CatLoadingView;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.concurrent.ExecutionException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class PostDetail extends AppCompatActivity implements View.OnClickListener{
     private TextView textViewTitleDetail ,textViewAddressDetail , textViewPriceDetail , textViewTypeOfLandDetail ,textViewPostDayDetail,
-                    textViewAreaDetail,textViewLocationDetail ,textViewDirectionDetail,textViewContactDetail,textViewDetailOfDetail;
+                    textViewAreaDetail ,textViewDirectionDetail,textViewContactDetail,textViewDetailOfDetail;
     private Toolbar toolbarPostDetail;
     private Button buttonDeal , buttonViewWithMap;
     private RecyclerView recyclerViewDetail;
+    private CatLoadingView progressBarCat;
+    private String polygonid;
     private DetailAdapter adapter;
-    private ArrayList<Bitmap> list = new ArrayList<>();
+    int i = 0;
+    Timer timer;
+    Handler handler;
     DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     @Override
@@ -63,6 +67,7 @@ public class PostDetail extends AppCompatActivity implements View.OnClickListene
     }
 
     public void init(){
+        progressBarCat = new CatLoadingView();
         recyclerViewDetail = findViewById(R.id.recyclerViewDetail);
         toolbarPostDetail = findViewById(R.id.toolBarPostDetail);
         setSupportActionBar(toolbarPostDetail);
@@ -73,7 +78,6 @@ public class PostDetail extends AppCompatActivity implements View.OnClickListene
         textViewContactDetail = findViewById(R.id.textViewContactDetail);
         textViewDirectionDetail = findViewById(R.id.textViewDirectionDetail);
         textViewDetailOfDetail = findViewById(R.id.textViewDetailOfDetail);
-        textViewLocationDetail = findViewById(R.id.textViewLocationDetail);
         textViewPriceDetail = findViewById(R.id.textViewPriceDetail);
         textViewPostDayDetail = findViewById(R.id.textViewPostDayDetail);
         textViewTypeOfLandDetail = findViewById(R.id.textViewTypeOfLandDetail);
@@ -95,11 +99,15 @@ public class PostDetail extends AppCompatActivity implements View.OnClickListene
             case R.id.buttonDeal :
                 break;
             case R.id.buttonViewWithMap :
+                Intent intent = new Intent(PostDetail.this, ViewMap4D.class);
+                intent.putExtra("maker",polygonid);
+                startActivity(intent);
                 break;
         }
     }
 
     public void LoadDetail(){
+        progressBarCat.show(getSupportFragmentManager(),"");
         mDatabase.child("post").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -116,16 +124,14 @@ public class PostDetail extends AppCompatActivity implements View.OnClickListene
                             textViewDetailOfDetail.setText(post.getDetail());
                             textViewDirectionDetail.setText(post.getHouseDirection());
                             textViewPostDayDetail.setText(post.getPostDay());
-                            textViewLocationDetail.setText(post.getLocation());
                             textViewPriceDetail.setText(post.getPrice());
                             textViewTypeOfLandDetail.setText(post.getTypeLand());
                             LoadImage(post.getImagePost());
+                            polygonid = post.getPolygonid();
+
                         }
                     }
                 }
-                adapter = new DetailAdapter(list, getApplicationContext());
-                recyclerViewDetail.setAdapter(adapter);
-                Collections.reverse(list);
 
             }
 
@@ -136,26 +142,58 @@ public class PostDetail extends AppCompatActivity implements View.OnClickListene
         });
     }
     public void LoadImage( String a) {
+        final ArrayList<Bitmap> list = new ArrayList<>();
         String b , c;
         b = a.replace("+","");
         c = b.replaceFirst(" ","");
         String[] arr = c.split(" ");
         for (String s : arr){
-            try {
-                Bitmap bitmap =Glide.with(this)
-                               .load(s)
-                               .asBitmap()
-                               .into(100,100)
-                               .get();
-                list.add(bitmap);
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
             Log.d("test",s);
-
+            Glide.with(getApplicationContext())
+                    .load(s)
+                    .asBitmap()
+                    .into(new SimpleTarget<Bitmap>() {
+                        @Override
+                        public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                            list.add(resource);
+                            progressBarCat.dismiss();
+                        }
+                    });
         }
+//        handler = new Handler();
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                  Log.d("size", "" + list.size());
+//                  adapter = new DetailAdapter(list, getApplicationContext());
+//                  recyclerViewDetail.setAdapter(adapter);
+//                  Collections.reverse(list);
+//            }
+//        },5000);
+        handler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                if(msg.what < 5){
+                    if(i <10 ){
+                        i++;
+                        Log.d("size", "" + list.size());
+                        adapter = new DetailAdapter(list, getApplicationContext());
+                        recyclerViewDetail.setAdapter(adapter);
+                        Collections.reverse(list);
+                    }
+
+                }
+
+            }
+        };
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                handler.sendEmptyMessage(0);
+            }
+        },1000,1000);
     }
+
 }

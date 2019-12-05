@@ -6,7 +6,7 @@ import java.util.Date;
 public  class CommonUtils {
     public static String CHILD_STORAGE = "imagepost";
     public static String EXTENTION_PHOTO = ".JPEG";
-
+    public static String rule = "";
 
     public static String getSimpleDateFormat(){
         return new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());

@@ -6,20 +6,25 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.example.landandproperty4d.R;
-import com.example.landandproperty4d.data.model.Post;
 import com.example.landandproperty4d.data.model.PostProperty;
 import com.example.landandproperty4d.screen.postdetail.PostDetail;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.regex.Pattern;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHoler>{
+public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHoler> implements Filterable {
     ArrayList<PostProperty> listpost;
+    ArrayList<PostProperty> listpostfull;
     private String key;
     private int p;
     Context context;
@@ -27,6 +32,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHoler>{
     public PostAdapter(ArrayList<PostProperty> listpost, Context context) {
         this.listpost = listpost;
         this.context = context;
+        listpostfull = new ArrayList<>(listpost);
     }
     @NonNull
     @Override
@@ -82,4 +88,48 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHoler>{
             });
         }
     }
+    @Override
+    public Filter getFilter() {
+        return listFilter;
+    }
+    private  Filter listFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            ArrayList<PostProperty> filteredlist =  new ArrayList<>();
+
+            if(constraint == null || constraint.length() == 0){
+                filteredlist.addAll(listpostfull);
+            } else {
+                String filterPattern = constraint.toString().toLowerCase().trim();
+
+                for (PostProperty item : listpostfull){
+                    if(removeAccent(removePlace(item.getAddress())).toLowerCase().contains(removeAccent(removePlace(filterPattern)))){
+                        filteredlist.add(item);
+                    }
+                }
+            }
+            FilterResults results = new FilterResults();
+            results.values = filteredlist;
+
+            return  results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+               listpost.clear();
+               listpost.addAll((Collection<? extends PostProperty>) results.values);
+               notifyDataSetChanged();
+        }
+    };
+
+    public static String removeAccent(String s) {
+        String temp = Normalizer.normalize(s, Normalizer.Form.NFD);
+        Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+        return pattern.matcher(temp).replaceAll("").replace('đ','d').replace('Đ','D');
+    }
+    private String removePlace(String s){
+        s.replace(" ", "");
+        s.replace(",", "");
+        return s;
+        }
 }

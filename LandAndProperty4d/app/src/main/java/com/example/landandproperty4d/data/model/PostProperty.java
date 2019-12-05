@@ -13,12 +13,14 @@ public class PostProperty  {
     private String detail;
     private String postDay;
     private String id;
+    private String lng;
+    private String lat;
+    private String polygonid;
 
     public PostProperty() {
     }
 
-    public PostProperty(String imagePost, String title, String typeLand, String area, String location, String address,
-                        String houseDirection, String price, String contact, String detail, String id, String postDay) {
+    public PostProperty(String imagePost, String title, String typeLand, String area, String location, String address, String houseDirection, String price, String contact, String detail, String postDay, String id, String lng, String lat, String polygonid) {
         this.imagePost = imagePost;
         this.title = title;
         this.typeLand = typeLand;
@@ -29,9 +31,11 @@ public class PostProperty  {
         this.price = price;
         this.contact = contact;
         this.detail = detail;
-        this.id = id;
         this.postDay = postDay;
-
+        this.id = id;
+        this.lng = lng;
+        this.lat = lat;
+        this.polygonid = polygonid;
     }
 
     public String getImagePost() {
@@ -128,6 +132,30 @@ public class PostProperty  {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getLng() {
+        return lng;
+    }
+
+    public void setLng(String lng) {
+        this.lng = lng;
+    }
+
+    public String getLat() {
+        return lat;
+    }
+
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
+
+    public String getPolygonid() {
+        return polygonid;
+    }
+
+    public void setPolygonid(String polygonid) {
+        this.polygonid = polygonid;
     }
 }
 

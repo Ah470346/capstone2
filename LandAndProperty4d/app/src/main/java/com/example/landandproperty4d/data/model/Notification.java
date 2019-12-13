@@ -7,17 +7,27 @@ public class Notification {
     String notifyDay;
     String phone;
     String idSeller;
+    String id;
 
     public Notification() {
     }
 
-    public Notification(String namePost, String email, String interestPeople, String notifyDay, String phone , String idSeller) {
+    public Notification(String namePost, String email, String interestPeople, String notifyDay, String phone , String idSeller,String id) {
         this.namePost = namePost;
         this.email = email;
         this.interestPeople = interestPeople;
         this.notifyDay = notifyDay;
         this.phone = phone;
         this.idSeller = idSeller;
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getIdSeller() {

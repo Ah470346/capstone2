@@ -91,15 +91,16 @@ public class CheckPostAdapter extends RecyclerView.Adapter<CheckPostAdapter.View
                             Iterable<DataSnapshot> nodeChild1 = dataSnapshot.getChildren();
                             for (DataSnapshot snapshot : nodeChild1) {
                                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
-                                    PostProperty post = postSnapshot.getValue(PostProperty.class);
-                                    postSnapshot.getRef().removeValue();
-                                    listpost.remove(getAdapterPosition());
-                                    listString.remove(getAdapterPosition());
-                                    notifyDataSetChanged();
-                                    break;
+                                    if(listpost.get(getAdapterPosition()).getId().equals(postSnapshot.getKey())) {
+                                        postSnapshot.getRef().removeValue();
+                                        listpost.remove(getAdapterPosition());
+                                        listString.remove(getAdapterPosition());
+                                        notifyDataSetChanged();
+                                        break;
                                     }
                                 }
                             }
+                        }
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
                         }

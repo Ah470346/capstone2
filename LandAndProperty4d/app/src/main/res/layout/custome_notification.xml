@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_marginTop="10dp"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/imageDeleteNotify"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="17dp"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/delete"></ImageView>
+
+    <ImageView
+        android:id="@+id/imagebell"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/bell_blue_64"
+        app:layout_constraintLeft_toLeftOf="parent"></ImageView>
+
+    <TextView
+        android:id="@+id/textViewNamePost"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintLeft_toRightOf="@id/imagebell"
+        android:text="Đất Cầu Rồng View Đẹp ơi là đẹp , rất là đẹp"
+        android:fontFamily="@font/baloo"
+        android:textSize="18sp"
+        android:textColor="#4022be"/>
+
+    <ImageView
+        android:id="@+id/imagePeople"
+        android:layout_marginLeft="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/man_24"
+        app:layout_constraintTop_toBottomOf="@id/textViewNamePost"
+        app:layout_constraintLeft_toRightOf="@id/imagebell"></ImageView>
+
+    <TextView
+        android:id="@+id/textViewPeople"
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="3dp"
+        android:textColor="#086f0b"
+        app:layout_constraintTop_toBottomOf="@id/textViewNamePost"
+        app:layout_constraintLeft_toRightOf="@id/imagePeople"
+        android:text="Đỗ Văn Trường"/>
+
+    <ImageView
+        android:id="@+id/imageEmail"
+        android:layout_marginLeft="5dp"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="7dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/email_24"
+        app:layout_constraintTop_toBottomOf="@id/textViewPeople"
+        app:layout_constraintLeft_toRightOf="@id/imagebell"></ImageView>
+
+    <TextView
+        android:id="@+id/textViewEmail"
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="7dp"
+        android:textColor="#086f0b"
+        app:layout_constraintTop_toBottomOf="@id/textViewPeople"
+        app:layout_constraintLeft_toRightOf="@id/imageEmail"
+        android:text="truong@gmail.com"/>
+
+    <ImageView
+        android:id="@+id/imagePhone"
+        android:layout_marginLeft="5dp"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/phone_24"
+        app:layout_constraintTop_toBottomOf="@id/textViewEmail"
+        app:layout_constraintLeft_toRightOf="@id/imagebell"></ImageView>
+
+    <TextView
+        android:id="@+id/textViewPhone"
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:textColor="#086f0b"
+        app:layout_constraintTop_toBottomOf="@id/textViewEmail"
+        app:layout_constraintLeft_toRightOf="@id/imagePhone"
+        android:text="0987654"/>
+
+    <TextView
+        android:id="@+id/textViewDayNotify"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintTop_toBottomOf="@id/textViewPhone"
+        app:layout_constraintLeft_toRightOf="@id/imagebell"
+        android:textStyle="italic"
+        android:text="21/10/2019"/>
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

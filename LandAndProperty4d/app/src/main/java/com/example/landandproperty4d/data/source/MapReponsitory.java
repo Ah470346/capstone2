@@ -32,7 +32,7 @@ public class MapReponsitory {
         mMapRemoteDataSource.saveDataNew(title,content,image,id,idAdmin,postNewDay);
     }
 
-    public void saveNotify(String namePost , String email, String interestPeople,String notifyDay , String phone , String idSeller){
-        mMapRemoteDataSource.saveNotify(namePost,email,interestPeople,notifyDay,phone,idSeller);
+    public void saveNotify(String namePost , String email, String interestPeople,String notifyDay , String phone , String idSeller,String id){
+        mMapRemoteDataSource.saveNotify(namePost,email,interestPeople,notifyDay,phone,idSeller,id);
     }
 }

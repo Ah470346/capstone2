@@ -3,6 +3,7 @@ package com.example.landandproperty4d.screen.postdetail;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,10 +24,14 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.example.landandproperty4d.R;
 import com.example.landandproperty4d.data.model.PostProperty;
+import com.example.landandproperty4d.data.model.User;
+import com.example.landandproperty4d.data.source.MapReponsitory;
+import com.example.landandproperty4d.data.source.remote.MapRemoteDataSource;
 import com.example.landandproperty4d.screen.checkpost.CheckPostActivity;
-import com.example.landandproperty4d.screen.viewinformationproperty.ViewInformationProperty;
+import com.example.landandproperty4d.screen.postnews.NewModelView;
 import com.example.landandproperty4d.screen.viewmap4d.ViewMap4D;
 import com.example.landandproperty4d.utils.CommonUtils;
+import com.example.landandproperty4d.utils.MyViewModelFactory;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -48,18 +53,24 @@ public class PostDetail extends AppCompatActivity implements View.OnClickListene
     private Button buttonDeal , buttonViewWithMap,buttonXong, buttonXoa;
     private RecyclerView recyclerViewDetail;
     private CatLoadingView progressBarCat;
-    private String polygonid;
+    private NotifyViewModel notifyViewModel ;
     private DetailAdapter adapter;
+    private String polygonid;
+    private String id = "";
     int i = 0;
     Timer timer;
     Handler handler;
     DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_detail);
         init();
+        initData();
         LoadDetail();
         toolbarPostDetail.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,11 +122,17 @@ public class PostDetail extends AppCompatActivity implements View.OnClickListene
         recyclerViewDetail.addItemDecoration(dividerItemDecoration);
         recyclerViewDetail.setLayoutManager(layoutManager);
     }
+    private void initData(){
+        MapReponsitory mapReponsitory = MapReponsitory.getInstance(MapRemoteDataSource.getsInstance());
+        notifyViewModel = ViewModelProviders.of(this,new MyViewModelFactory(mapReponsitory))
+                .get(NotifyViewModel.class);
+    }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.buttonDeal :
+                sendNotify();
                 break;
             case R.id.buttonViewWithMap :
                 Intent intent = new Intent(PostDetail.this, ViewMap4D.class);
@@ -224,7 +241,43 @@ public class PostDetail extends AppCompatActivity implements View.OnClickListene
         });
     }
     private void sendNotify (){
+        mDatabase.child("user").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> nodeChild2 = dataSnapshot.getChildren();
+                for (final DataSnapshot chilD: nodeChild2) {
+                    final User u = chilD.getValue(User.class);
+                    mDatabase.child("post").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            Iterable<DataSnapshot> nodeChild1 = dataSnapshot.getChildren();
+                            for (DataSnapshot snapshot: nodeChild1) {
+                                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                                    final PostProperty post = postSnapshot.getValue(PostProperty.class);
+                                    Intent intent = getIntent();
+                                    if (chilD.getKey().equals(user.getUid())) {
+                                        if (intent.getStringExtra("key").equals(postSnapshot.getKey())) {
+                                            notifyViewModel.saveNotify(post.getTitle(),u.getEmail(),u.getName(),CommonUtils.getSimpleDateFormatPost(),u.getPhoneNumber(),snapshot.getKey(),id);
+                                            Toast.makeText(PostDetail.this,"Bạn Gửi Thông Báo Thành Công",Toast.LENGTH_LONG).show();
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
 
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
     public void LoadImage( String a) {
         final ArrayList<Bitmap> list = new ArrayList<>();

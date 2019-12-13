@@ -1,5 +1,6 @@
 package com.example.landandproperty4d.screen.home;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -8,15 +9,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.landandproperty4d.R;
+import com.example.landandproperty4d.data.model.Notification;
 import com.example.landandproperty4d.screen.checkpost.CheckPostActivity;
 import com.example.landandproperty4d.screen.checkpost.CheckPostAdapter;
 import com.example.landandproperty4d.screen.login.MainActivity;
 import com.example.landandproperty4d.screen.manageaccount.ManageAccountActivity;
 import com.example.landandproperty4d.screen.managerpost.ManagerPostActivityA;
 import com.example.landandproperty4d.screen.managerpost.ManagerPostActivityU;
+import com.example.landandproperty4d.screen.notification.NotifyActivity;
+import com.example.landandproperty4d.screen.notification.NotifyAdapter;
 import com.example.landandproperty4d.screen.postnews.PostNewActivity;
 import com.example.landandproperty4d.screen.postproperty.PostPropertyActivity;
 import com.example.landandproperty4d.screen.viewinformationproperty.ViewInformationProperty;
@@ -26,14 +32,22 @@ import com.example.landandproperty4d.screen.yournews.YourNewsActivity;
 import com.example.landandproperty4d.utils.CommonUtils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.Collections;
 
 public class HomeActivity extends AppCompatActivity {
     DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private Button buttoLogout ,buttonPostProperty,buttonViewMap,buttonViewProperty,buttonNews,
             buttonYourNews,buttonManageAccount,buttonPostNew,buttonManagePost ,buttonCkeckPost;
+    private ImageButton bell;
+    private int dem = 0;
+    private TextView textViewNotify;
     private ImageView imageViewHome;
     private Toolbar toolbarHomePage;
 
@@ -42,6 +56,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         init();
+        getNotify();
         //test();
 //        getInformationUser();
 
@@ -136,10 +151,19 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        bell.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, NotifyActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
     public void init(){
+        textViewNotify = findViewById(R.id.textNotify);
+        bell = findViewById(R.id.imageButtonNotification);
         buttonViewMap = findViewById(R.id.buttonViewMap);
         buttoLogout = findViewById(R.id.buttonLogout);
         buttonPostProperty = findViewById(R.id.buttonPostProperty);
@@ -153,6 +177,28 @@ public class HomeActivity extends AppCompatActivity {
         imageViewHome = findViewById(R.id.iconHome);
         toolbarHomePage = findViewById(R.id.toolBarHomePage);
         setSupportActionBar(toolbarHomePage);
+    }
+    private void getNotify (){
+        mDatabase.child("Notification").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> nodeChild = dataSnapshot.getChildren();
+                for (DataSnapshot postSnapshot: nodeChild) {
+                    for (DataSnapshot snapshot : postSnapshot.getChildren()) {
+                        Notification notification = snapshot.getValue(Notification.class);
+                        if (notification.getIdSeller().equals(user.getUid())) {
+                            dem++;
+                        }
+                    }
+                }
+                textViewNotify.setText(""+dem);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
 }

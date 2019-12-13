@@ -42,9 +42,9 @@ public class MapRemoteDataSource implements MapDataSource {
     }
 
     @Override
-    public void saveNotify(String namePost, String email, String interestPeople, String notifyDay, String phone, String idSeller) {
+    public void saveNotify(String namePost, String email, String interestPeople, String notifyDay, String phone, String idSeller,String id) {
         mDataService = new DataService();
-        mDataService.saveDataNotify(namePost,email,interestPeople,notifyDay,phone,idSeller);
+        mDataService.saveDataNotify(namePost,email,interestPeople,notifyDay,phone,idSeller,id);
     }
 
 //    @Override

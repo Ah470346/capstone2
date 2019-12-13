@@ -10,6 +10,6 @@ public interface MapDataSource {
     void saveDataPost(String address, String area, String contact, String detail, String homeDirection,String image, String postPlace,
             String price, String title, String typeProperty, String id,String lng,String lat,String polygonid,String check,String postDay);
     void saveDataNew(String title , String content , String image ,String id,String idAdmin,String postNewDay);
-    void saveNotify (String namePost,String email , String interestPeople,String notifyDay,String phone , String idSeller);
+    void saveNotify (String namePost,String email , String interestPeople,String notifyDay,String phone , String idSeller, String id);
 //    User getInformationUser();
 }

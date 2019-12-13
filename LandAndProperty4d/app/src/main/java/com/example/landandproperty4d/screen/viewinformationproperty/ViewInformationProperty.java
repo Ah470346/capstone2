@@ -39,13 +39,14 @@ public class ViewInformationProperty extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_information_property);
-        TakeDataPosts();
         init();
+        TakeDataPosts();
 
 
         toolbarViewInformationProperty.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 finish();
             }
         });

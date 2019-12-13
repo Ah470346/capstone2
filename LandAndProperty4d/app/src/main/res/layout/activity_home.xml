@@ -15,6 +15,19 @@
         app:titleTextColor="#fff"
         tools:ignore="MissingConstraints"></androidx.appcompat.widget.Toolbar>
 
+    <TextView
+        android:id="@+id/textNotify"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="56dp"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold"
+        android:text="0"
+        android:textColor="#fe6623"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolBarHomePage" />
+
     <ImageButton
         android:id="@+id/imageButtonNotification"
         style="?android:attr/borderlessButtonStyle"

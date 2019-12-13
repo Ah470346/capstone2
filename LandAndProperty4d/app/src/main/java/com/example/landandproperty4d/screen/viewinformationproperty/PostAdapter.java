@@ -76,7 +76,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHoler> imp
     }
     @Override
     public int getItemCount() {
-        return listpost.size();
+        return listString.size();
     }
 
     public class ViewHoler extends RecyclerView.ViewHolder{

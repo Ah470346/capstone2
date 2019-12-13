@@ -10,7 +10,7 @@ public class NotifyViewModel extends ViewModel {
     public NotifyViewModel(MapReponsitory mapReponsitory) {
         this.mapReponsitory = mapReponsitory;
     }
-    public void saveNotify (String namePost , String email, String interestPeople, String notifyDay , String phone , String idSeller){
-        mapReponsitory.saveNotify(namePost,email,interestPeople,notifyDay,phone,idSeller);
+    public void saveNotify (String namePost , String email, String interestPeople, String notifyDay , String phone , String idSeller,String id){
+        mapReponsitory.saveNotify(namePost,email,interestPeople,notifyDay,phone,idSeller,id);
     }
 }

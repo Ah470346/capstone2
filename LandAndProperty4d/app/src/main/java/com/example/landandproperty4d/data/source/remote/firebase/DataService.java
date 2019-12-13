@@ -36,9 +36,9 @@ public class DataService {
         mDatabase.child("news").child(user.getUid()).push().setValue(news);
     }
 
-    public void saveDataNotify (String namePost , String email , String interestPeople ,String notifyDay,String phone,String idSeller){
-        Notification notification = new Notification(namePost,email,interestPeople,notifyDay,phone,idSeller) ;
-        mDatabase.child("Notification").child(user.getUid()).setValue(notification);
+    public void saveDataNotify (String namePost , String email , String interestPeople ,String notifyDay,String phone,String idSeller,String id){
+        Notification notification = new Notification(namePost,email,interestPeople,notifyDay,phone,idSeller,id) ;
+        mDatabase.child("Notification").child(user.getUid()).push().setValue(notification);
     }
 //    public User getInformationUser(){
 //        mDatabase.child("user").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {

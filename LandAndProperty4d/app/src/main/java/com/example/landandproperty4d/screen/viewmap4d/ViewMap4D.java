@@ -1,19 +1,5 @@
 package com.example.landandproperty4d.screen.viewmap4d;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import vn.map4d.map4dsdk.annotations.MFBitmapDescriptorFactory;
-import vn.map4d.map4dsdk.annotations.MFMarker;
-import vn.map4d.map4dsdk.annotations.MFMarkerOptions;
-import vn.map4d.map4dsdk.annotations.MFPolygon;
-import vn.map4d.map4dsdk.annotations.MFPolygonOptions;
-import vn.map4d.map4dsdk.camera.MFCameraUpdateFactory;
-import vn.map4d.map4dsdk.maps.LatLng;
-import vn.map4d.map4dsdk.maps.MFMapView;
-import vn.map4d.map4dsdk.maps.Map4D;
-import vn.map4d.map4dsdk.maps.OnMapReadyCallback;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -39,6 +25,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.regex.Pattern;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import vn.map4d.map4dsdk.annotations.MFBitmapDescriptorFactory;
+import vn.map4d.map4dsdk.annotations.MFMarker;
+import vn.map4d.map4dsdk.annotations.MFMarkerOptions;
+import vn.map4d.map4dsdk.annotations.MFPolygon;
+import vn.map4d.map4dsdk.annotations.MFPolygonOptions;
+import vn.map4d.map4dsdk.camera.MFCameraUpdateFactory;
+import vn.map4d.map4dsdk.maps.LatLng;
+import vn.map4d.map4dsdk.maps.MFMapView;
+import vn.map4d.map4dsdk.maps.Map4D;
+import vn.map4d.map4dsdk.maps.OnMapReadyCallback;
 
 
 public class ViewMap4D extends AppCompatActivity implements OnMapReadyCallback , View.OnClickListener {
@@ -260,6 +260,7 @@ public class ViewMap4D extends AppCompatActivity implements OnMapReadyCallback ,
                         Intent intent = getIntent();
                         if(post.getPolygonid().equals(intent.getStringExtra("maker")) && intent.getExtras() !=null) {
                             map4D.animateCamera(MFCameraUpdateFactory.newLatLngZoom(LoadMaker(post.getLocation()), 18));
+                            break;
                         }
                     }
                 }

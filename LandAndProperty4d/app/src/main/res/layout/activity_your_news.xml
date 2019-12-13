@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".screen.yournews.YourNewsActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolBarYourNew"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#3438d7"
+        android:theme="@style/toolbar"
+        app:title="Tin Dành Cho Bạn"
+        app:titleTextColor="#fff"
+        tools:ignore="MissingConstraints"></androidx.appcompat.widget.Toolbar>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerYourView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="55dp"
+        android:layout_marginLeft="5dp">
+    </androidx.recyclerview.widget.RecyclerView>
+    <TextView
+        android:id="@+id/emptyYourNew"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="89dp"
+        android:layout_marginTop="284dp"
+        android:gravity="center"
+        android:text="Danh Sách Trống"
+        android:textColor="#aeabab"
+        android:textStyle="italic"
+        android:textSize="24dp"
+        app:layout_constraintStart_toStartOf="@+id/recyclerYourView"
+        app:layout_constraintTop_toTopOf="@+id/toolBarYourNew"></TextView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

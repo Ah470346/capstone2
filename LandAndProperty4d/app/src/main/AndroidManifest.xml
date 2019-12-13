@@ -23,7 +23,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".screen.newdetail.NewDetailActivity"></activity>
+        <activity android:name=".screen.notification.NotifyActivity"></activity>
+        <activity android:name=".screen.manageaccount.ChangePassActivity" />
+        <activity android:name=".screen.manageaccount.ManageAccountActivity" />
+        <activity android:name=".screen.managerpost.ManagerPostActivityA" />
+        <activity android:name=".screen.managerpost.ManagerPostActivityU" />
+        <activity android:name=".screen.checkpost.CheckPostActivity" />
+        <activity android:name=".screen.yournews.YourNewsActivity" />
+        <activity android:name=".screen.newdetail.NewDetailActivity" />
         <activity android:name=".screen.viewnews.ViewNewActivity" />
         <activity android:name=".screen.postnews.PostNewActivity" />
         <activity android:name=".screen.postdetail.PostDetail" />

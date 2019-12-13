@@ -233,37 +233,26 @@
                 app:layout_constraintTop_toBottomOf="@id/textViewDetailOfDetail" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:background="#ffff"
-                android:layout_marginRight="30dp"
                 android:id="@+id/recyclerViewDetail"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:layout_marginRight="30dp"
+                android:background="#ffff"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.385"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textViewPostDayDetail"></androidx.recyclerview.widget.RecyclerView>
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/buttonLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginRight="30dp"
+                android:layout_marginRight="40dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/recyclerViewDetail">
-
-                <Button
-                    android:id="@+id/buttonViewWithMap"
-                    android:layout_width="164dp"
-                    android:layout_height="48dp"
-                    android:layout_margin="10dp"
-                    android:layout_marginStart="56dp"
-                    android:layout_marginTop="8dp"
-                    android:background="#3821cd"
-                    android:text="Xem Vị Trí Đất"
-                    android:textColor="#fff" />
 
                 <Button
                     android:id="@+id/buttonDeal"
@@ -271,13 +260,57 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
-                    android:layout_marginStart="96dp"
-                    android:layout_marginTop="32dp"
-                    android:background="#3821cd"
+                    android:background="@drawable/custome_button_all"
                     android:text="Liên Hệ"
-                    android:textColor="#fff" />
-            </LinearLayout>
+                    android:textColor="#fff"
+                    android:layout_marginLeft="30dp"
+                    app:layout_constraintRight_toLeftOf="@id/buttonViewWithMap"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    />
 
+                <Button
+                    android:id="@+id/buttonViewWithMap"
+                    android:layout_width="164dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/custome_button_all"
+                    android:text="Xem Vị Trí Đất"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/buttonDeal"
+                    android:textColor="#fff"
+                    />
+
+                <Button
+                    android:id="@+id/buttonXong"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/custome_button_all"
+                    android:text="Xong"
+                    android:textColor="#fff"
+                    android:layout_marginLeft="30dp"
+                    app:layout_constraintRight_toLeftOf="@id/buttonXoa"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    />
+
+                <Button
+                    android:id="@+id/buttonXoa"
+                    android:layout_width="100dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/custome_button_all"
+                    android:text="Xóa"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/buttonXong"
+                    android:textColor="#fff"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

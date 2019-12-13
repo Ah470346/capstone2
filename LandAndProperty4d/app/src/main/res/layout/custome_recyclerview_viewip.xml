@@ -3,102 +3,59 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="wrap_content"
+    android:layout_marginTop="10dp"
     android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/imageViewInformation"
+        android:layout_width="100dp"
+        android:layout_height="110dp"
+        android:scaleType="fitXY"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent">
+    </ImageView>
 
     <TextView
         android:id="@+id/textViewTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="230dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="5dp"
+        app:layout_constraintLeft_toRightOf="@id/imageViewInformation"
         android:text="Đất Cầu Rồng View Đẹp"
-        android:textSize="22sp"
-        android:layout_marginTop="30dp"
+        android:fontFamily="@font/baloo"
+        android:textSize="18sp"
         android:textColor="#fe0000"/>
 
-    <TextView
-        android:id="@+id/diachi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Địa Chỉ: "
-        android:textSize="18sp"
-        android:textColor="#0000ff"
-        android:layout_marginTop="5dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewTitle"
-        />
 
     <TextView
         android:id="@+id/textViewAddress"
-        android:layout_width="wrap_content"
+        android:layout_width="230dp"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:textColor="#086f0b"
         app:layout_constraintTop_toBottomOf="@id/textViewTitle"
-        app:layout_constraintLeft_toRightOf="@id/diachi"
-        android:layout_marginTop="8dp"
+        app:layout_constraintLeft_toRightOf="@id/imageViewInformation"
         android:text="30 Bạch Đằng, Hải Châu , Đà nẵng"/>
-
-    <TextView
-        android:id="@+id/gia"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Giá: "
-        android:textSize="18sp"
-        android:textColor="#0000ff"
-        android:layout_marginTop="5dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/diachi"
-        />
 
     <TextView
         android:id="@+id/textViewPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:textColor="#086f0b"
         app:layout_constraintTop_toBottomOf="@id/textViewAddress"
-        app:layout_constraintLeft_toRightOf="@id/gia"
-        android:layout_marginTop="9dp"
+        app:layout_constraintLeft_toRightOf="@id/imageViewInformation"
         android:text="500.000.000đ/m²"/>
 
-
-    <TextView
-        android:id="@+id/loaidat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Loại Đất: "
-        android:textSize="18sp"
-        android:textColor="#0000ff"
-        android:layout_marginTop="5dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/gia"
-        />
-
-    <TextView
-        android:id="@+id/textViewTypeOfLand"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/textViewPrice"
-        app:layout_constraintLeft_toRightOf="@id/loaidat"
-        android:layout_marginTop="10dp"
-        android:text="Đất Trống"/>
-
-    <TextView
-        android:id="@+id/ngaydang"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ngày Đăng: "
-        android:layout_marginTop="5dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/loaidat"
-        android:textStyle="italic"
-        />
     <TextView
         android:id="@+id/textViewPostDay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/textViewTypeOfLand"
-        app:layout_constraintLeft_toRightOf="@id/ngaydang"
-        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        app:layout_constraintTop_toBottomOf="@id/textViewPrice"
+        app:layout_constraintLeft_toRightOf="@id/imageViewInformation"
         android:textStyle="italic"
-        android:layout_marginBottom="10dp"
         android:text="21/10/2019"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -21,6 +21,7 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.example.landandproperty4d.R;
 import com.example.landandproperty4d.data.model.New;
+import com.example.landandproperty4d.screen.newdetail.NewDetailActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -42,6 +43,7 @@ public class ViewNewActivity extends AppCompatActivity {
     private TextView txtDemo,dayDemo;
     private CatLoadingView progressBarCat;
     private RecyclerView recyclerViewNew;
+    private New new1;
     private ArrayList<New> list = new ArrayList<>();
     private NewAdapter newAdapter;
 
@@ -58,6 +60,18 @@ public class ViewNewActivity extends AppCompatActivity {
                 finish();
             }
         });
+        layoutDemo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ViewNewActivity.this, NewDetailActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("keynew",new1.getId());
+                intent.putExtra("idAdmin",new1.getIdAdmin());
+                startActivity(intent);
+                Log.d("keynew",""+new1.getId());
+            }
+        });
+
     }
 
     public void init(){
@@ -88,6 +102,7 @@ public class ViewNewActivity extends AppCompatActivity {
                     for (DataSnapshot postSnapshot: snapshot.getChildren()) {
                         New news = postSnapshot.getValue(New.class);
                         news.setId(postSnapshot.getKey());
+                        news.setIdAdmin(snapshot.getKey());
 //                            Log.d("data", postSnapshot.getKey());
                         list.add(news);
                     }
@@ -103,6 +118,7 @@ public class ViewNewActivity extends AppCompatActivity {
                         });
                 txtDemo.setText(list.get(0).getTitle());
                 dayDemo.setText(list.get(0).getPostNewDay());
+                new1 = list.get(0);
                 list.remove(0);
                 newAdapter = new NewAdapter(list, getApplicationContext());
                 recyclerViewNew.setAdapter(newAdapter);

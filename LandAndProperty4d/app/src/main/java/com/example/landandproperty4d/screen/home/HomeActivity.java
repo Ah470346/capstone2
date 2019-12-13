@@ -11,12 +11,19 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.landandproperty4d.R;
+import com.example.landandproperty4d.screen.checkpost.CheckPostActivity;
+import com.example.landandproperty4d.screen.checkpost.CheckPostAdapter;
 import com.example.landandproperty4d.screen.login.MainActivity;
+import com.example.landandproperty4d.screen.manageaccount.ManageAccountActivity;
+import com.example.landandproperty4d.screen.managerpost.ManagerPostActivityA;
+import com.example.landandproperty4d.screen.managerpost.ManagerPostActivityU;
 import com.example.landandproperty4d.screen.postnews.PostNewActivity;
 import com.example.landandproperty4d.screen.postproperty.PostPropertyActivity;
 import com.example.landandproperty4d.screen.viewinformationproperty.ViewInformationProperty;
 import com.example.landandproperty4d.screen.viewmap4d.ViewMap4D;
 import com.example.landandproperty4d.screen.viewnews.ViewNewActivity;
+import com.example.landandproperty4d.screen.yournews.YourNewsActivity;
+import com.example.landandproperty4d.utils.CommonUtils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -45,10 +52,8 @@ public class HomeActivity extends AppCompatActivity {
         } else if (intent.getExtras()!=null && intent.getStringExtra("ruler").equals("2")){
             buttonCkeckPost.setVisibility(View.INVISIBLE);
             buttonPostNew.setVisibility(View.INVISIBLE);
-            buttonManagePost.setFocusable(false);
-            buttonManagePost.setBackground(ContextCompat.getDrawable(this,R.drawable.custome_button));
-            buttonPostProperty.setFocusable(false);
-            buttonPostProperty.setBackground(ContextCompat.getDrawable(this,R.drawable.custome_button));
+            buttonManagePost.setBackground(ContextCompat.getDrawable(this,R.drawable.custome_roler));
+            buttonPostProperty.setBackground(ContextCompat.getDrawable(this,R.drawable.custome_roler));
         }
 
         buttoLogout.setOnClickListener(new View.OnClickListener() {
@@ -62,8 +67,10 @@ public class HomeActivity extends AppCompatActivity {
         buttonPostProperty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, PostPropertyActivity.class);
-                startActivity(intent);
+                if(CommonUtils.rule.equals("1") && CommonUtils.rule.equals("3")) {
+                    Intent intent = new Intent(HomeActivity.this, PostPropertyActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -93,6 +100,39 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeActivity.this, ViewNewActivity.class);
+                startActivity(intent);
+            }
+        });
+        buttonYourNews.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, YourNewsActivity.class);
+                startActivity(intent);
+            }
+        });
+        buttonCkeckPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, CheckPostActivity.class);
+                startActivity(intent);
+            }
+        });
+        buttonManagePost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(CommonUtils.rule.equals("1")){
+                    Intent intent = new Intent(HomeActivity.this, ManagerPostActivityU.class);
+                    startActivity(intent);
+                } else if(CommonUtils.rule.equals("3")){
+                    Intent intent = new Intent(HomeActivity.this, ManagerPostActivityA.class);
+                    startActivity(intent);
+                }
+            }
+        });
+        buttonManageAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, ManageAccountActivity.class);
                 startActivity(intent);
             }
         });

@@ -24,11 +24,15 @@ public class MapReponsitory {
     }
 
     public void saveDataPost(String address, String area, String contact, String detail, String homeDirection,String image, String postPlace,
-            String price, String title, String typeProperty,String id,String lng,String lat,String polygonid ){
-        mMapRemoteDataSource.saveDataPost(address, area, contact, detail, homeDirection, image, postPlace, price, title, typeProperty,id,lng,lat,polygonid);
+            String price, String title, String typeProperty,String id,String lng,String lat,String polygonid ,String check,String postDay){
+        mMapRemoteDataSource.saveDataPost(address, area, contact, detail, homeDirection, image, postPlace, price, title, typeProperty,id,lng,lat,polygonid,check,postDay);
     }
 
-    public void saveDataNew(String title , String content,String image ,String id, String postNewDay){
-        mMapRemoteDataSource.saveDataNew(title,content,image,id,postNewDay);
+    public void saveDataNew(String title , String content,String image ,String id,String idAdmin, String postNewDay){
+        mMapRemoteDataSource.saveDataNew(title,content,image,id,idAdmin,postNewDay);
+    }
+
+    public void saveNotify(String namePost , String email, String interestPeople,String notifyDay , String phone , String idSeller){
+        mMapRemoteDataSource.saveNotify(namePost,email,interestPeople,notifyDay,phone,idSeller);
     }
 }

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".screen.manageaccount.ChangePassActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolBarChangePassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#3438d7"
+        android:theme="@style/toolbar"
+        app:title="Thay Đổi Mật Khẩu"
+        app:titleTextColor="#fff"
+        tools:ignore="MissingConstraints"></androidx.appcompat.widget.Toolbar>
+
+    <EditText
+        android:id="@+id/editTextPass"
+        android:layout_width="250dp"
+        android:layout_marginLeft="55dp"
+        android:layout_height="wrap_content"
+        android:hint="Nhập Mật Khẩu..."
+        android:layout_marginTop="20dp"
+        android:imeOptions="actionNext"
+        android:maxLines="1"
+        android:lines="1"
+        android:scrollHorizontally="true"
+        android:inputType="text"
+        android:background="@drawable/edittext_custome"
+        app:layout_constraintTop_toBottomOf="@id/toolBarChangePassword"
+        app:layout_constraintLeft_toLeftOf="parent"></EditText>
+
+    <EditText
+        android:id="@+id/editTextPassNew"
+        android:layout_width="250dp"
+        android:layout_marginLeft="55dp"
+        android:layout_height="wrap_content"
+        android:hint="Nhập Mật Khẩu Mới..."
+        android:imeOptions="actionNext"
+        android:maxLines="1"
+        android:lines="1"
+        android:scrollHorizontally="true"
+        android:inputType="text"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/edittext_custome"
+        app:layout_constraintTop_toBottomOf="@id/editTextPass"
+        app:layout_constraintLeft_toLeftOf="parent"></EditText>
+
+    <EditText
+        android:id="@+id/editTextPassNewAgain"
+        android:layout_width="250dp"
+        android:layout_marginLeft="55dp"
+        android:layout_height="wrap_content"
+        android:hint="Nhập Lại Mật Khẩu Mới..."
+        android:imeOptions="actionDone"
+        android:maxLines="1"
+        android:lines="1"
+        android:scrollHorizontally="true"
+        android:inputType="text"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/edittext_custome"
+        app:layout_constraintTop_toBottomOf="@id/editTextPassNew"
+        app:layout_constraintLeft_toLeftOf="parent"></EditText>
+
+    <Button
+        android:id="@+id/buttonDongY"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="128dp"
+        android:layout_marginTop="20dp"
+        android:textColor="#ffff"
+        android:background="@drawable/custome_button_all"
+        app:layout_constraintTop_toBottomOf="@id/editTextPassNewAgain"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="Đồng Ý"></Button>
+</androidx.constraintlayout.widget.ConstraintLayout>

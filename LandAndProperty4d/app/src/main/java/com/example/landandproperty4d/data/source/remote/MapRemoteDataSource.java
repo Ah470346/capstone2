@@ -30,15 +30,21 @@ public class MapRemoteDataSource implements MapDataSource {
     public void saveDataPost(final String address, final String area, final String contact, final String detail,
             final String homeDirection,
             final String image, final String postPlace, final String price, final String title,
-            final String typeProperty,final String id,final String lng,final String lat,String polygonid) {
+            final String typeProperty,final String id,final String lng,final String lat,String polygonid,String check,String postDay) {
         mDataService = new DataService();
-        mDataService.saveDataPost(address, area, contact, detail, homeDirection, image, postPlace, price, title, typeProperty,id,lng ,lat,polygonid);
+        mDataService.saveDataPost(address, area, contact, detail, homeDirection, image, postPlace, price, title, typeProperty,id,lng ,lat,polygonid,check,postDay);
     }
 
     @Override
-    public void saveDataNew(String title, String content, String image,String id, String postNewDay) {
+    public void saveDataNew(String title, String content, String image,String id,String idAdmin, String postNewDay) {
         mDataService = new DataService();
-        mDataService.saveDataNew(title,content,image,id,postNewDay);
+        mDataService.saveDataNew(title,content,image,id,idAdmin,postNewDay);
+    }
+
+    @Override
+    public void saveNotify(String namePost, String email, String interestPeople, String notifyDay, String phone, String idSeller) {
+        mDataService = new DataService();
+        mDataService.saveDataNotify(namePost,email,interestPeople,notifyDay,phone,idSeller);
     }
 
 //    @Override

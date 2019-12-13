@@ -2,14 +2,19 @@ package com.example.landandproperty4d.screen.viewinformationproperty;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.example.landandproperty4d.R;
 import com.example.landandproperty4d.data.model.PostProperty;
 import com.example.landandproperty4d.screen.postdetail.PostDetail;
@@ -24,13 +29,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHoler> implements Filterable {
     ArrayList<PostProperty> listpost;
+    ArrayList<String> listString;
     ArrayList<PostProperty> listpostfull;
-    private String key;
-    private int p;
     Context context;
 
-    public PostAdapter(ArrayList<PostProperty> listpost, Context context) {
+    public PostAdapter(ArrayList<PostProperty> listpost,ArrayList<String> listString, Context context) {
         this.listpost = listpost;
+        this.listString = listString;
         this.context = context;
         listpostfull = new ArrayList<>(listpost);
     }
@@ -43,12 +48,20 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHoler> imp
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHoler holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHoler holder, int position) {
         holder.textViewTitle.setText(listpost.get(position).getTitle());
         holder.textViewAddress.setText(listpost.get(position).getAddress());
         holder.textViewPrice.setText(listpost.get(position).getPrice());
-        holder.textViewTypeLand.setText(listpost.get(position).getTypeLand());
         holder.textViewPostDay.setText(listpost.get(position).getPostDay());
+        Glide.with(context)
+                .load(listString.get(position))
+                .asBitmap()
+                .into(new SimpleTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                        holder.imageViewViewInformation.setImageBitmap(resource);
+                    }
+                });
 
     }
     public void clear() {
@@ -67,13 +80,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHoler> imp
     }
 
     public class ViewHoler extends RecyclerView.ViewHolder{
-        TextView textViewTitle , textViewAddress,textViewPrice ,textViewTypeLand , textViewPostDay;
+        TextView textViewTitle , textViewAddress,textViewPrice , textViewPostDay;
+        private ImageView imageViewViewInformation;
         public ViewHoler(@NonNull View itemView) {
             super(itemView);
+            imageViewViewInformation = itemView.findViewById(R.id.imageViewInformation);
             textViewTitle = itemView.findViewById(R.id.textViewTitle);
             textViewAddress = itemView.findViewById(R.id.textViewAddress);
             textViewPrice = itemView.findViewById(R.id.textViewPrice);
-            textViewTypeLand = itemView.findViewById(R.id.textViewTypeOfLand);
             textViewPostDay = itemView.findViewById(R.id.textViewPostDay);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -81,9 +95,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHoler> imp
                     Intent intent = new Intent(context, PostDetail.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.putExtra("key",listpost.get(getAdapterPosition()).getId());
+                    intent.putExtra("screen","view");
                     context.startActivity(intent);
                     Log.d("key",""+listpost.get(getAdapterPosition()).getId());
-                    clear();
                 }
             });
         }

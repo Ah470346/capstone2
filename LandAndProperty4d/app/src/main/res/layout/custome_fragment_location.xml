@@ -49,6 +49,7 @@
         android:layout_marginBottom="16dp"
         android:text="ok"
         android:textAllCaps="false"
+        android:background="@drawable/custome_button_all"
         android:textColor="#0055ff"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"

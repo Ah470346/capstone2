@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_marginTop="10dp"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/textViewDeleteU"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:textColor="#4559f3"
+        android:textSize="18sp"
+        android:text="Xóa"></TextView>
+
+    <ImageView
+        android:id="@+id/imageManagerPostU"
+        android:layout_width="100dp"
+        android:layout_height="110dp"
+        android:scaleType="fitXY"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent">
+    </ImageView>
+
+    <TextView
+        android:id="@+id/textViewTitleManagerPostU"
+        android:layout_width="210dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="5dp"
+        app:layout_constraintLeft_toRightOf="@id/imageManagerPostU"
+        android:text="Đất Cầu Rồng View Đẹp"
+        android:fontFamily="@font/baloo"
+        android:textSize="18sp"
+        android:textColor="#fe0000"/>
+
+
+    <TextView
+        android:id="@+id/textViewAddressManagerPostU"
+        android:layout_width="210dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:textColor="#086f0b"
+        app:layout_constraintTop_toBottomOf="@id/textViewTitleManagerPostU"
+        app:layout_constraintLeft_toRightOf="@id/imageManagerPostU"
+        android:text="30 Bạch Đằng, Hải Châu , Đà nẵng"/>
+
+    <TextView
+        android:id="@+id/textViewPriceManagerPostU"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:textColor="#086f0b"
+        app:layout_constraintTop_toBottomOf="@id/textViewAddressManagerPostU"
+        app:layout_constraintLeft_toRightOf="@id/imageManagerPostU"
+        android:text="500.000.000đ/m²"/>
+
+
+    <TextView
+        android:id="@+id/textViewPostDayManagerPostU"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        app:layout_constraintTop_toBottomOf="@id/textViewPriceManagerPostU"
+        app:layout_constraintLeft_toRightOf="@id/imageManagerPostU"
+        android:textStyle="italic"
+        android:text="21/10/2019"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

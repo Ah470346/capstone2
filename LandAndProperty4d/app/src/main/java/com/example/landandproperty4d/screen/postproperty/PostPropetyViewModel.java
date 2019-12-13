@@ -11,7 +11,7 @@ public class PostPropetyViewModel extends ViewModel {
     }
 
     public void saveDataPost(String address, String area, String contact, String detail, String homeDirection,String image, String postPlace,
-            String price, String title, String typeProperty,String id,String lng,String lat,String polygonid){
-        mapReponsitory.saveDataPost(address, area, contact, detail, homeDirection, image, postPlace, price, title, typeProperty,id,lng,lat,polygonid);
+            String price, String title, String typeProperty,String id,String lng,String lat,String polygonid,String check,String postDay){
+        mapReponsitory.saveDataPost(address, area, contact, detail, homeDirection, image, postPlace, price, title, typeProperty,id,lng,lat,polygonid,check,postDay);
     }
 }

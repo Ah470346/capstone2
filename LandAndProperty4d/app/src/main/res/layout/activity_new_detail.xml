@@ -1,9 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".screen.newdetail.NewDetailActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolBarNewDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#3438d7"
+        android:theme="@style/toolbar"
+        app:title="Tin Tức"
+        app:titleTextColor="#fff"
+        tools:ignore="MissingConstraints"></androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="409dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="55dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolBarNewDetail">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewNewTitleDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="60dp"
+                android:fontFamily="@font/playfair_display"
+                android:text=""
+                android:textColor="#2c84fb"
+                android:textSize="20sp"></TextView>
+            <TextView
+                android:id="@+id/textViewDayNewDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:textStyle="italic"
+                android:text=""
+                ></TextView>
+
+            <ImageView
+                android:id="@+id/imageViewNewDetail"
+                android:layout_width="300dp"
+                android:layout_height="200dp"
+                android:layout_marginLeft="30dp"
+                android:scaleType="fitXY"
+                android:layout_marginTop="10dp"></ImageView>
+
+            <TextView
+                android:id="@+id/textViewContentDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="60dp"
+                android:layout_marginTop="10dp"></TextView>
+            <TextView
+                android:id="@+id/textViewAuthor"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="10dp"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_height="wrap_content"></TextView>
+
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

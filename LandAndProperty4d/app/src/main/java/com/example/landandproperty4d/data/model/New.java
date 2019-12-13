@@ -5,17 +5,27 @@ public class New {
     String content;
     String image ;
     String id;
+    String idAdmin;
     String postNewDay ;
 
     public New() {
     }
 
-    public New(String title, String content, String image,String id, String postNewDay) {
+    public New(String title, String content, String image,String id,String idAdmin, String postNewDay) {
         this.title = title;
         this.content = content;
         this.image = image;
         this.id = id;
+        this.idAdmin = idAdmin;
         this.postNewDay = postNewDay;
+    }
+
+    public String getIdAdmin() {
+        return idAdmin;
+    }
+
+    public void setIdAdmin(String idAdmin) {
+        this.idAdmin = idAdmin;
     }
 
     public String getId() {

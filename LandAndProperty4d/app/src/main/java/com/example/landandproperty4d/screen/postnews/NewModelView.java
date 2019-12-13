@@ -10,7 +10,7 @@ public class NewModelView extends ViewModel {
     public NewModelView(MapReponsitory mapReponsitory) {
         this.mapReponsitory = mapReponsitory;
     }
-    public void saveDataNew (String title , String content , String image ,String id, String postNewDay ){
-        mapReponsitory.saveDataNew(title,content,image,id,postNewDay);
+    public void saveDataNew (String title , String content , String image ,String id,String idAdmin, String postNewDay ){
+        mapReponsitory.saveDataNew(title,content,image,id,idAdmin,postNewDay);
     }
 }

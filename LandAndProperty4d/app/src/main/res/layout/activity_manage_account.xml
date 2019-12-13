@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".screen.manageaccount.ManageAccountActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolBarManagerAccount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#3438d7"
+        android:theme="@style/toolbar"
+        app:title="Quản Lý Tài Khoản"
+        app:titleTextColor="#fff"
+        tools:ignore="MissingConstraints"></androidx.appcompat.widget.Toolbar>
+
+    <ImageView
+        android:id="@+id/icon_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="118dp"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/icon_profile"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolBarManagerAccount"></ImageView>
+
+    <EditText
+        android:id="@+id/editTextNameProfile"
+        android:layout_width="250dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="5dp"
+        android:maxLines="1"
+        android:lines="1"
+        android:scrollHorizontally="true"
+        android:inputType="text"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/icon_profile"
+        android:textSize="16sp"
+        android:text="Đỗ Văn Trường"></EditText>
+
+    <TextView
+        android:id="@+id/changeName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Thay Đổi"
+        android:layout_marginTop="20dp"
+        android:textColor="#717efa"
+        android:layout_marginLeft="5dp"
+        app:layout_constraintTop_toBottomOf="@id/icon_profile"
+        app:layout_constraintLeft_toRightOf="@id/editTextNameProfile"></TextView>
+
+    <TextView
+        android:id="@+id/DoneName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Xong"
+        android:layout_marginTop="20dp"
+        android:textColor="#717efa"
+        android:layout_marginLeft="15dp"
+        app:layout_constraintTop_toBottomOf="@id/icon_profile"
+        app:layout_constraintLeft_toRightOf="@id/editTextNameProfile"></TextView>
+
+    <EditText
+        android:id="@+id/editTextBirthProfile"
+        android:layout_width="250dp"
+        android:layout_marginLeft="30dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textSize="16sp"
+        android:maxLines="1"
+        android:lines="1"
+        android:scrollHorizontally="true"
+        android:inputType="text"
+        android:text="25/9/1996"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextNameProfile"></EditText>
+
+    <TextView
+        android:id="@+id/changeBirth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Thay Đổi"
+        android:layout_marginTop="24dp"
+        android:textColor="#717efa"
+        android:layout_marginLeft="5dp"
+        app:layout_constraintTop_toBottomOf="@id/editTextNameProfile"
+        app:layout_constraintLeft_toRightOf="@id/editTextBirthProfile"></TextView>
+
+    <TextView
+        android:id="@+id/DoneBirth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Xong"
+        android:layout_marginTop="24dp"
+        android:textColor="#717efa"
+        android:layout_marginLeft="15dp"
+        app:layout_constraintTop_toBottomOf="@id/editTextNameProfile"
+        app:layout_constraintLeft_toRightOf="@id/editTextBirthProfile"></TextView>
+
+    <EditText
+        android:id="@+id/editTextInterestProfile"
+        android:layout_width="250dp"
+        android:layout_marginLeft="30dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="Đà Nẵng"
+        android:textSize="16sp"
+        android:maxLines="1"
+        android:lines="1"
+        android:scrollHorizontally="true"
+        android:inputType="text"
+        app:layout_constraintTop_toBottomOf="@id/editTextBirthProfile"></EditText>
+
+    <TextView
+        android:id="@+id/changeInterest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Thay Đổi"
+        android:layout_marginTop="24dp"
+        android:textColor="#717efa"
+        android:layout_marginLeft="5dp"
+        app:layout_constraintTop_toBottomOf="@id/editTextBirthProfile"
+        app:layout_constraintLeft_toRightOf="@id/editTextInterestProfile"></TextView>
+
+    <TextView
+        android:id="@+id/DoneInterest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Xong"
+        android:layout_marginTop="24dp"
+        android:textColor="#717efa"
+        android:layout_marginLeft="15dp"
+        app:layout_constraintTop_toBottomOf="@id/editTextBirthProfile"
+        app:layout_constraintLeft_toRightOf="@id/editTextInterestProfile"></TextView>
+
+    <EditText
+        android:id="@+id/editTextGmailProfile"
+        android:layout_width="250dp"
+        android:layout_marginLeft="30dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="truongdtct1230@gmail.com"
+        android:textSize="16sp"
+        android:maxLines="1"
+        android:lines="1"
+        android:scrollHorizontally="true"
+        android:inputType="text"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextInterestProfile"></EditText>
+
+    <TextView
+        android:id="@+id/changeEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Thay Đổi"
+        android:layout_marginTop="24dp"
+        android:textColor="#717efa"
+        android:layout_marginLeft="5dp"
+        app:layout_constraintTop_toBottomOf="@id/editTextInterestProfile"
+        app:layout_constraintLeft_toRightOf="@id/editTextGmailProfile"></TextView>
+
+    <TextView
+        android:id="@+id/DoneEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Xong"
+        android:layout_marginTop="24dp"
+        android:textColor="#717efa"
+        android:layout_marginLeft="15dp"
+        app:layout_constraintTop_toBottomOf="@id/editTextInterestProfile"
+        app:layout_constraintLeft_toRightOf="@id/editTextGmailProfile"></TextView>
+
+    <EditText
+        android:id="@+id/editTextPhoneProfile"
+        android:layout_width="250dp"
+        android:layout_marginLeft="30dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="09876543"
+        android:textSize="16sp"
+        android:maxLines="1"
+        android:lines="1"
+        android:scrollHorizontally="true"
+        android:inputType="text"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextGmailProfile"></EditText>
+
+    <TextView
+        android:id="@+id/changePhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Thay Đổi"
+        android:layout_marginTop="24dp"
+        android:textColor="#717efa"
+        android:layout_marginLeft="5dp"
+        app:layout_constraintTop_toBottomOf="@id/editTextGmailProfile"
+        app:layout_constraintLeft_toRightOf="@id/editTextPhoneProfile"></TextView>
+
+    <TextView
+        android:id="@+id/DonePhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Xong"
+        android:layout_marginTop="24dp"
+        android:textColor="#717efa"
+        android:layout_marginLeft="15dp"
+        app:layout_constraintTop_toBottomOf="@id/editTextGmailProfile"
+        app:layout_constraintLeft_toRightOf="@id/editTextPhoneProfile"></TextView>
+
+    <Button
+        android:id="@+id/buttonChancePassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="110dp"
+        android:text="Thay Đổi Mật khẩu"
+        android:textColor="#ffff"
+        android:background="@drawable/custome_button_all"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextPhoneProfile"></Button>
+</androidx.constraintlayout.widget.ConstraintLayout>

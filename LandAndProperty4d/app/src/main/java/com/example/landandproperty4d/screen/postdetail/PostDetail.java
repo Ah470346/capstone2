@@ -16,14 +16,17 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.example.landandproperty4d.R;
 import com.example.landandproperty4d.data.model.PostProperty;
+import com.example.landandproperty4d.screen.checkpost.CheckPostActivity;
 import com.example.landandproperty4d.screen.viewinformationproperty.ViewInformationProperty;
 import com.example.landandproperty4d.screen.viewmap4d.ViewMap4D;
+import com.example.landandproperty4d.utils.CommonUtils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -42,7 +45,7 @@ public class PostDetail extends AppCompatActivity implements View.OnClickListene
     private TextView textViewTitleDetail ,textViewAddressDetail , textViewPriceDetail , textViewTypeOfLandDetail ,textViewPostDayDetail,
                     textViewAreaDetail ,textViewDirectionDetail,textViewContactDetail,textViewDetailOfDetail;
     private Toolbar toolbarPostDetail;
-    private Button buttonDeal , buttonViewWithMap;
+    private Button buttonDeal , buttonViewWithMap,buttonXong, buttonXoa;
     private RecyclerView recyclerViewDetail;
     private CatLoadingView progressBarCat;
     private String polygonid;
@@ -61,13 +64,27 @@ public class PostDetail extends AppCompatActivity implements View.OnClickListene
         toolbarPostDetail.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(PostDetail.this, ViewInformationProperty.class));
+                finish();
             }
         });
+        Intent intent = getIntent();
+        if(CommonUtils.rule.equals("1") || CommonUtils.rule.equals("2") || intent.getStringExtra("screen").equals("view")){
+            buttonXoa.setVisibility(View.INVISIBLE);
+            buttonXong.setVisibility(View.INVISIBLE);
+            buttonXoa.setFocusable(false);
+            buttonXong.setFocusable(false);
+        }else if(CommonUtils.rule.equals("3") && intent.getStringExtra("screen").equals("check")){
+            buttonDeal.setVisibility(View.INVISIBLE);
+            buttonViewWithMap.setVisibility(View.INVISIBLE);
+            buttonDeal.setFocusable(false);
+            buttonViewWithMap.setFocusable(false);
+        }
     }
 
     public void init(){
         progressBarCat = new CatLoadingView();
+        buttonXong = findViewById(R.id.buttonXong);
+        buttonXoa = findViewById(R.id.buttonXoa);
         recyclerViewDetail = findViewById(R.id.recyclerViewDetail);
         toolbarPostDetail = findViewById(R.id.toolBarPostDetail);
         setSupportActionBar(toolbarPostDetail);
@@ -84,6 +101,8 @@ public class PostDetail extends AppCompatActivity implements View.OnClickListene
         textViewTitleDetail = findViewById(R.id.textViewTitleDetail);
         buttonDeal.setOnClickListener(this);
         buttonViewWithMap.setOnClickListener(this);
+        buttonXoa.setOnClickListener(this);
+        buttonXong.setOnClickListener(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         recyclerViewDetail.setHasFixedSize(true);
@@ -103,7 +122,69 @@ public class PostDetail extends AppCompatActivity implements View.OnClickListene
                 intent.putExtra("maker",polygonid);
                 startActivity(intent);
                 break;
+            case R.id.buttonXoa :
+                RemovePost();
+            case R.id.buttonXong :
+                Xong();
+
+
         }
+    }
+    public void RemovePost (){
+        mDatabase.child("post").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> nodeChild = dataSnapshot.getChildren();
+                for (DataSnapshot postSnapshot: nodeChild) {
+                    for (DataSnapshot snapshot: postSnapshot.getChildren()) {
+                        PostProperty post = snapshot.getValue(PostProperty.class);
+                        Intent intent = getIntent();
+                        if(intent.getStringExtra("key").equals(snapshot.getKey())) {
+                            snapshot.getRef().removeValue();
+                            Toast.makeText(PostDetail.this,"Xóa Bài Thành Công",Toast.LENGTH_LONG).show();
+                            Intent intent1 = new Intent(PostDetail.this, CheckPostActivity.class);
+                            startActivity(intent1);
+                            finish();
+                            break;
+                        }
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+    public void Xong (){
+        mDatabase.child("post").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> nodeChild = dataSnapshot.getChildren();
+                for (DataSnapshot postSnapshot: nodeChild) {
+                    for (DataSnapshot snapshot: postSnapshot.getChildren()) {
+                        PostProperty post = snapshot.getValue(PostProperty.class);
+                        Intent intent = getIntent();
+                        if(intent.getStringExtra("key").equals(snapshot.getKey())) {
+                            snapshot.getRef().child("check").setValue(post.getCheck() + " " + user.getUid());
+                            Intent intent2 = new Intent(PostDetail.this,CheckPostActivity.class);
+                            Toast.makeText(PostDetail.this,"Bạn Đã Kiểm Tra Xong",Toast.LENGTH_LONG).show();
+                            startActivity(intent2);
+                            finish();
+                            break;
+                        }
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public void LoadDetail(){
@@ -128,6 +209,7 @@ public class PostDetail extends AppCompatActivity implements View.OnClickListene
                             textViewTypeOfLandDetail.setText(post.getTypeLand());
                             LoadImage(post.getImagePost());
                             polygonid = post.getPolygonid();
+                            break;
 
                         }
                     }
@@ -140,6 +222,9 @@ public class PostDetail extends AppCompatActivity implements View.OnClickListene
 
             }
         });
+    }
+    private void sendNotify (){
+
     }
     public void LoadImage( String a) {
         final ArrayList<Bitmap> list = new ArrayList<>();

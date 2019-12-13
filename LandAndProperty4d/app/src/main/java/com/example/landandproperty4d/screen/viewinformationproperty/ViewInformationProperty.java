@@ -20,6 +20,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.roger.catloadinglibrary.CatLoadingView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,6 +30,8 @@ public class ViewInformationProperty extends AppCompatActivity {
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private Toolbar toolbarViewInformationProperty ;
     private SearchView searchViewPost;
+    private CatLoadingView progressBarCat;
+    private ArrayList<String> listString = new ArrayList<>();
     private RecyclerView recyclerViewViewInformationproperty ;
     public static ArrayList<PostProperty> listpost = new ArrayList<>();
     private PostAdapter postAdapter;
@@ -38,6 +41,7 @@ public class ViewInformationProperty extends AppCompatActivity {
         setContentView(R.layout.activity_view_information_property);
         TakeDataPosts();
         init();
+
 
         toolbarViewInformationProperty.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,6 +53,7 @@ public class ViewInformationProperty extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 postAdapter.getFilter().filter(query);
+                searchViewPost.clearFocus();
                 return true;
             }
 
@@ -62,6 +67,7 @@ public class ViewInformationProperty extends AppCompatActivity {
 
     private void init(){
         searchViewPost = findViewById(R.id.searchViewPost);
+        progressBarCat = new CatLoadingView();
         toolbarViewInformationProperty = findViewById(R.id.toolBarViewInformationProperty);
         setSupportActionBar(toolbarViewInformationProperty);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -85,11 +91,13 @@ public class ViewInformationProperty extends AppCompatActivity {
                             post.setId(postSnapshot.getKey());
 //                            Log.d("data", postSnapshot.getKey());
                             listpost.add(post);
+                            listString.add(LoadImage(post.getImagePost()));
                         }
                     }
-                    postAdapter = new PostAdapter(listpost, getApplicationContext());
+                    postAdapter = new PostAdapter(listpost,listString, getApplicationContext());
                     recyclerViewViewInformationproperty.setAdapter(postAdapter);
                     Collections.reverse(listpost);
+                    Collections.reverse(listString);
                 }
 
                 @Override
@@ -98,4 +106,11 @@ public class ViewInformationProperty extends AppCompatActivity {
                 }
             });
     }
+    public String LoadImage( String a) {
+        String b , c;
+        b = a.replace("+","");
+        c = b.replaceFirst(" ","");
+        String[] arr = c.split(" ");
+        return  arr[0];
+        }
 }

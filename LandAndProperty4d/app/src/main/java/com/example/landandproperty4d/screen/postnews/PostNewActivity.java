@@ -54,6 +54,7 @@ public class PostNewActivity extends AppCompatActivity {
     private NewModelView newModelView ;
     static final int REQUEST_TAKE_PHOTO = 1;
     private String id = "";
+    private String idAdmin = "";
     private String mCurrentPhotoPath;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int PICK_IMAGE = 2;
@@ -223,7 +224,7 @@ public class PostNewActivity extends AppCompatActivity {
                             public void onSuccess(final Uri uri) {
                                 String imageUrl ="" + uri;
                                 if(user != null){
-                                  newModelView.saveDataNew(editTextNewTitle.getText().toString(),editTextContent.getText().toString(),imageUrl,id,CommonUtils.getSimpleDateFormatPost());
+                                  newModelView.saveDataNew(editTextNewTitle.getText().toString(),editTextContent.getText().toString(),imageUrl,id,idAdmin,CommonUtils.getSimpleDateFormatPost());
                                 }
                                 progressBarCat.dismiss();
                                 Toast.makeText(PostNewActivity.this,"Đăng Tin Thành Công",Toast.LENGTH_LONG).show();

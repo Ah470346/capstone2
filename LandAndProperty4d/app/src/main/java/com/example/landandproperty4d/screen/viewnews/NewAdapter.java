@@ -15,7 +15,7 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.example.landandproperty4d.R;
 import com.example.landandproperty4d.data.model.New;
-import com.example.landandproperty4d.screen.postdetail.PostDetail;
+import com.example.landandproperty4d.screen.newdetail.NewDetailActivity;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
@@ -28,6 +28,7 @@ public class NewAdapter extends RecyclerView.Adapter<NewAdapter.ViewHolder> {
     public NewAdapter(ArrayList<New> listnew, Context context) {
         this.listnew = listnew;
         this.context = context;
+
     }
 
     @NonNull
@@ -78,12 +79,12 @@ public class NewAdapter extends RecyclerView.Adapter<NewAdapter.ViewHolder> {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, PostDetail.class);
+                    Intent intent = new Intent(context, NewDetailActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.putExtra("keynew",listnew.get(getAdapterPosition()).getId());
+                    intent.putExtra("idAdmin",listnew.get(getAdapterPosition()).getIdAdmin());
                     context.startActivity(intent);
                     Log.d("keynew",""+listnew.get(getAdapterPosition()).getId());
-                    clear();
                 }
             });
         }

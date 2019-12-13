@@ -90,6 +90,7 @@ public class PostPropertyActivity extends AppCompatActivity implements OnClickLi
     private String imageUrl = "+";
     private int index = 0;
     private String polygonid = "";
+    private String check="";
     private CatLoadingView progressBarCat;
     private PostPropetyViewModel viewModel;
     private ArrayAdapter<String> adapterDirection;
@@ -354,8 +355,9 @@ public class PostPropertyActivity extends AppCompatActivity implements OnClickLi
                                 }else {
                                     viewModel.saveDataPost(editTextLandAddress.getText().toString(), editTextLandArea.getText().toString(),
                                             editTextContact.getText().toString(), editTextDetail.getText().toString(), mHomeDirection, imageUrl, editTextLadndPlaces.getText().toString(),
-                                            editTextPrice.getText().toString(), editTextTitle.getText().toString(), mTypeProperty,id,lng,lat,polygonid);
+                                            editTextPrice.getText().toString(), editTextTitle.getText().toString(), mTypeProperty,id,lng,lat,polygonid,check,CommonUtils.getSimpleDateFormatPost());
                                     progressBarCat.dismiss();
+                                    Toast.makeText(PostPropertyActivity.this,"Đăng Bài Thành Công",Toast.LENGTH_LONG).show();
                                 }
                             }
                         }).addOnFailureListener(new OnFailureListener() {

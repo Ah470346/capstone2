@@ -16,11 +16,12 @@ public class PostProperty  {
     private String lng;
     private String lat;
     private String polygonid;
+    private String check ;
 
     public PostProperty() {
     }
 
-    public PostProperty(String imagePost, String title, String typeLand, String area, String location, String address, String houseDirection, String price, String contact, String detail, String postDay, String id, String lng, String lat, String polygonid) {
+    public PostProperty(String imagePost, String title, String typeLand, String area, String location, String address, String houseDirection, String price, String contact, String detail, String id, String lng, String lat, String polygonid,String check,String postDay) {
         this.imagePost = imagePost;
         this.title = title;
         this.typeLand = typeLand;
@@ -36,6 +37,15 @@ public class PostProperty  {
         this.lng = lng;
         this.lat = lat;
         this.polygonid = polygonid;
+        this.check = check;
+    }
+
+    public String getCheck() {
+        return check;
+    }
+
+    public void setCheck(String check) {
+        this.check = check;
     }
 
     public String getImagePost() {

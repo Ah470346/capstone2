@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.landandproperty4d.R;
 import com.example.landandproperty4d.data.model.User;
+import com.example.landandproperty4d.screen.home.BuyerActivity;
 import com.example.landandproperty4d.screen.home.HomeActivity;
 import com.example.landandproperty4d.screen.register.RegisterActivity;
 import com.example.landandproperty4d.utils.CommonUtils;
@@ -66,11 +67,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.buttonLogin:
-                if (ktconnect() == true) {
+                if (ktconnect() == false) {
+                    Toast.makeText(getApplicationContext(), "vui lòng kết nối mạng Internet", Toast.LENGTH_SHORT).show();
+                } else if (editTextUserName.getText().toString().equals("")){
+                    Toast.makeText(getApplicationContext(), "Bạn Chưa Nhập Email Đăng Nhập", Toast.LENGTH_SHORT).show();
+                } else if (editTextPassword.getText().toString().equals("")){
+                    Toast.makeText(getApplicationContext(), "Bạn Chưa Nhập Mật Khẩu", Toast.LENGTH_SHORT).show();
+                } else {
                     progressBarCat.show(getSupportFragmentManager(), "");
                     login(editTextUserName.getText().toString(), editTextPassword.getText().toString());
-                } else
-                    Toast.makeText(getApplicationContext(), "vui lòng kết nối mạng Internet", Toast.LENGTH_SHORT).show();
+                }
+
                 break;
             case R.id.buttonRegister:
                 Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
@@ -108,12 +115,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             mDatabase.child("user").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                                     User user = dataSnapshot.getValue(User.class);
                                     CommonUtils.rule = user.getRuler();
-                                    intent.putExtra("ruler",user.getRuler());
-                                    startActivity(intent);
-                                    finish();
+                                    if (user.getRuler().equals("1") || user.getRuler().equals("3")){
+                                        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                                        intent.putExtra("ruler", user.getRuler());
+                                        startActivity(intent);
+                                        finish();
+                                    } else if (user.getRuler().equals("2")){
+                                        Intent intent = new Intent(MainActivity.this, BuyerActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
                                 }
 
                                 @Override

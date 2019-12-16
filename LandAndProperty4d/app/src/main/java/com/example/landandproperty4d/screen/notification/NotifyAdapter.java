@@ -66,7 +66,7 @@ public class NotifyAdapter extends RecyclerView.Adapter<NotifyAdapter.ViewHolder
             textViewNamePost = itemView.findViewById(R.id.textViewNamePost);
             textViewPeople = itemView.findViewById(R.id.textViewPeople);
             textViewPhone = itemView.findViewById(R.id.textViewPhone);
-            itemView.setOnClickListener(new View.OnClickListener() {
+            imageDeleteNotify.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     mDatabase.child("Notification").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -75,12 +75,13 @@ public class NotifyAdapter extends RecyclerView.Adapter<NotifyAdapter.ViewHolder
                             Iterable<DataSnapshot> nodeChild1 = dataSnapshot.getChildren();
                             for (DataSnapshot snapshot : nodeChild1) { {
                                 for (DataSnapshot postSnaphot : snapshot.getChildren()) {
-                                    if (list.get(getAdapterPosition()).getId().equals(postSnaphot.getKey()))
-                                        snapshot.getRef().removeValue();
-                                    list.remove(getAdapterPosition());
-                                    notifyDataSetChanged();
-                                    break;
-                                }
+                                        if (list.get(getAdapterPosition()).getId().equals(postSnaphot.getKey())) {
+                                            postSnaphot.getRef().removeValue();
+                                            list.remove(getAdapterPosition());
+                                            notifyDataSetChanged();
+                                            break;
+                                        }
+                                    }
                                 }
                             }
                         }

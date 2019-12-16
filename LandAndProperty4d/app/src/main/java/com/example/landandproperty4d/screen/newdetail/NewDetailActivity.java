@@ -36,13 +36,12 @@ public class NewDetailActivity extends AppCompatActivity {
     private ImageView imageViewNewDetail;
     private Toolbar toolbarNewDetail ;
     private CatLoadingView progressBarCat;
-    private Timer timer;
-    private Handler handler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_detail);
         init();
+        progressBarCat.show(getSupportFragmentManager(),"");
         LoadDetail();
         LoadCre();
 
@@ -67,7 +66,6 @@ public class NewDetailActivity extends AppCompatActivity {
     }
 
     public void LoadDetail(){
-        progressBarCat.show(getSupportFragmentManager(),"");
         mDatabase.child("news").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -110,9 +108,10 @@ public class NewDetailActivity extends AppCompatActivity {
                     Intent intent = getIntent();
                     if (intent.getStringExtra("idAdmin").equals(postSnapshot.getKey())) {
                         textViewAuthor.setText("Cre: "+user.getName());
-                        progressBarCat.dismiss();
+                        break;
                     }
                 }
+                progressBarCat.dismiss();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {

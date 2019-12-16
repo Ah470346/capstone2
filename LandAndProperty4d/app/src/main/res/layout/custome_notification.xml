@@ -6,6 +6,7 @@
     android:layout_marginTop="10dp"
     android:layout_height="wrap_content">
 
+
     <ImageView
         android:id="@+id/imageDeleteNotify"
         android:layout_width="wrap_content"

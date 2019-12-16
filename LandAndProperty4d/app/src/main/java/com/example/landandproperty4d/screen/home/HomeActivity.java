@@ -7,6 +7,9 @@ import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -16,13 +19,11 @@ import android.widget.TextView;
 import com.example.landandproperty4d.R;
 import com.example.landandproperty4d.data.model.Notification;
 import com.example.landandproperty4d.screen.checkpost.CheckPostActivity;
-import com.example.landandproperty4d.screen.checkpost.CheckPostAdapter;
 import com.example.landandproperty4d.screen.login.MainActivity;
 import com.example.landandproperty4d.screen.manageaccount.ManageAccountActivity;
 import com.example.landandproperty4d.screen.managerpost.ManagerPostActivityA;
 import com.example.landandproperty4d.screen.managerpost.ManagerPostActivityU;
 import com.example.landandproperty4d.screen.notification.NotifyActivity;
-import com.example.landandproperty4d.screen.notification.NotifyAdapter;
 import com.example.landandproperty4d.screen.postnews.PostNewActivity;
 import com.example.landandproperty4d.screen.postproperty.PostPropertyActivity;
 import com.example.landandproperty4d.screen.viewinformationproperty.ViewInformationProperty;
@@ -38,7 +39,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.Collections;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class HomeActivity extends AppCompatActivity {
     DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -47,6 +49,9 @@ public class HomeActivity extends AppCompatActivity {
             buttonYourNews,buttonManageAccount,buttonPostNew,buttonManagePost ,buttonCkeckPost;
     private ImageButton bell;
     private int dem = 0;
+    private Timer timer;
+    private Handler handler;
+    private int i=0;
     private TextView textViewNotify;
     private ImageView imageViewHome;
     private Toolbar toolbarHomePage;
@@ -56,7 +61,28 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         init();
-        getNotify();
+        Log.d("rolerr",CommonUtils.rule);
+        handler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                if(msg.what < 5){
+                    if(i <3000 ){
+                        i++;
+                        getNotify();
+                    }
+
+                }
+
+            }
+        };
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                handler.sendEmptyMessage(0);
+            }
+        },1000,1000);
         //test();
 //        getInformationUser();
 
@@ -82,7 +108,7 @@ public class HomeActivity extends AppCompatActivity {
         buttonPostProperty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(CommonUtils.rule.equals("1") && CommonUtils.rule.equals("3")) {
+                if(CommonUtils.rule.equals("1") || CommonUtils.rule.equals("3")) {
                     Intent intent = new Intent(HomeActivity.this, PostPropertyActivity.class);
                     startActivity(intent);
                 }
@@ -193,12 +219,12 @@ public class HomeActivity extends AppCompatActivity {
                 }
                 textViewNotify.setText(""+dem);
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
+        dem = 0;
     }
 
 }

@@ -123,6 +123,7 @@ public class YourNewAdapter extends RecyclerView.Adapter<YourNewAdapter.ViewHole
                     Intent intent = new Intent(context, PostDetail.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.putExtra("key",listpost.get(getAdapterPosition()).getId());
+                    intent.putExtra("screen","view");
                     context.startActivity(intent);
                     Log.d("key",""+listpost.get(getAdapterPosition()).getId());
                 }

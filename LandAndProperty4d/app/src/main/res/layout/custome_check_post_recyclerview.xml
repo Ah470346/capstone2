@@ -11,15 +11,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintRight_toRightOf="parent"
-        android:src="@drawable/icon_delete"
+        android:src="@drawable/delete"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginRight="5dp"
-        android:layout_marginTop="40dp"></ImageView>
+        android:layout_marginTop="5dp"></ImageView>
 
     <ImageView
         android:id="@+id/imageCheckPost"
         android:layout_width="100dp"
-        android:layout_height="110dp"
+        android:layout_height="100dp"
         android:scaleType="fitXY"
         android:layout_marginTop="5dp"
         app:layout_constraintTop_toTopOf="parent"

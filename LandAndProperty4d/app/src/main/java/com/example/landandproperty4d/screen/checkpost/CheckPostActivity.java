@@ -22,6 +22,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.roger.catloadinglibrary.CatLoadingView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,6 +32,7 @@ public class CheckPostActivity extends AppCompatActivity {
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private Toolbar toolbarCheckPost;
     private TextView empty;
+    private CatLoadingView progressBarCat;
     private RecyclerView recyclerCheckPost;
     private ArrayList<PostProperty> listpost = new ArrayList<>();
     private ArrayList<String> listString = new ArrayList<>();
@@ -41,6 +43,7 @@ public class CheckPostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_post);
         init();
+        progressBarCat.show(getSupportFragmentManager(),"");
         TakeDataPosts();
         toolbarCheckPost.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,6 +53,7 @@ public class CheckPostActivity extends AppCompatActivity {
         });
     }
     private void init(){
+        progressBarCat = new CatLoadingView();
         empty = findViewById(R.id.empty);
         empty.setVisibility(View.INVISIBLE);
         toolbarCheckPost = findViewById(R.id.toolBarCheckPost);
@@ -97,6 +101,7 @@ public class CheckPostActivity extends AppCompatActivity {
                             recyclerCheckPost.setAdapter(checkPostAdapter);
                             Collections.reverse(listpost);
                             Collections.reverse(listString);
+                            progressBarCat.dismiss();
                         }
 
                         @Override

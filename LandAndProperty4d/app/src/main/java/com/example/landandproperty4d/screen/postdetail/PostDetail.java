@@ -48,7 +48,7 @@ import java.util.TimerTask;
 
 public class PostDetail extends AppCompatActivity implements View.OnClickListener{
     private TextView textViewTitleDetail ,textViewAddressDetail , textViewPriceDetail , textViewTypeOfLandDetail ,textViewPostDayDetail,
-                    textViewAreaDetail ,textViewDirectionDetail,textViewContactDetail,textViewDetailOfDetail;
+                    textViewAreaDetail ,textViewDirectionDetail,textViewContactName,textViewContactPhone,textViewContactEmail,textViewDetailOfDetail;
     private Toolbar toolbarPostDetail;
     private Button buttonDeal , buttonViewWithMap,buttonXong, buttonXoa;
     private RecyclerView recyclerViewDetail;
@@ -103,7 +103,9 @@ public class PostDetail extends AppCompatActivity implements View.OnClickListene
         buttonViewWithMap = findViewById(R.id.buttonViewWithMap);
         textViewAddressDetail = findViewById(R.id.textViewAddressDetail);
         textViewAreaDetail = findViewById(R.id.textViewAreaDetail);
-        textViewContactDetail = findViewById(R.id.textViewContactDetail);
+        textViewContactName = findViewById(R.id.textViewContactName);
+        textViewContactPhone = findViewById(R.id.textViewContactPhone);
+        textViewContactEmail = findViewById(R.id.textViewContactEmail);
         textViewDirectionDetail = findViewById(R.id.textViewDirectionDetail);
         textViewDetailOfDetail = findViewById(R.id.textViewDetailOfDetail);
         textViewPriceDetail = findViewById(R.id.textViewPriceDetail);
@@ -132,6 +134,7 @@ public class PostDetail extends AppCompatActivity implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.buttonDeal :
+                progressBarCat.show(getSupportFragmentManager(),"");
                 sendNotify();
                 break;
             case R.id.buttonViewWithMap :
@@ -218,7 +221,7 @@ public class PostDetail extends AppCompatActivity implements View.OnClickListene
                             textViewTitleDetail.setText(post.getTitle());
                             textViewAddressDetail.setText(post.getAddress());
                             textViewAreaDetail.setText(post.getArea());
-                            textViewContactDetail.setText(post.getContact());
+                            LoadContact(post.getContact());
                             textViewDetailOfDetail.setText(post.getDetail());
                             textViewDirectionDetail.setText(post.getHouseDirection());
                             textViewPostDayDetail.setText(post.getPostDay());
@@ -256,9 +259,12 @@ public class PostDetail extends AppCompatActivity implements View.OnClickListene
                                     final PostProperty post = postSnapshot.getValue(PostProperty.class);
                                     Intent intent = getIntent();
                                     if (chilD.getKey().equals(user.getUid())) {
-                                        if (intent.getStringExtra("key").equals(postSnapshot.getKey())) {
+                                        if(user.getUid().equals(snapshot.getKey())){
+                                            Toast.makeText(PostDetail.this,"Thông Báo ThấT Bại, Đây Là Bài Đăng của Bạn",Toast.LENGTH_LONG).show();
+                                        } else if (intent.getStringExtra("key").equals(postSnapshot.getKey())) {
                                             notifyViewModel.saveNotify(post.getTitle(),u.getEmail(),u.getName(),CommonUtils.getSimpleDateFormatPost(),u.getPhoneNumber(),snapshot.getKey(),id);
                                             Toast.makeText(PostDetail.this,"Bạn Gửi Thông Báo Thành Công",Toast.LENGTH_LONG).show();
+                                            progressBarCat.dismiss();
                                             break;
                                         }
                                     }
@@ -279,12 +285,18 @@ public class PostDetail extends AppCompatActivity implements View.OnClickListene
             }
         });
     }
+    private void LoadContact(String a){
+        String[] arr = a.split("-");
+        textViewContactName.setText(arr[0]);
+        textViewContactPhone.setText(arr[1]);
+        textViewContactEmail.setText(arr[2]);
+    }
     public void LoadImage( String a) {
         final ArrayList<Bitmap> list = new ArrayList<>();
         String b , c;
         b = a.replace("+","");
         c = b.replaceFirst(" ","");
-        String[] arr = c.split(" ");
+        final String[] arr = c.split(" ");
         for (String s : arr){
             Log.d("test",s);
             Glide.with(getApplicationContext())
@@ -313,9 +325,9 @@ public class PostDetail extends AppCompatActivity implements View.OnClickListene
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
                 if(msg.what < 5){
-                    if(i <10 ){
+                    if(i<1){
                         i++;
-                        Log.d("size", "" + list.size());
+                        Log.d("size", "" + list.size() +" "+arr.length);
                         adapter = new DetailAdapter(list, getApplicationContext());
                         recyclerViewDetail.setAdapter(adapter);
                         Collections.reverse(list);

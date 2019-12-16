@@ -31,7 +31,7 @@
         android:scrollHorizontally="true"
         android:inputType="number"
         android:layout_margin="10dp"
-        android:imeOptions="actionNext"
+        android:imeOptions="actionDone"
         android:background="@drawable/edittext_custome"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txtGia"/>

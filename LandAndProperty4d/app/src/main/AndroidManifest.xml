@@ -16,27 +16,58 @@
     <application
         android:allowBackup="true"
         android:hardwareAccelerated="false"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/house_24"
         android:label="@string/app_name"
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".screen.notification.NotifyActivity"></activity>
-        <activity android:name=".screen.manageaccount.ChangePassActivity" />
-        <activity android:name=".screen.manageaccount.ManageAccountActivity" />
-        <activity android:name=".screen.managerpost.ManagerPostActivityA" />
-        <activity android:name=".screen.managerpost.ManagerPostActivityU" />
-        <activity android:name=".screen.checkpost.CheckPostActivity" />
-        <activity android:name=".screen.yournews.YourNewsActivity" />
-        <activity android:name=".screen.newdetail.NewDetailActivity" />
-        <activity android:name=".screen.viewnews.ViewNewActivity" />
-        <activity android:name=".screen.postnews.PostNewActivity" />
-        <activity android:name=".screen.postdetail.PostDetail" />
-        <activity android:name=".screen.viewinformationproperty.ViewInformationProperty" />
-        <activity android:name=".screen.viewmap4d.ViewMap4D" />
-        <activity android:name=".screen.postproperty.LandLocation" />
+        <activity android:name=".screen.home.BuyerActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation|screenSize"></activity>
+        <activity android:name=".screen.notification.NotifyActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
+        <activity android:name=".screen.manageaccount.ChangePassActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
+        <activity android:name=".screen.manageaccount.ManageAccountActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
+        <activity android:name=".screen.managerpost.ManagerPostActivityA"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
+        <activity android:name=".screen.managerpost.ManagerPostActivityU"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
+        <activity android:name=".screen.checkpost.CheckPostActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
+        <activity android:name=".screen.yournews.YourNewsActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
+        <activity android:name=".screen.newdetail.NewDetailActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
+        <activity android:name=".screen.viewnews.ViewNewActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
+        <activity android:name=".screen.postnews.PostNewActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
+        <activity android:name=".screen.postdetail.PostDetail"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
+        <activity android:name=".screen.viewinformationproperty.ViewInformationProperty"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
+        <activity android:name=".screen.viewmap4d.ViewMap4D"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
+        <activity android:name=".screen.postproperty.LandLocation"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
 
         <meta-data
             android:name="preloaded_fonts"
@@ -48,11 +79,21 @@
         <activity
             android:name=".screen.register.RegisterActivity"
             android:label="Đăng Kí"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateHidden"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
         <activity
             android:name=".screen.home.HomeActivity"
             android:label="Trang Chủ"
-            tools:ignore="ExtraText">
+            tools:ignore="ExtraText"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation|screenSize">
+        </activity>
+        <activity
+            android:name=".screen.login.MainActivity"
+            android:label="iLand4D"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -60,13 +101,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".screen.login.MainActivity"
-            android:label="Đăng Nhập" />
-        <activity
             android:name=".screen.postproperty.PostPropertyActivity"
             android:label="Đăng Tin Bán Đất"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateHidden"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"

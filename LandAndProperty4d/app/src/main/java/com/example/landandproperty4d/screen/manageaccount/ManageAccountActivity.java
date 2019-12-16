@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.landandproperty4d.R;
 import com.example.landandproperty4d.data.model.User;
+import com.example.landandproperty4d.utils.CommonUtils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -25,6 +26,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.roger.catloadinglibrary.CatLoadingView;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -33,6 +35,7 @@ public class ManageAccountActivity extends AppCompatActivity implements View.OnC
     DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private Toolbar toolbarProfile;
+    private CatLoadingView progressBarCat;
     private Button buttonChangePassword;
     private EditText editTextNameProfile, editTextBirthProfile , editTextInterestProfile , editTextGmailProfile , editTextPhoneProfile;
     private TextView changeName, changeBirth , changeInterest , changeEmail , changePhone , DoneName , DoneBirth , DoneInterest , DoneEmial ,DonePhone;
@@ -41,6 +44,7 @@ public class ManageAccountActivity extends AppCompatActivity implements View.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_account);
         init();
+        progressBarCat.show(getSupportFragmentManager(),"");
         pullDataUser();
         toolbarProfile.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,6 +54,7 @@ public class ManageAccountActivity extends AppCompatActivity implements View.OnC
         });
     }
     public void init(){
+        progressBarCat = new CatLoadingView();
         toolbarProfile = findViewById(R.id.toolBarManagerAccount);
         setSupportActionBar(toolbarProfile);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -126,43 +131,67 @@ public class ManageAccountActivity extends AppCompatActivity implements View.OnC
                 editTextPhoneProfile.requestFocus();
                 break;
             case R.id.DoneBirth :
-                DoneBirth.setVisibility(View.INVISIBLE);
-                changeBirth.setVisibility(View.VISIBLE);
-                Toast.makeText(this,"Thay Đổi Thành Công",Toast.LENGTH_LONG).show();
-                pushBirth();
+                if(editTextBirthProfile.getText().toString().equals("")){
+                    Toast.makeText(this,"Ngày Sinh Trống",Toast.LENGTH_LONG).show();
+                } else {
+                    DoneBirth.setVisibility(View.INVISIBLE);
+                    changeBirth.setVisibility(View.VISIBLE);
+                    Toast.makeText(this, "Thay Đổi Thành Công", Toast.LENGTH_LONG).show();
+                    pushBirth();
+                }
                 break;
             case R.id.DoneEmail :
-                DoneEmial.setVisibility(View.INVISIBLE);
-                changeEmail.setVisibility(View.VISIBLE);
-                editTextGmailProfile.setFocusable(false);
-                InputMethodManager imm1 = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm1.hideSoftInputFromWindow(editTextGmailProfile.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
-                pushEmail();
-                Toast.makeText(this,"Thay Đổi Thành Công",Toast.LENGTH_LONG).show();
+                if(editTextGmailProfile.getText().toString().equals("")){
+                    Toast.makeText(this,"Email Trống",Toast.LENGTH_LONG).show();
+                }else if(CommonUtils.isSpecialEmail(editTextGmailProfile.getText().toString())){
+                    Toast.makeText(this,"Email Không Được Chứa Kí Tự Đặc Biệt",Toast.LENGTH_LONG).show();
+                } else if (CommonUtils.isErrorEmail(editTextGmailProfile.getText().toString())){
+                    Toast.makeText(this,"Bạn Nhập Sai Định Dạng Email",Toast.LENGTH_LONG).show();
+                } else {
+                    DoneEmial.setVisibility(View.INVISIBLE);
+                    changeEmail.setVisibility(View.VISIBLE);
+                    editTextGmailProfile.setFocusable(false);
+                    InputMethodManager imm1 = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm1.hideSoftInputFromWindow(editTextGmailProfile.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
+                    pushEmail();
+                    Toast.makeText(this, "Thay Đổi Thành Công", Toast.LENGTH_LONG).show();
+                }
                 break;
             case R.id.DoneInterest :
-                DoneInterest.setVisibility(View.INVISIBLE);
-                changeInterest.setVisibility(View.VISIBLE);
-                pushInterest();
-                Toast.makeText(this,"Thay Đổi Thành Công",Toast.LENGTH_LONG).show();
+                if(editTextInterestProfile.getText().toString().equals("")){
+                    Toast.makeText(this,"Địa Điểm Quan Tâm Trống",Toast.LENGTH_LONG).show();
+                } else {
+                    DoneInterest.setVisibility(View.INVISIBLE);
+                    changeInterest.setVisibility(View.VISIBLE);
+                    pushInterest();
+                    Toast.makeText(this, "Thay Đổi Thành Công", Toast.LENGTH_LONG).show();
+                }
                 break;
             case R.id.DoneName :
-                DoneName.setVisibility(View.INVISIBLE);
-                changeName.setVisibility(View.VISIBLE);
-                editTextNameProfile.setFocusable(false);
-                InputMethodManager imm3 = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm3.hideSoftInputFromWindow(editTextNameProfile.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
-                pushName();
-                Toast.makeText(this,"Thay Đổi Thành Công",Toast.LENGTH_LONG).show();
+                if(editTextNameProfile.getText().toString().equals("")){
+                    Toast.makeText(this,"Họ Tên Trống",Toast.LENGTH_LONG).show();
+                } else {
+                    DoneName.setVisibility(View.INVISIBLE);
+                    changeName.setVisibility(View.VISIBLE);
+                    editTextNameProfile.setFocusable(false);
+                    InputMethodManager imm3 = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm3.hideSoftInputFromWindow(editTextNameProfile.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
+                    pushName();
+                    Toast.makeText(this, "Thay Đổi Thành Công", Toast.LENGTH_LONG).show();
+                }
                 break;
             case R.id.DonePhone :
-                DonePhone.setVisibility(View.INVISIBLE);
-                changePhone.setVisibility(View.VISIBLE);
-                editTextPhoneProfile.setFocusable(false);
-                InputMethodManager imm4 = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm4.hideSoftInputFromWindow(editTextPhoneProfile.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
-                pushPhone();
-                Toast.makeText(this,"Thay Đổi Thành Công",Toast.LENGTH_LONG).show();
+                if(editTextPhoneProfile.getText().toString().equals("")){
+                    Toast.makeText(this,"Số Điện Thoại Trống",Toast.LENGTH_LONG).show();
+                } else {
+                    DonePhone.setVisibility(View.INVISIBLE);
+                    changePhone.setVisibility(View.VISIBLE);
+                    editTextPhoneProfile.setFocusable(false);
+                    InputMethodManager imm4 = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm4.hideSoftInputFromWindow(editTextPhoneProfile.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
+                    pushPhone();
+                    Toast.makeText(this, "Thay Đổi Thành Công", Toast.LENGTH_LONG).show();
+                }
                 break;
             case R.id.buttonChancePassword :
                 Intent intent = new Intent(ManageAccountActivity.this,ChangePassActivity.class);
@@ -186,6 +215,7 @@ public class ManageAccountActivity extends AppCompatActivity implements View.OnC
                         break;
                     }
                 }
+                progressBarCat.dismiss();
             }
 
             @Override

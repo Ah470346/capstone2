@@ -50,7 +50,11 @@ public class ChangePassActivity extends AppCompatActivity {
                     Toast.makeText(ChangePassActivity.this,"Bạn Chưa Nhập Mập Khẩu Xác Nhận ",Toast.LENGTH_LONG).show();
                 } else if(CommonUtils.isVietnames(editTextPass.getText().toString())){
                     Toast.makeText(ChangePassActivity.this,"Mật Khẩu Không Hợp Lệ ",Toast.LENGTH_LONG).show();
-                } else {
+                } else if(CommonUtils.isSpecialCharacter(editTextPass.getText().toString()) || CommonUtils.isSpecialCharacter(editTextPassNew.getText().toString())
+                || CommonUtils.isSpecialCharacter(editTextPassNewAgain.getText().toString())){
+                    Toast.makeText(ChangePassActivity.this,"Mật Khẩu Không Được Chứa Kí Tự Đặc Biệt ",Toast.LENGTH_LONG).show();
+                }
+                else {
                     mDatabase.child("user").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

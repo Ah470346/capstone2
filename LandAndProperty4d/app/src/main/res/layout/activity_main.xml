@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#3438d7"
+        app:title="Đăng Nhập"
         tools:ignore="MissingConstraints"
         app:titleTextColor="#fff"></androidx.appcompat.widget.Toolbar>
 
@@ -40,7 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColorHint="#fff"
-        android:hint="Tên Đăng Nhập"
+        android:hint="Email Đăng Nhập"
         android:textSize="@dimen/textSize"
         android:textColor="#fff"
         android:maxLines="1"

@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#d7d7d7"
     android:layout_height="match_parent"
     tools:context=".screen.postdetail.PostDetail">
 
@@ -13,7 +12,7 @@
         android:layout_height="wrap_content"
         android:background="#3438d7"
         android:theme="@style/toolbar"
-        app:title="Chi Tiết Đất b"
+        app:title="Chi Tiết Đất Bán"
         app:titleTextColor="#fff"
         tools:ignore="MissingConstraints"></androidx.appcompat.widget.Toolbar>
 
@@ -36,184 +35,222 @@
                 android:id="@+id/textViewTitleDetail"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
-                android:gravity="center"
-                android:text="Đất Cầu Rồng View Đẹp"
+                android:layout_marginLeft="5dp"
                 android:textColor="#fe0000"
+                android:gravity="center"
                 android:textSize="26sp"
+                android:fontFamily="@font/baloo"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="@id/layout"
                 app:layout_constraintWidth_percent="0.5" />
 
-            <TextView
+            <ImageView
                 android:id="@+id/diachi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
-                android:text="Địa Chỉ: "
-                android:textColor="#0000ff"
-                android:textSize="16sp"
+                android:src="@drawable/address_32"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textViewTitleDetail" />
 
             <TextView
                 android:id="@+id/textViewAddressDetail"
-                android:layout_width="338dp"
+                android:layout_width="310dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:text="30 Bạch Đằng, Hải Châu , Đà nẵng"
+                android:layout_marginTop="8dp"
                 android:textSize="16sp"
                 app:layout_constraintLeft_toRightOf="@id/diachi"
                 app:layout_constraintTop_toBottomOf="@id/textViewTitleDetail" />
 
-            <TextView
+            <ImageView
                 android:id="@+id/gia"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:text="Giá: "
-                android:textColor="#0000ff"
-                android:textSize="16sp"
+                android:layout_marginTop="15dp"
+                android:src="@drawable/price_32"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textViewAddressDetail" />
 
             <TextView
                 android:id="@+id/textViewPriceDetail"
-                android:layout_width="367dp"
+                android:layout_width="310dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:text="500.000.000đ/m²"
+                android:layout_marginTop="20dp"
                 android:textSize="16sp"
                 app:layout_constraintLeft_toRightOf="@id/gia"
                 app:layout_constraintTop_toBottomOf="@id/textViewAddressDetail" />
 
 
-            <TextView
+            <ImageView
                 android:id="@+id/loaidat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:text="Loại Đất: "
-                android:textColor="#0000ff"
+                android:layout_marginTop="13dp"
+                android:src="@drawable/property_32"
                 android:textSize="16sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textViewPriceDetail" />
 
             <TextView
                 android:id="@+id/textViewTypeOfLandDetail"
-                android:layout_width="332dp"
+                android:layout_width="310dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:text="Đất Trống"
+                android:layout_marginTop="20dp"
                 android:textSize="16sp"
                 app:layout_constraintLeft_toRightOf="@id/loaidat"
                 app:layout_constraintTop_toBottomOf="@id/textViewPriceDetail" />
 
-            <TextView
+            <ImageView
                 android:id="@+id/dientich"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:text="Diện Tích: "
-                android:textColor="#0000ff"
-                android:textSize="18sp"
+                android:layout_marginTop="13dp"
+                android:src="@drawable/area_32"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textViewTypeOfLandDetail" />
 
             <TextView
                 android:id="@+id/textViewAreaDetail"
-                android:layout_width="316dp"
+                android:layout_width="310dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:text="3000m²"
+                android:layout_marginTop="18dp"
                 android:textSize="16sp"
                 app:layout_constraintLeft_toRightOf="@id/dientich"
                 app:layout_constraintTop_toBottomOf="@id/textViewTypeOfLandDetail" />
 
-            <TextView
+            <ImageView
                 android:id="@+id/huongnha"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:text="Hướng Nhà: "
-                android:textColor="#0000ff"
-                android:textSize="16sp"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/direction_23"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textViewAreaDetail" />
 
             <TextView
                 android:id="@+id/textViewDirectionDetail"
-                android:layout_width="309dp"
+                android:layout_width="310dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:text="Đông Bắc"
+                android:layout_marginTop="20dp"
                 android:textSize="16sp"
                 app:layout_constraintLeft_toRightOf="@id/huongnha"
                 app:layout_constraintTop_toBottomOf="@id/textViewAreaDetail" />
 
-            <TextView
+            <ImageView
                 android:id="@+id/lienhe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:text="Thông Tin Liên Hệ: "
-                android:textColor="#0000ff"
-                android:textSize="16sp"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/contact_32"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textViewDirectionDetail" />
 
             <TextView
-                android:id="@+id/textViewContactDetail"
-                android:layout_width="261dp"
+                android:id="@+id/ten"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="15dp"
+                android:text="Người Bán: "
+                android:textSize="16sp"
+                android:textStyle="italic"
+                app:layout_constraintLeft_toRightOf="@id/lienhe"
+                app:layout_constraintTop_toBottomOf="@id/textViewDirectionDetail" />
+
+            <TextView
+                android:id="@+id/textViewContactName"
+                android:layout_width="225dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="15dp"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toRightOf="@id/ten"
+                app:layout_constraintTop_toBottomOf="@id/textViewDirectionDetail" />
+
+            <TextView
+                android:id="@+id/sdt"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
-                android:text="SĐT: 0374275453 - Email: truongdtct1230@gmail.com"
+                android:text="SĐT:"
                 android:textSize="16sp"
+                android:textStyle="italic"
                 app:layout_constraintLeft_toRightOf="@id/lienhe"
-                app:layout_constraintTop_toBottomOf="@id/textViewDirectionDetail" />
+                app:layout_constraintTop_toBottomOf="@id/textViewContactName" />
+
+            <TextView
+                android:id="@+id/textViewContactPhone"
+                android:layout_width="273dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toRightOf="@id/sdt"
+                app:layout_constraintTop_toBottomOf="@id/textViewContactName" />
+
+            <TextView
+                android:id="@+id/email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:text="Email:"
+                android:textSize="16sp"
+                android:textStyle="italic"
+                app:layout_constraintLeft_toRightOf="@id/lienhe"
+                app:layout_constraintTop_toBottomOf="@id/textViewContactPhone" />
+
+            <TextView
+                android:id="@+id/textViewContactEmail"
+                android:layout_width="263dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toRightOf="@id/email"
+                app:layout_constraintTop_toBottomOf="@id/textViewContactPhone" />
 
             <TextView
                 android:id="@+id/chitiet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:text="Chi Tiết: "
                 android:textColor="#0000ff"
                 android:textSize="16sp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textViewContactDetail" />
+                app:layout_constraintTop_toBottomOf="@id/textViewContactEmail" />
 
             <TextView
                 android:id="@+id/textViewDetailOfDetail"
-                android:layout_width="336dp"
+                android:layout_width="280dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:text="Đất thổ cư cần bán gấp"
+                android:layout_marginTop="10dp"
                 android:textSize="16sp"
                 app:layout_constraintLeft_toRightOf="@id/chitiet"
-                app:layout_constraintTop_toBottomOf="@id/textViewContactDetail" />
+                app:layout_constraintTop_toBottomOf="@id/textViewContactEmail" />
 
             <TextView
                 android:id="@+id/ngaydang"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:text="Ngày Đăng: "
                 android:textSize="16sp"
                 android:textStyle="italic"
@@ -222,11 +259,10 @@
 
             <TextView
                 android:id="@+id/textViewPostDayDetail"
-                android:layout_width="316dp"
+                android:layout_width="260dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:text="21/10/2019"
+                android:layout_marginTop="10dp"
                 android:textSize="16sp"
                 android:textStyle="italic"
                 app:layout_constraintLeft_toRightOf="@id/ngaydang"
@@ -234,10 +270,10 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewDetail"
-                android:layout_width="300dp"
+                android:layout_width="320dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:layout_marginRight="30dp"
+                android:layout_marginRight="40dp"
                 android:background="#ffff"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.385"
@@ -249,21 +285,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginRight="40dp"
+                android:layout_marginRight="48dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/recyclerViewDetail">
 
                 <Button
                     android:id="@+id/buttonDeal"
-                    android:layout_width="100dp"
+                    android:layout_width="140dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
                     android:background="@drawable/custome_button_all"
                     android:text="Liên Hệ"
                     android:textColor="#fff"
-                    android:layout_marginLeft="30dp"
+                    android:layout_marginLeft="22dp"
                     app:layout_constraintRight_toLeftOf="@id/buttonViewWithMap"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -271,8 +307,8 @@
 
                 <Button
                     android:id="@+id/buttonViewWithMap"
-                    android:layout_width="164dp"
-                    android:layout_height="48dp"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:background="@drawable/custome_button_all"
                     android:text="Xem Vị Trí Đất"
@@ -284,14 +320,14 @@
 
                 <Button
                     android:id="@+id/buttonXong"
-                    android:layout_width="100dp"
+                    android:layout_width="140dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
                     android:background="@drawable/custome_button_all"
                     android:text="Xong"
                     android:textColor="#fff"
-                    android:layout_marginLeft="30dp"
+                    android:layout_marginLeft="22dp"
                     app:layout_constraintRight_toLeftOf="@id/buttonXoa"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -299,8 +335,8 @@
 
                 <Button
                     android:id="@+id/buttonXoa"
-                    android:layout_width="100dp"
-                    android:layout_height="48dp"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:background="@drawable/custome_button_all"
                     android:text="Xóa"

@@ -126,8 +126,26 @@ public class PostPropertyActivity extends AppCompatActivity implements OnClickLi
     public void onClick(final View v) {
         switch (v.getId()) {
             case R.id.buttonPost :
-                progressBarCat.show(getSupportFragmentManager(), "");
-                uploadPhoto(listImage);
+                if (editTextTitle.getText().toString().equals("")){
+                    Toast.makeText(this,"Bạn Chưa Nhập Tiêu Đề",Toast.LENGTH_LONG).show();
+                } else if (editTextLandArea.getText().toString().equals("")){
+                Toast.makeText(this,"Bạn Chưa Nhập Diện Tích",Toast.LENGTH_LONG).show();
+                } else if (editTextLadndPlaces.getText().toString().equals("")){
+                    Toast.makeText(this,"Bạn Chưa Nhập Địa Điểm",Toast.LENGTH_LONG).show();
+                } else if (editTextLandAddress.getText().toString().equals("")){
+                    Toast.makeText(this,"Bạn Chưa Nhập Địa Chỉ",Toast.LENGTH_LONG).show();
+                } else if (editTextPrice.getText().toString().equals("")){
+                    Toast.makeText(this,"Bạn Chưa Nhập giá",Toast.LENGTH_LONG).show();
+                } else if (editTextContact.getText().toString().equals("")){
+                    Toast.makeText(this,"Bạn Chưa Nhập Thông Tin Liên Hệ",Toast.LENGTH_LONG).show();
+                } else if (editTextDetail.getText().toString().equals("")){
+                    Toast.makeText(this,"Bạn Chưa Nhập Chi Tiết",Toast.LENGTH_LONG).show();
+                } else if (listImage.size()==0){
+                    Toast.makeText(this,"Bạn Chưa Thêm Ảnh Bìa",Toast.LENGTH_LONG).show();
+                } else {
+                    progressBarCat.show(getSupportFragmentManager(), "");
+                    uploadPhoto(listImage);
+                }
                 break;
             case R.id.editTextLandAddress :
                 DialogAddress address = new DialogAddress();
@@ -144,11 +162,11 @@ public class PostPropertyActivity extends AppCompatActivity implements OnClickLi
             case R.id.editTextLandPlaces :
 //                Intent intent = new Intent(PostPropertyActivity.this,LandLocation.class);
 ////                startActivity(intent);
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                LocationFragment fragment = new LocationFragment();
-                transaction.addToBackStack("hhh");
-                transaction.replace(R.id.constrainLayoutPostProperty,fragment);
-                transaction.commit();
+//                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//                LocationFragment fragment = new LocationFragment();
+//                transaction.addToBackStack("hhh");
+//                transaction.replace(R.id.constrainLayoutPostProperty,fragment);
+//                transaction.commit();
 
         }
     }
@@ -176,14 +194,14 @@ public class PostPropertyActivity extends AppCompatActivity implements OnClickLi
         ArrayList<String> listDirection = new ArrayList<>();
         listDirection.add("Bất kì");
         listDirection.add("Chưa Xác Định");
-        listDirection.add("Đông");
-        listDirection.add("Tây");
-        listDirection.add("Nam");
-        listDirection.add("Bắc");
-        listDirection.add("Đông Bắc");
-        listDirection.add("Tây Bắc");
-        listDirection.add("Đông Nam");
-        listDirection.add("Tây Nam");
+        listDirection.add("Mặt Nhà Hướng Đông");
+        listDirection.add("Mặt Nhà Hướng Tây");
+        listDirection.add("Mặt Nhà Hướng Nam");
+        listDirection.add("Mặt Nhà Hướng Bắc");
+        listDirection.add("Mặt Nhà Hướng Đông Bắc");
+        listDirection.add("Mặt Nhà Hướng Tây Bắc");
+        listDirection.add("Mặt Nhà Hướng Đông Nam");
+        listDirection.add("Mặt Nhà Hướng Tây Nam");
         adapterDirection = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_dropdown_item, listDirection);
         adapterDirection.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -202,10 +220,6 @@ public class PostPropertyActivity extends AppCompatActivity implements OnClickLi
         mButtonPost = findViewById(R.id.buttonPost);
         textViewPrice = findViewById(R.id.txtPrice);
         textViewDetailInformation = findViewById(R.id.txtDetailInformation);
-        textViewPrice.setPaintFlags(textViewPrice.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        textViewDetailInformation.setPaintFlags(textViewDetailInformation.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        textViewLocation.setPaintFlags(textViewLocation.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        textViewDacDiem.setPaintFlags(textViewDacDiem.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         toolbarPostProperty = findViewById(R.id.toolBarPostProperty);
         setSupportActionBar(toolbarPostProperty);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -353,7 +367,7 @@ public class PostPropertyActivity extends AppCompatActivity implements OnClickLi
                                     index++;
                                     uploadPhoto(listImage);
                                 }else {
-                                    viewModel.saveDataPost(editTextLandAddress.getText().toString(), editTextLandArea.getText().toString(),
+                                    viewModel.saveDataPost(editTextLandAddress.getText().toString(), editTextLandArea.getText().toString()+" m²",
                                             editTextContact.getText().toString(), editTextDetail.getText().toString(), mHomeDirection, imageUrl, editTextLadndPlaces.getText().toString(),
                                             editTextPrice.getText().toString(), editTextTitle.getText().toString(), mTypeProperty,id,lng,lat,polygonid,check,CommonUtils.getSimpleDateFormatPost());
                                     progressBarCat.dismiss();

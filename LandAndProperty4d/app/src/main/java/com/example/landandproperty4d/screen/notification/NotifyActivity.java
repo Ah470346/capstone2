@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.landandproperty4d.R;
 import com.example.landandproperty4d.data.model.Notification;
@@ -31,6 +32,7 @@ public class NotifyActivity extends AppCompatActivity {
     private Toolbar toolbarNotify;
     private RecyclerView recyclerNotify;
     private NotifyAdapter notifyAdapter;
+    private TextView emptyNotify;
     private ArrayList<Notification> list = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,8 @@ public class NotifyActivity extends AppCompatActivity {
         });
     }
     private void init(){
+        emptyNotify = findViewById(R.id.emptyNotify);
+        emptyNotify.setVisibility(View.INVISIBLE);
         toolbarNotify = findViewById(R.id.toolBarNotify);
         setSupportActionBar(toolbarNotify);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -71,6 +75,9 @@ public class NotifyActivity extends AppCompatActivity {
                             list.add(notification);
                         }
                     }
+                }
+                if(list.size()==0){
+                    emptyNotify.setVisibility(View.VISIBLE);
                 }
                 notifyAdapter = new NotifyAdapter(list,NotifyActivity.this);
                 recyclerNotify.setAdapter(notifyAdapter);

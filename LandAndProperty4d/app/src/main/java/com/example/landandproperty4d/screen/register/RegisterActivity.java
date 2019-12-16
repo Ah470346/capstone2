@@ -27,11 +27,13 @@ import com.example.landandproperty4d.R;
 import com.example.landandproperty4d.data.source.MapReponsitory;
 import com.example.landandproperty4d.data.source.remote.MapRemoteDataSource;
 import com.example.landandproperty4d.screen.login.MainActivity;
+import com.example.landandproperty4d.utils.CommonUtils;
 import com.example.landandproperty4d.utils.MyViewModelFactory;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.roger.catloadinglibrary.CatLoadingView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -43,6 +45,7 @@ public class RegisterActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private TextView txtthongtin,txttaikhoan;
     private Spinner spinnerPlacesInterest;
+    private CatLoadingView progressBarCat;
     private RegisterViewModel mViewModel;
     private String placesInterest;
     private Toolbar toolbar;
@@ -58,6 +61,7 @@ public class RegisterActivity extends AppCompatActivity {
         dangky.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBarCat.show(getSupportFragmentManager(),"");
 //                Toast.makeText(RegisterActivity.this,"" +editTextName.getText().toString(),Toast.LENGTH_LONG).show();
                 if(ktconnect()==false){Toast.makeText(getApplicationContext(), "vui lòng kết nối mạng Internet", Toast.LENGTH_SHORT).show();}
                  else  if(editTextName.getText().toString().equals("")) {
@@ -78,8 +82,27 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this,"Bạn Chưa Nhập Mật Khẩu",Toast.LENGTH_LONG).show();
                 }else if(editTextConfirmPassword.getText().toString().equals("")){
                     Toast.makeText(RegisterActivity.this,"Bạn Chưa Nhập Mật Khẩu Xác Nhận",Toast.LENGTH_LONG).show();
-                }
-                else {
+                } else if(CommonUtils.isSpecialEmail(editTextEmail.getText().toString())){
+                    Toast.makeText(RegisterActivity.this,"Email Không Được Chứa Kí Tự Đặc Biệt",Toast.LENGTH_LONG).show();
+                } else if(CommonUtils.isErrorEmail(editTextEmail.getText().toString())){
+                    Toast.makeText(RegisterActivity.this,"Bạn Nhập Sai Định Dạng Email",Toast.LENGTH_LONG).show();
+                } else if(CommonUtils.isVietnames(editTextEmail.getText().toString())){
+                    Toast.makeText(RegisterActivity.this,"Bạn Nhập Email Không Hợp Lệ",Toast.LENGTH_LONG).show();
+                }else if(CommonUtils.isSpecialEmail(user.getText().toString())){
+                    Toast.makeText(RegisterActivity.this,"Email Đăng Nhập Không Được Chứa Kí Tự Đặc Biệt",Toast.LENGTH_LONG).show();
+                } else if(CommonUtils.isErrorEmail(user.getText().toString())){
+                    Toast.makeText(RegisterActivity.this,"Bạn Nhập Sai Định Dạng Email Đăng Nhập",Toast.LENGTH_LONG).show();
+                } else if(CommonUtils.isVietnames(user.getText().toString())){
+                    Toast.makeText(RegisterActivity.this,"Email Đăng Nhập Không Hợp Lệ",Toast.LENGTH_LONG).show();
+                } else if(CommonUtils.isSpecialCharacter(pass.getText().toString())){
+                    Toast.makeText(RegisterActivity.this,"Mật Khẩu Không Được Chứa Kí Tự Đặc Biệt",Toast.LENGTH_LONG).show();
+                } else if(CommonUtils.isVietnames(pass.getText().toString())){
+                    Toast.makeText(RegisterActivity.this,"Mật Khẩu Không Hợp Lệ",Toast.LENGTH_LONG).show();
+                } else if(pass.getText().toString().length()<6){
+                    Toast.makeText(RegisterActivity.this,"Mật Khẩu Phải Có Độ Dài Trên 6 kí Tự",Toast.LENGTH_LONG).show();
+                } else if(!pass.getText().toString().equals(editTextConfirmPassword.getText().toString())){
+                    Toast.makeText(RegisterActivity.this,"Mật Khẩu Khác Mật Khẩu Xác Nhận",Toast.LENGTH_LONG).show();
+                } else {
                     Register(user.getText().toString(), pass.getText().toString(),editTextName.getText().toString(),DateOfBirth.getText().toString()
                             ,editTextAddress.getText().toString(),editTextHomeTown.getText().toString(),editTextEmail.getText().toString(),editTextPhone.getText().toString(),placesInterest);
                 }
@@ -107,6 +130,7 @@ public class RegisterActivity extends AppCompatActivity {
         listPlacces.add("Quảng Nam");
         listPlacces.add("Hà Nội");
         listPlacces.add("Hồ Chí Minh");
+        progressBarCat = new CatLoadingView();
         user = findViewById(R.id.editTextUserName);
         pass = findViewById(R.id.editTextPassword);
         txtthongtin = findViewById(R.id.txtthongtin);
@@ -133,8 +157,6 @@ public class RegisterActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         dangky = findViewById(R.id.dangky);
         spinnerPlacesInterest = findViewById(R.id.spinnerPlacesInterest);
-        txtthongtin.setPaintFlags(txtthongtin.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
-        txttaikhoan.setPaintFlags(txttaikhoan.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
         ArrayAdapter<String> adapterPlacesInterest = new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,listPlacces);
         adapterPlacesInterest.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerPlacesInterest.setAdapter(adapterPlacesInterest);
@@ -169,8 +191,9 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Toast.makeText(RegisterActivity.this,"Tạo Thành Công",Toast.LENGTH_SHORT).show();
                             mViewModel.writeBuyer(userName,password,name,birthDay,address,homeTown,email,phoneNumber,placesInterest,setCheckUser());
+                            progressBarCat.dismiss();
+                            Toast.makeText(RegisterActivity.this,"Tạo Thành Công",Toast.LENGTH_SHORT).show();
                         } else {
                             // If sign in fails, display a message to the user.
                             Toast.makeText(RegisterActivity.this,"Tài Khoản Đã Tồn Tại",Toast.LENGTH_SHORT).show();

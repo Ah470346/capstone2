@@ -163,7 +163,6 @@
                 android:lines="1"
                 android:scrollHorizontally="true"
                 android:inputType="text"
-                android:focusable="false"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"

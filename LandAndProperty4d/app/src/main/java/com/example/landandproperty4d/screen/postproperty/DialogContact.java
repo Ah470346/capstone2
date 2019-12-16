@@ -41,7 +41,7 @@ public class DialogContact extends AppCompatDialogFragment {
                         if(name.equals("") || phone.equals("") || email.equals("")){
                             Toast.makeText(getActivity(),"Bạn Phải Nhập Đầy Đủ Địa Chỉ",Toast.LENGTH_LONG).show();
                         } else {
-                            editTextContact.setText("Tên Người Đăng: "+name +", "+"phone: " + phone + ", " +"email: "+ email );
+                            editTextContact.setText(name +"-" + phone + "-" + email );
                         }
 
                     }

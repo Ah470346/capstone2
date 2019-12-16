@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:text="Thông Tin Người Dùng:"
                 android:textSize="@dimen/textSize"
-                android:textColor="#0519f8"
+                android:textColor="#ff00ff"
                 />
 
             <EditText
@@ -168,7 +168,7 @@
                 android:layout_height="wrap_content"
                 android:text="Thông Tin Tài Khoản:"
                 android:textSize="@dimen/textSize"
-                android:textColor="#0519f8" />
+                android:textColor="#ff00ff" />
 
             <EditText
                 android:id="@+id/editTextUserName"

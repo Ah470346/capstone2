@@ -7,9 +7,12 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.FileProvider;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -27,6 +30,7 @@ import com.autofit.et.lib.AutoFitEditText;
 import com.example.landandproperty4d.R;
 import com.example.landandproperty4d.data.source.MapReponsitory;
 import com.example.landandproperty4d.data.source.remote.MapRemoteDataSource;
+import com.example.landandproperty4d.screen.login.MainActivity;
 import com.example.landandproperty4d.screen.postproperty.PostPropetyViewModel;
 import com.example.landandproperty4d.utils.CommonUtils;
 import com.example.landandproperty4d.utils.MyViewModelFactory;
@@ -84,8 +88,16 @@ public class PostNewActivity extends AppCompatActivity {
         buttonPostNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progressBarCat.show(getSupportFragmentManager(),"");
-                uploadPhoto();
+                if(editTextNewTitle.getText().toString().equals("")){
+                    Toast.makeText(PostNewActivity.this,"Bạn Chưa Nhập Tiêu Đề",Toast.LENGTH_LONG).show();
+                } else if(editTextContent.getText().toString().equals("")){
+                    Toast.makeText(PostNewActivity.this,"Bạn Chưa Nhập Nội Dung",Toast.LENGTH_LONG).show();
+                } else if(ktconnect() == false) {
+                    Toast.makeText(PostNewActivity.this, "Vui Lòng Kết Nối Mạng", Toast.LENGTH_LONG).show();
+                } else {
+                    progressBarCat.show(getSupportFragmentManager(), "");
+                    uploadPhoto();
+                }
             }
         });
     }
@@ -102,6 +114,14 @@ public class PostNewActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         registerForContextMenu(buttonAddImage);
+    }
+    public boolean ktconnect (){
+        ConnectivityManager connectivityManager = (ConnectivityManager) PostNewActivity.this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if(networkInfo !=null && networkInfo.isConnected()){
+            return true;
+        }
+        return false;
     }
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);

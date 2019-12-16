@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/anhnen"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".screen.home.BuyerActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolBarHomePageUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#3438d7"
+        app:titleTextColor="#fff"
+        app:title="Trang Chủ"
+        tools:ignore="MissingConstraints"></androidx.appcompat.widget.Toolbar>
+
+    <TextView
+        android:id="@+id/textNotifyUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="56dp"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold"
+        android:text="0"
+        android:textColor="#fe6623"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolBarHomePageUser" />
+
+    <ImageButton
+        android:id="@+id/imageButtonNotificationUser"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="55dp"
+        android:src="@drawable/bell"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0 "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonLogoutUser"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginTop="65dp"
+        android:background="@drawable/custome_sign"
+        android:text="sign out"
+        android:textSize="12sp"
+        android:textColor="#fff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iconHomeUser"
+        android:layout_width="220dp"
+        android:layout_height="120dp"
+        android:layout_margin="10dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/iland4dd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageButtonNotificationUser" />
+
+    <Button
+        android:id="@+id/buttonViewPropertyUser"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/montserrat"
+        android:background="@drawable/custome_button"
+        android:drawableLeft="@drawable/icon_home"
+        android:paddingLeft="30dp"
+        android:paddingRight="65dp"
+        android:text="Xem Đất Bán"
+        android:textColor="#fff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iconHomeUser" />
+
+    <Button
+        android:id="@+id/buttonViewMapUser"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/custome_button"
+        android:drawableLeft="@drawable/icon_map"
+        android:text="Xem Bản Đồ"
+        android:paddingLeft="30dp"
+        android:paddingRight="65dp"
+        android:textColor="#fff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttonViewPropertyUser" />
+
+    <Button
+        android:id="@+id/buttonNewsUser"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/custome_button"
+        android:drawableLeft="@drawable/icon_new"
+        android:text="Tin Tức"
+        android:textColor="#fff"
+        android:paddingLeft="30dp"
+        android:paddingRight="65dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttonViewMapUser" />
+
+    <Button
+        android:id="@+id/buttonYourNewsUser"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/custome_button"
+        android:drawableLeft="@drawable/icon_your_news"
+        android:text="Tin Dành Cho Bạn"
+        android:textColor="#fff"
+        android:paddingLeft="35dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttonNewsUser"/>
+
+
+    <Button
+        android:id="@+id/buttonManageAccountUser"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/custome_button"
+        android:text="Quản Lý Tài Khoản"
+        android:drawableLeft="@drawable/manage_account"
+        android:textColor="#fff"
+        android:paddingLeft="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttonYourNewsUser"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

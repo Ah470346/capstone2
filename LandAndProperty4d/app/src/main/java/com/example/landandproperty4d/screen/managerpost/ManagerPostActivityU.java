@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.http.PUT;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 import com.example.landandproperty4d.R;
 import com.example.landandproperty4d.data.model.New;
@@ -20,6 +22,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.roger.catloadinglibrary.CatLoadingView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,6 +32,8 @@ public class ManagerPostActivityU extends AppCompatActivity {
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private Toolbar toolbarManagerPostU;
     private RecyclerView recyclerViewManagerPostU;
+    private CatLoadingView progressBarCat;
+    private TextView emptyManagerU;
     private ArrayList<PostProperty> listpost = new ArrayList<>();
     private ArrayList<String> listString = new ArrayList<>();
     private ManagerPostAdapter postAdapter;
@@ -38,9 +43,19 @@ public class ManagerPostActivityU extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_post);
         init();
+        progressBarCat.show(getSupportFragmentManager(),"");
         TakeDataPost();
+        toolbarManagerPostU.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
     public void init(){
+        progressBarCat = new CatLoadingView();
+        emptyManagerU = findViewById(R.id.emptyManagerU);
+        emptyManagerU.setVisibility(View.INVISIBLE);
         toolbarManagerPostU = findViewById(R.id.toolBarManagerPostU);
         setSupportActionBar(toolbarManagerPostU);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -67,10 +82,14 @@ public class ManagerPostActivityU extends AppCompatActivity {
                         }
                     }
                 }
+                if(listpost.size()==0){
+                    emptyManagerU.setVisibility(View.VISIBLE);
+                }
                 postAdapter = new ManagerPostAdapter(listpost,listString, getApplicationContext());
                 recyclerViewManagerPostU.setAdapter(postAdapter);
                 Collections.reverse(listpost);
                 Collections.reverse(listString);
+                progressBarCat.dismiss();
             }
 
             @Override

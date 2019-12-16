@@ -22,6 +22,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.roger.catloadinglibrary.CatLoadingView;
 
 import java.text.Normalizer;
 import java.util.ArrayList;
@@ -33,8 +34,8 @@ public class YourNewsActivity extends AppCompatActivity {
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private Toolbar toolbarYourNew;
     private String interest;
-    private RecyclerView.AdapterDataObserver observer;
     private TextView emptyYourNew ;
+    private CatLoadingView progressBarCat;
     private RecyclerView recyclerYourNew;
     private ArrayList<PostProperty> listpost = new ArrayList<>();
     private ArrayList<String> listString = new ArrayList<>();
@@ -44,8 +45,8 @@ public class YourNewsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_your_news);
         init();
+        progressBarCat.show(getSupportFragmentManager(),"");
         TakeDataPosts();
-        Log.d("hihi",""+yourNewAdapter.getItemCount());
         toolbarYourNew.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,6 +56,7 @@ public class YourNewsActivity extends AppCompatActivity {
 
     }
     public void init(){
+        progressBarCat = new CatLoadingView();
         emptyYourNew = findViewById(R.id.emptyYourNew);
         emptyYourNew.setVisibility(View.INVISIBLE);
         toolbarYourNew = findViewById(R.id.toolBarYourNew);
@@ -104,6 +106,7 @@ public class YourNewsActivity extends AppCompatActivity {
                             recyclerYourNew.setAdapter(yourNewAdapter);
                             Collections.reverse(listpost);
                             Collections.reverse(listString);
+                            progressBarCat.dismiss();
                         }
 
                         @Override

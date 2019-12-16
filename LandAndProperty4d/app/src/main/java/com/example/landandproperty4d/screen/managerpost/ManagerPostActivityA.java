@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 import com.example.landandproperty4d.R;
 import com.example.landandproperty4d.data.model.New;
@@ -18,6 +20,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.roger.catloadinglibrary.CatLoadingView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,6 +29,8 @@ public class ManagerPostActivityA extends AppCompatActivity {
     DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private Toolbar toolbarManagerPostA;
+    private TextView emptyManagerA;
+    private CatLoadingView progressBarCat;
     private RecyclerView recyclerViewManagerPostA;
     private ArrayList<New> list = new ArrayList<>();
     private AdapterAdmin adapterAdmin;
@@ -35,9 +40,19 @@ public class ManagerPostActivityA extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_post_activity);
         init();
+        progressBarCat.show(getSupportFragmentManager(),"");
         TakeDataNew();
+        toolbarManagerPostA.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
     public void init(){
+        progressBarCat = new CatLoadingView();
+        emptyManagerA = findViewById(R.id.emptyManagerA);
+        emptyManagerA.setVisibility(View.INVISIBLE);
         toolbarManagerPostA = findViewById(R.id.toolBarManagerPostA);
         setSupportActionBar(toolbarManagerPostA);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -63,9 +78,13 @@ public class ManagerPostActivityA extends AppCompatActivity {
                         }
                     }
                 }
+                if(list.size()==0){
+                    emptyManagerA.setVisibility(View.VISIBLE);
+                }
                 adapterAdmin = new AdapterAdmin(list, getApplicationContext());
                 recyclerViewManagerPostA.setAdapter(adapterAdmin);
                 Collections.reverse(list);
+                progressBarCat.dismiss();
             }
 
             @Override

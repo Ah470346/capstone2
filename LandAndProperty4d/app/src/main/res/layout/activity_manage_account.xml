@@ -38,8 +38,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/icon_profile"
-        android:textSize="16sp"
-        android:text="Đỗ Văn Trường"></EditText>
+        android:textSize="16sp"></EditText>
 
     <TextView
         android:id="@+id/changeName"
@@ -74,7 +73,6 @@
         android:lines="1"
         android:scrollHorizontally="true"
         android:inputType="text"
-        android:text="25/9/1996"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/editTextNameProfile"></EditText>
 
@@ -107,7 +105,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:text="Đà Nẵng"
         android:textSize="16sp"
         android:maxLines="1"
         android:lines="1"
@@ -143,7 +140,6 @@
         android:layout_marginLeft="30dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="truongdtct1230@gmail.com"
         android:textSize="16sp"
         android:maxLines="1"
         android:lines="1"
@@ -180,7 +176,6 @@
         android:layout_marginLeft="30dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="09876543"
         android:textSize="16sp"
         android:maxLines="1"
         android:lines="1"

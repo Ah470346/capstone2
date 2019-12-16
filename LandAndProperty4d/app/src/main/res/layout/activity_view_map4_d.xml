@@ -48,7 +48,6 @@
         android:layout_alignParentBottom="true"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/custome_button_all"
         android:text="mode 2D"
         android:textAllCaps="false"
         android:textColor="#0055ff"

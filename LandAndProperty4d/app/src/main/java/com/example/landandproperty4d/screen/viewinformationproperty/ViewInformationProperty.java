@@ -40,6 +40,7 @@ public class ViewInformationProperty extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_information_property);
         init();
+        progressBarCat.show(getSupportFragmentManager(),"");
         TakeDataPosts();
 
 
@@ -99,6 +100,7 @@ public class ViewInformationProperty extends AppCompatActivity {
                     recyclerViewViewInformationproperty.setAdapter(postAdapter);
                     Collections.reverse(listpost);
                     Collections.reverse(listString);
+                    progressBarCat.dismiss();
                 }
 
                 @Override
